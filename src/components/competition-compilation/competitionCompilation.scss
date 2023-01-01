@@ -1,0 +1,197 @@
+.cc-name {
+  width: calc(100% - 30px);
+  margin: 0 auto;
+  color: #fff;
+  display: flex;
+  margin-top: 30px;
+
+  h1 {
+    text-align: center;
+    font-family: K2D;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 40px;
+
+    @media (max-width: 376px) {
+      font-size: 25px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 540px) {
+      margin: 0 auto;
+    }
+
+    @media (min-width: 576px) {
+      font-size: 32px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 1200px) {
+      font-weight: 800;
+      font-size: 45px;
+      line-height: 80px;
+      margin-bottom: 70px;
+      margin-top: 70px;
+    }
+  }
+}
+.container-navbar {
+  // width: calc(100% - 10px);
+  margin: 40 auto !important;
+  @media (min-width: 576px) {
+    // width: calc(100% - 90px) !important;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 44px !important;
+  }
+  @media (min-width: 1300px) and (max-width: 1399px) {
+    // width: calc(100% - 160px) !important;
+    // transform: translateX(180px);
+  }
+  @media (min-width: 1400px) {
+    // width: 1187px !important;
+  }
+}
+.cc-navbar {
+  width: 100%;
+  display: flex;
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.1)
+    ),
+    rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  justify-content: space-around;
+  @media (min-width: 576px) {
+    width: 430px !important;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  @media (min-width: 1200px) {
+    width: 518px !important;
+    float: right;
+    margin-bottom: 60px;
+  }
+
+  .cc-navbar__item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: solid 3px transparent;
+    border-radius: 10px;
+    background-image: linear-gradient(#0e1643, #0e1643),
+      radial-gradient(circle at top left, #7496ff, #5dd7d0);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+      box-shadow: 0px 0px 8px 2px rgba(161, 220, 255, 0.8);
+    }
+
+    &:first-child:hover {
+      box-shadow: 0px 0px 8px 2px rgba(161, 220, 255, 0.8);
+    }
+
+    h6 {
+      width: 100%;
+      font-family: K2D;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 22px;
+      text-align: center;
+      padding: 6px 16px;
+      margin-top: 8px;
+      background: -webkit-linear-gradient(#7496ff, #5dd7d0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      @media (max-width: 400px) {
+        padding: 5px 8px;
+      }
+
+      @media (min-width: 1200px) {
+        padding: 3px 24px;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 22px;
+      }
+    }
+  }
+}
+
+.container-allcompetion {
+  @media (min-width: 1200px) {
+    width: 1217px;
+    margin: 0 auto !important;
+    justify-content: space-between;
+
+    .competition-poster {
+      margin: 20px 0 70px 0 !important;
+    }
+  }
+
+  .competition-poster {
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 10px;
+    margin-bottom: 40px;
+    border-radius: 10px; /*1*/
+    border: 1px solid transparent;
+    background-color: #0e1643;
+    border-radius: 10px;
+    background-clip: padding-box;
+
+    img {
+      object-fit: cover;
+      border-radius: 10px;
+      width: 310px;
+      height: 450px;
+    }
+
+    .competition-status {
+      position: absolute;
+      top: 22px;
+      left: 27px;
+      display: flex;
+
+      button {
+        font-size: 18px;
+        line-height: 22px;
+        font-family: K2D;
+        align-items: center;
+        color: #0e1643;
+        text-align: center;
+        font-style: normal;
+        font-weight: 500;
+        padding: 6px 16px;
+        border-radius: 10px;
+        background: linear-gradient(90deg, #7496ff 0%, #5dd7d0 99.81%);
+        border: none;
+      }
+    }
+  }
+  .active {
+    background-image: linear-gradient(0deg, #7496ff, #5dd7d0),
+      radial-gradient(circle at top left, #7496ff, #5dd7d0) !important;
+
+    h6 {
+      background: black !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+    }
+  }
+}
+.competition-poster:hover.competition-poster::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  margin: -3px;
+  background-image: linear-gradient(to right top, #7496ff, #5dd7d0);
+  border-radius: inherit;
+  box-shadow: 0px 0px 8px 2px rgba(161, 220, 255, 0.8);
+}

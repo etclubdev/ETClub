@@ -1,0 +1,180 @@
+
+// Color
+$background: #0E1643;
+$background-dark: #15123c;
+$heading: #FFFFFF;
+$heading2: #F5A623;
+$heading3: linear-gradient(90deg, #7496FF 0%, #5DD7D0 100%);
+$heading4: #B2AFE1;
+$headig6_navbar: #F42F54;
+$body: #F4F4F4;
+$body_inactive: #D0C9D6;
+$on_button: #3F3356;
+$white: #fff;
+
+// Text Size
+// Desktop
+$desktop_h1: 45px;
+$desktop_h2: 40px;
+$desktop_h3: 32px;
+$desktop_h4: 24px;
+$desktop_b1: 18px;
+$desktop_b2: 16px;
+$desktop_sub: 24px;
+// Mobile
+$mobile_h1: 24px;
+$mobile_h2: 22px;
+$mobile_h3: 20px;
+$mobile_b1: 14px;
+
+.techCorner .container {
+    padding:0;
+}
+.techCorner {
+    margin-top: 30px;
+
+    @media (min-width: 1200px) {
+        margin-top: 70px;
+    }
+
+    &__title {
+        font-family: "K2D";
+        font-weight: 700;
+        font-size:$mobile_h1;
+        color: $white;
+        text-align:center;
+        @media only screen and (min-width: 642px) and (max-width: 1024px) {
+            font-size: $desktop_h3;
+        }
+        @media only screen and (min-width: 1025px) {
+            font-size: $desktop_h1;
+        }
+    }
+    &__cards {
+        margin-top: 20px;
+        @media only screen and (min-width: 642px) and (max-width: 1024px) {
+            margin-top: 40px;
+        }
+        @media only screen and (min-width: 1025px) {
+            display:flex;
+            flex-wrap: wrap;
+            justify-content:space-around;
+            align-items: stretch;
+            margin:60px 0px;
+        }
+        @media only screen and (min-width: 1400px) {
+            justify-content: space-between;
+        }
+    }
+}
+
+.techCorner__card {
+    width:90%;
+    max-width:280px;
+    margin:0 auto;
+    margin-bottom: 40px;
+    background-color: #15123C;
+    border: 3px solid $heading2;
+    border-radius:10px;
+    position:relative;
+    transition: 0.25s linear;
+    @media only screen and (min-width: 642px) and (max-width: 1024px) {
+        max-width: 400px;
+    }
+    @media only screen and (min-width: 1025px) {
+        width:375px;
+        max-width:unset;
+        margin:unset;
+        margin-bottom: 60px;
+        display:flex;
+        justify-content:space-between;
+        flex-direction: column;
+        &:hover {
+            box-shadow: 10px 10px 10px rgba(245, 166, 35, 0.4);
+            cursor: pointer;
+        }
+    }
+    @media only screen and (min-width: 1400px) {
+        margin:unset;
+    }
+    .card__image {
+        width: 200px;
+        margin: 0px auto;
+        padding-top:28px;
+        img {
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+        @media only screen and (min-width: 642px) and (max-width: 1024px) {
+            width:300px;
+            padding-top:30px;
+            }
+        @media only screen and (min-width: 1025px) {
+            width: 250px;
+            padding-top: 40px;
+        }
+    }
+    .card__name {
+        font-family: "K2D";
+        font-size: $mobile_h1;
+        color:$white;
+        text-align: center;
+        margin-top: 20px;
+        padding: 0 29px;
+        @media only screen and (min-width: 642px) and (max-width: 1024px) {
+            font-size: 32px;
+            padding: 0 51px;
+        }
+        @media only screen and (min-width: 1025px) {
+            font-size: 32px;
+        }
+    }
+    .card__desc {
+        font-size: $mobile_b1;
+        color:$white;
+        text-align:center;
+        margin: 24px 29px;
+        line-height: 25px;
+        @media only screen and (min-width: 642px) and (max-width: 1024px) {
+            font-size: 18px;
+        }
+        @media only screen and (min-width: 1025px) {
+            font-size: 24px;
+            line-height: 31px;
+            text-align:justify;
+        }
+
+    }
+    .card_btn {
+        font-family: "K2D";
+        font-size: $mobile_b1;
+        font-weight: 700;
+        color:$on_button;
+        line-height: 25px;
+        text-align:center;
+        background-color: $heading2;
+        width:fit-content;
+        padding: 6px 16px;
+        border-radius: 10px;
+        margin: 0 auto;
+        margin-bottom: 28px;
+        border: 1px solid #F5A623;
+        transition: 0.25s linear;
+        @media only screen and (min-width: 642px) and (max-width: 1024px) {
+            font-size: 18px;
+        }
+        @media only screen and (min-width: 1025px) {
+           font-size: 18px;
+           &:hover {
+            color:#F5A623;
+            background-color:#15123C;
+           }
+           &:active {
+            color:$on_button;
+            background-color:#F5A623;
+            transform: translateY(3px);
+           }
+        }
+    }
+}

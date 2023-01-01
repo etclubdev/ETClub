@@ -1,0 +1,50 @@
+.swiper {
+  width: 1300px;
+  .swiper-wrapper {
+    height: 600px;
+    .swiper-slide {
+      img {
+        width: 1300px;
+        height: 540px;
+        object-fit: cover;
+        margin: 0 auto;
+      }
+    }
+  }
+  .swiper-pagination {
+    margin-top: 15px;
+    .swiper-pagination-bullet {
+      background: #3f3356 !important;
+      border: 1px solid #7496ff;
+      width: 7px !important;
+      height: 7px !important;
+      margin: 5px 4px !important;
+
+      @media (min-width: 576px) {
+        width: 10px !important;
+        height: 10px !important;
+        border-radius: 6px;
+        margin: 5px 7px !important;
+      }
+      &:hover {
+        background-image: linear-gradient(
+          to right,
+          #7496ff,
+          #5dd7d0
+        ) !important;
+      }
+    }
+    .swiper-pagination-bullet-active {
+      width: 17px !important;
+      background-image: linear-gradient(to right, #7496ff, #5dd7d0) !important;
+
+      @media (min-width: 576px) {
+        width: 20px !important;
+      }
+
+      @media (min-width: 1200px) {
+        width: 25px !important;
+      }
+    }
+  }
+}

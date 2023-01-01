@@ -1,0 +1,21 @@
+.organizational-structure__name {
+  width: 299px;
+  @media (min-width: 1200px) {
+    width: 505px;
+  }
+  margin: 0 auto;
+
+  h1 {
+    font-size: 28px;
+    line-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    @media (min-width: 1200px) {
+      font-weight: 800;
+      font-size: 45px;
+      line-height: 80px;
+    }
+  }
+}

@@ -1,0 +1,252 @@
+.videos-page {
+  color: white;
+  &__title {
+    p {
+      font-family: "K2D";
+      font-size: 28px;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 0;
+    }
+    padding-top: 80px;
+    margin-bottom: 30px;
+    @media only screen and (min-width: 801px) and (max-width: 1024px) {
+      p {
+        font-size: 32px;
+        font-weight: 700;
+      }
+      margin-bottom: 50px;
+    }
+    @media only screen and (min-width: 1025px) {
+      p {
+        font-size: 45px;
+        font-weight: 800;
+      }
+      margin-bottom: 70px;
+    }
+    @media only screen and (min-width: 1440px) {
+      padding-top: 0px;
+    }
+  }
+  &__hot-video {
+    margin-top: 30px;
+    border-bottom: 5px solid #252b50;
+    @media only screen and (min-width: 801px) and (max-width: 1024px) {
+      margin-top: 50px;
+    }
+    @media only screen and (min-width: 1025px) {
+      margin-top: 70px;
+    }
+    .hot-video__name {
+      font-family: "K2D";
+      font-size: 28px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      text-align: center;
+      @media only screen and (min-width: 801px) and (max-width: 1024px) {
+        font-size: 32px;
+        text-align: left;
+      }
+      @media only screen and (min-width: 1025px) {
+        font-size: 45px;
+        font-weight: 600;
+        margin-bottom: 60px;
+        text-align: left;
+      }
+    }
+    .hot-video__list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      @media only screen and (min-width: 1025px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+  }
+
+  &__new-video {
+    margin-top: 30px;
+    border-bottom: 5px solid #252b50;
+    @media only screen and (min-width: 801px) and (max-width: 1024px) {
+      margin-top: 50px;
+    }
+    @media only screen and (min-width: 1025px) {
+      margin-top: 70px;
+    }
+    .new-video__name {
+      font-family: "K2D";
+      font-size: 28px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      text-align: center;
+      @media only screen and (min-width: 801px) and (max-width: 1024px) {
+        font-size: 32px;
+        text-align: left;
+      }
+      @media only screen and (min-width: 1025px) {
+        font-size: 45px;
+        font-weight: 600;
+        margin-bottom: 60px;
+        text-align: left;
+      }
+    }
+    .new-video__list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 0;
+      @media only screen and (min-width: 1025px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    .new-video__all {
+      background-color: #f5a623;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 10px;
+      display: block;
+      margin: 0 auto 30px auto;
+      outline: none;
+      transition: 0.3s;
+      @media only screen and (min-width: 1024px) {
+        &:hover {
+          background-color: #0e1643;
+          box-shadow: 0px 0px 10px 2px #f5a623;
+          a {
+            color: #f5a623;
+          }
+        }
+        &:active {
+          a {
+            color: #0e1643;
+          }
+          background-color: #f5a623;
+          box-shadow: none;
+        }
+      }
+      a {
+        font-family: "K2D";
+        font-size: 20px;
+        font-weight: 500;
+        text-decoration: none;
+        color: #0e1643;
+        @media only screen and (min-width: 1024px) {
+          font-size: 32px;
+        }
+      }
+    }
+  }
+
+  &__string {
+    margin-top: 30px;
+    .string__head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 30px;
+      @media only screen and (min-width: 801px) {
+        margin-bottom: 40px;
+      }
+      @media only screen and (min-width: 1025px) {
+        margin-bottom: 60px;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .string__name {
+        font-family: "K2D";
+        font-size: 28px;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+        @media only screen and (min-width: 801px) {
+          font-size: 32px;
+          text-align: left;
+          margin-bottom: 30px;
+        }
+        @media only screen and (min-width: 1025px) {
+          font-size: 45px;
+          font-weight: 600;
+        }
+      }
+      .string__option {
+        padding: 11px 26px;
+        background-color: #252b50;
+        border-radius: 10px;
+        @media only screen and (min-width: 1025px) {
+          padding: 15px 12px;
+        }
+        .new,
+        .popular {
+          font-family: "K2D";
+          border: none;
+          border-radius: 10px;
+          background-color: #f5a623;
+          font-size: 14px;
+          font-weight: 500;
+          padding: 6px 16px;
+          transition: 0.3s;
+          @media only screen and (min-width: 801px) {
+            font-size: 16px;
+            font-weight: 700;
+            padding: 8px 20px;
+          }
+          @media only screen and (min-width: 1025px) {
+            font-size: 18px;
+            font-weight: 700;
+            padding: 10px 24px;
+          }
+        }
+        .new {
+          margin-right: 23px;
+          @media only screen and (min-width: 1025px) {
+            margin-right: 5px;
+          }
+        }
+        .popular {
+          border: 1px solid #f5a623;
+          color: #f5a623;
+          background-color: transparent;
+          transition: 0.3s;
+        }
+        .new:hover,
+        .popular:hover {
+          background-color: #0e1643;
+          color: #f5a623;
+          box-shadow: 0px 0px 8px 2px #f5a623;
+        }
+        .new:active,
+        .popular:active {
+          background-color: #f5a623;
+          color: #0e1643;
+          box-shadow: none;
+        }
+      }
+    }
+
+    .string__list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    @media only screen and (min-width: 1024px) {
+      .string__list {
+        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+    }
+    @media only screen and (min-width: 1440px) {
+      .string__list {
+        justify-content: space-between;
+      }
+    }
+  }
+}

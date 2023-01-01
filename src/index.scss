@@ -1,0 +1,15 @@
+@import "./variable.scss";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: K2D;
+}
+body {
+  background-color: $background !important;
+  color: $white;
+}
+a {
+  text-decoration: none;
+  color: white !important;
+}

@@ -1,0 +1,100 @@
+.videocard {
+  width: 310px;
+  background-color: #252b50;
+  border-radius: 10px;
+  position: relative;
+  transition: 0.5s;
+  margin-bottom: 60px;
+  @media only screen and (min-width: 641px) {
+    width: 400px;
+  }
+  @media only screen and (min-width: 1025px) {
+    flex-grow: 1;
+    margin-right: 10px;
+    &:hover {
+      box-shadow: 5px 5px 10px 0 white;
+      transform: scale(105%);
+      cursor: pointer;
+    }
+  }
+  @media only screen and (min-width: 1440px) {
+    flex-grow: unset;
+    margin-right: unset;
+    width: 310px;
+  }
+  &__image {
+    width: 100%;
+    height: 171px;
+    @media only screen and (min-width: 641px) {
+      height: 200px;
+    }
+    @media only screen and (min-width: 1025px) {
+      height: 171px;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px 10px 0 0;
+    }
+  }
+  &__desc {
+    &-title {
+      font-size: 24px;
+      font-weight: 500;
+      text-align: justify;
+      padding: 22px 16px 0 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  &__seeding {
+    margin-top: 22px;
+    margin-left: 17px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    color: #f5a623;
+    .seen {
+      display: flex;
+      align-items: center;
+      img {
+        margin-right: 7px;
+      }
+    }
+    .like {
+      display: flex;
+      align-items: baseline;
+      margin-left: 42px;
+      img {
+        margin-right: 7px;
+      }
+    }
+    p {
+      margin-bottom: 0;
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+  &__length {
+    position: absolute;
+    width: 61px;
+    height: 26px;
+    top: 138px;
+    left: 229px;
+    background-color: #f5a623;
+    text-align: center;
+    border-radius: 5px;
+    @media only screen and (min-width: 641px) and (max-width: 1024px) {
+      top: 150px;
+      left: 310px;
+    }
+    @media only screen and (min-width: 1025px) and (max-width: 1440px) {
+      top: 130px;
+      left: 10px;
+    }
+  }
+}

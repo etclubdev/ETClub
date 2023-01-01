@@ -1,0 +1,127 @@
+.container {
+  width: 1400px;
+  margin: 0 auto;
+}
+.thingking {
+  margin-bottom: 100px;
+  &-name {
+    font-weight: 800;
+    font-size: 45px;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 89px;
+  }
+  &-list {
+    margin-top: 60px;
+  }
+  &-item {
+    display: flex;
+    flex-direction: column;
+    width: 420px;
+    height: 300px;
+    border: 3px solid #f5a623;
+    border-radius: 10px;
+    background-color: #15123c;
+    margin-bottom: 30px;
+  }
+  &-quote {
+    position: relative;
+    top: -2%;
+    left: -0.8%;
+    width: 20%;
+  }
+  &-desc {
+    font-size: 18px;
+    color: #ffffff;
+    margin-top: 10px;
+    padding: 0 46px 0 38px;
+    p {
+      margin: 0;
+    }
+  }
+  &-detail {
+    display: flex;
+    padding: 0 38px;
+    margin-top: 38px;
+    img {
+      width: 80px;
+      height: 80px;
+    }
+  }
+  &-info {
+    margin-left: 25px;
+    .info-name {
+      font-weight: 500;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #f5a623;
+    }
+    .info-where {
+      font-weight: 500;
+      font-size: 16px;
+      color: #ffffff;
+      transition: cubic-bezier(1, 0.82, 0.165, 1);
+    }
+  }
+  &-item:hover {
+    box-shadow: 10px 10px 10px rgba(245, 166, 35, 0.4);
+  }
+  &-detail img {
+    transition: 0.3s ease-in;
+  }
+  &-detail img:hover {
+    transform: scale(1.2);
+  }
+}
+.owl-theme .owl-dots .owl-dot span {
+  background-color: #0e1643;
+}
+.owl-theme .owl-dots .owl-dot span {
+  border: 0.7px solid #7496ff;
+  background-color: #3f3356 !important;
+}
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span {
+  background-image: linear-gradient(to right, #7496ff, #5dd7d0) !important;
+}
+.owl-theme .owl-dots .owl-dot.active span {
+  width: 25px !important;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: 390px;
+  }
+  .thingking {
+    &-name {
+      font-size: 24px;
+    }
+    &-list {
+      margin-top: 0px;
+    }
+    &-item {
+      margin-top: 30px;
+      width: 410px;
+      height: 290px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    &-detail {
+      margin-top: 17px;
+    }
+    &-desc {
+      font-size: 20px;
+      padding: 0 22px 0 23px;
+    }
+    &-info {
+      .info-name {
+        font-size: 18px;
+      }
+    }
+  }
+  .thingking-quote {
+    left: -1%;
+  }
+}
