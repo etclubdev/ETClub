@@ -10,7 +10,7 @@ const MaybeInterested = () => {
           <span className="news-title__highlight" />
           <span className="news-title__name">Có thể bạn sẽ quan tâm</span>
         </div>
-        <div className="body-2" style={{ width: " 846px", margin: "0 auto" }}>
+        <div className="body-2">
           <div className="left-side col-md-6 col-sm-12">
             <div href="#" className="body-2-image">
               <img src="/img/image1234123.png" alt="image" />

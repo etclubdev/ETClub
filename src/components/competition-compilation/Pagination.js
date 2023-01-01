@@ -7,7 +7,7 @@ const Pagination = () => {
       <ul class="pagination">
         <li class="pagination-item-icon">
           <a href="" class="pagination-item__link">
-            <i class="fas fa-chevron-left"></i>
+            <i class="fas fa-angle-left"></i>
           </a>
         </li>
         <li class="pagination-item pagination-item--active">
@@ -38,7 +38,7 @@ const Pagination = () => {
 
         <li class="pagination-item-icon">
           <a href="" class="pagination-item__link">
-            <i class="fas fa-chevron-right"></i>
+            <i class="fas fa-angle-right"></i>
           </a>
         </li>
       </ul>

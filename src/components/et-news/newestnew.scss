@@ -4,7 +4,7 @@
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 30px;
-  margin-left: 15px;
+  margin-left: 30px;
 
   @media only screen and (min-width: 992px) {
     margin-bottom: 60px;
@@ -52,6 +52,10 @@
   }
 
   &-image {
+    @media (max-width: 576px) {
+      width: calc(100% - 20px);
+      margin: 0 auto;
+    }
     &:hover {
       border-width: 3px;
       border-left: 3px solid #7496ff;
@@ -67,7 +71,7 @@
     }
 
     img {
-      width: 396px;
+      width: 100%;
       height: 396px;
       object-fit: cover;
       border: 1px solid #15123c;
@@ -85,7 +89,10 @@
 
   &-info {
     margin-top: 17px;
-
+    @media (max-width: 576px) {
+      width: calc(100% - 20px);
+      margin: 0 auto;
+    }
     @media only screen and (min-width: 992px) {
       margin-top: 10px;
     }
@@ -135,7 +142,6 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-      width: 75%;
 
       &:hover {
         color: $white;
@@ -162,7 +168,7 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-
+      text-align: justify;
       &:hover {
         color: $white;
       }
@@ -172,7 +178,6 @@
         margin-top: 30px;
         margin-bottom: 0;
         -webkit-line-clamp: 9;
-        text-align: justify;
       }
     }
   }
