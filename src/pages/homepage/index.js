@@ -7,6 +7,7 @@ const Introduction = lazy(() =>
 );
 const TechConer = lazy(() => import("../../components/homepage/TechConer"));
 const Thinking = lazy(() => import("../../components/homepage/Thinking"));
+const Donor = lazy(() => import("../../components/homepage/Donor"));
 const HomePage = () => {
   return (
     <Fragment>
@@ -16,6 +17,7 @@ const HomePage = () => {
         <TechConer />
         <Competition />
         <Thinking />
+        <Donor />
       </Suspense>
     </Fragment>
   );

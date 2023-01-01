@@ -1,0 +1,84 @@
+.donor {
+  .donor-title {
+    font-family: K2D;
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 40px 0 20px;
+
+    @media (min-width: 768px) {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 50px 0 30px;
+    }
+
+    @media (min-width: 1200px) {
+      font-size: 45px;
+      font-weight: 800;
+      margin: 70px 0 50px;
+    }
+  }
+
+  .donor-logo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+
+    @media (min-width: 1200px) {
+      width: 1100px;
+
+      .donor-logo_1 {
+        order: 1;
+      }
+      .donor-logo_2 {
+        order: 2;
+      }
+      .donor-logo_3 {
+        order: 3;
+      }
+      .donor-logo_4 {
+        order: 5;
+      }
+      .donor-logo_5 {
+        order: 4;
+      }
+      .donor-logo_6 {
+        order: 6;
+      }
+      .donor-logo_7 {
+        order: 9;
+      }
+      .donor-logo_8 {
+        order: 11;
+      }
+      .donor-logo_9 {
+        order: 8;
+      }
+      .donor-logo_10 {
+        order: 7;
+      }
+      .donor-logo_11 {
+        order: 10;
+      }
+      .donor-logo_12 {
+        order: 12;
+      }
+    }
+
+    img {
+      height: 50px;
+      max-width: 100px;
+      object-fit: contain;
+      margin: 10px;
+
+      @media (min-width: 1200px) {
+        height: 70px;
+        max-width: 150px;
+        margin: 25px;
+      }
+    }
+  }
+}
