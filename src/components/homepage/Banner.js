@@ -1,8 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
 // import Swiper core and required modules
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
-
-import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import OwlCarousel from "react-owl-carousel";
