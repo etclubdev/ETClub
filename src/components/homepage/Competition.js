@@ -5,6 +5,41 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 const Competition = () => {
+  const options = {
+    nav: true,
+    items: 1,
+    loop: true,
+    responsiveClass: true,
+    margin: 0,
+    dotsEach: 3,
+    dot: true,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    autoplayHoverPause: true,
+    autoplaySpeed: 2000,
+    navSpeed: 2000,
+    navText: [
+      "<i class='fas fa-chevron-left'></i>",
+      "<i class='fas fa-chevron-right'></i>",
+    ],
+    stagePadding: 0,
+    responsive: {
+      0: {
+        margin: 30,
+        nav: false,
+      },
+      600: {
+        margin: 30,
+        stagePadding: 0,
+        nav: false,
+      },
+      1200: {
+        stagePadding: 175,
+        dotsEach: true,
+        // margin: -1,
+      },
+    },
+  };
   return (
     <div id="cuoc-thi" className="competition-container">
       <div className="competition-title">
@@ -12,10 +47,11 @@ const Competition = () => {
       </div>
       <OwlCarousel
         className="owl-theme owl-carousel__competition"
-        loop
-        margin={0}
-        items="1"
-        stagePadding={175}
+        {...options}
+        // loop
+        // margin={0}
+        // items="1"
+        // stagePadding={175}
       >
         <div className="item">
           <img src="https://i.pinimg.com/564x/94/9b/8d/949b8d8d9229693ba9d53b054b738e2a.jpg" />

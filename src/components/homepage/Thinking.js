@@ -4,11 +4,29 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 const Thinking = () => {
+  const options = {
+    dotsEach: true,
+    loop: false,
+    nav: false,
+    items: 3,
+    responsive: {
+      0: {
+        items: 1,
+        dots: false,
+      },
+      600: {
+        items: 2,
+      },
+      1000: {
+        items: 3,
+      },
+    },
+  };
   return (
     <div>
       <div className="thingking container">
         <div className="thingking-name">CẢM NGHĨ</div>
-        <OwlCarousel className="owl-theme thingking-list" loop>
+        <OwlCarousel className="owl-theme thingking-list" {...options}>
           <div className="thingking-item item">
             <div className="thingking-quote">
               <img src="/img/Rectangle 2640.png" alt="" />

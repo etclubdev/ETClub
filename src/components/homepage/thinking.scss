@@ -1,12 +1,8 @@
-.container {
-  width: 1400px;
-  margin: 0 auto;
-}
 .thingking {
   margin-bottom: 100px;
   &-name {
     font-weight: 800;
-    font-size: 45px;
+    font-size: 60px;
     text-align: center;
     color: #ffffff;
     margin-top: 89px;
@@ -27,7 +23,7 @@
   &-quote {
     position: relative;
     top: -2%;
-    left: -0.8%;
+    left: -0.9%;
     width: 20%;
   }
   &-desc {
@@ -89,24 +85,48 @@
 .owl-theme .owl-dots .owl-dot.active span {
   width: 25px !important;
 }
-
-@media screen and (max-width: 600px) {
-  .container {
-    width: 390px;
-  }
+@media screen and (max-width: 992px) {
   .thingking {
     &-name {
+      font-size: 32px;
+    }
+    &-list {
+      margin-top: 20px;
+    }
+    &-item {
+      margin-top: 10px;
+      width: 410px;
+      height: 290px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    &-desc {
+      font-size: 18px;
+    }
+    &-info {
+      .info-name {
+        font-size: 20px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 576px) {
+  .thingking {
+    margin-bottom: 60px;
+    &-name {
       font-size: 24px;
+      margin-top: 30px;
     }
     &-list {
       margin-top: 0px;
     }
     &-item {
       margin-top: 30px;
-      width: 410px;
-      height: 290px;
+      width: 90%;
+      height: 100%;
       margin-left: auto;
       margin-right: auto;
+      padding-bottom: 10px;
     }
     &-detail {
       margin-top: 17px;
@@ -114,14 +134,17 @@
     &-desc {
       font-size: 20px;
       padding: 0 22px 0 23px;
+      text-align: justify;
     }
     &-info {
       .info-name {
         font-size: 18px;
       }
     }
-  }
-  .thingking-quote {
-    left: -1%;
+    &-quote {
+      top: -10px;
+      left: -10px;
+      width: 20%;
+    }
   }
 }

@@ -4,7 +4,7 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import "./header.scss";
 
-const Header = (props) => {
+const Header = () => {
   const { pathname } = useLocation();
   console.log(pathname);
   const handleClick = (div) => {

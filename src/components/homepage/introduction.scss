@@ -1,5 +1,8 @@
 .container-fluid {
-  width: 1300px;
+  width: 360px;
+  @media (min-width: 1200px) {
+    width: 1300px;
+  }
   h1.text-center.mx-auto {
     font-family: "K2D", sans-serif;
     color: #ffffff;
