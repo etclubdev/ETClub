@@ -1,13 +1,23 @@
 .swiper {
-  width: 1300px;
+  width: 396px;
+  @media (min-width: 1200px) {
+    width: 1300px;
+  }
   .swiper-wrapper {
-    height: 600px;
+    height: 200px;
+    @media (min-width: 1200px) {
+      height: 600px;
+    }
     .swiper-slide {
       img {
-        width: 1300px;
-        height: 540px;
+        width: 396px;
+        height: 160px;
         object-fit: cover;
         margin: 0 auto;
+        @media (min-width: 1200px) {
+          width: 1300px;
+          height: 540px;
+        }
       }
     }
   }
@@ -19,11 +29,11 @@
       width: 7px !important;
       height: 7px !important;
       margin: 5px 4px !important;
+      border-radius: 6px;
 
       @media (min-width: 576px) {
         width: 10px !important;
         height: 10px !important;
-        border-radius: 6px;
         margin: 5px 7px !important;
       }
       &:hover {
