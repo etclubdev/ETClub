@@ -25,7 +25,7 @@ const Content = () => {
                 và phát triển hình ảnh câu lạc bộ.
               </p>
               <a href="#">
-                Xem thêm <i className="fal fa-long-arrow-right" />
+                Xem thêm <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
           </div>
@@ -42,7 +42,7 @@ const Content = () => {
                 bên ngoài nhằm giao lưu, học hỏi, tìm kiếm cơ hội hợp tác.
               </p>
               <a href="#">
-                Xem thêm <i className="fal fa-long-arrow-right" />
+                Xem thêm <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
           </div>
@@ -63,7 +63,7 @@ const Content = () => {
                 bộ cũng do ban Nhân sự - Tổ chức nắm chính.
               </p>
               <a href="#">
-                Xem thêm <i className="fal fa-long-arrow-right" />
+                Xem thêm <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
           </div>
@@ -81,7 +81,7 @@ const Content = () => {
                 phù hợp nhất.
               </p>
               <a href="#">
-                Xem thêm <i className="fal fa-long-arrow-right" />
+                Xem thêm <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
           </div>
@@ -101,7 +101,7 @@ const Content = () => {
                 với lĩnh vực này.
               </p>
               <a href="#">
-                Xem thêm <i className="fal fa-long-arrow-right" />
+                Xem thêm <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
           </div>
@@ -119,7 +119,7 @@ const Content = () => {
                 phù hợp nhất.
               </p>
               <a href="#">
-                Xem thêm <i className="fal fa-long-arrow-right" />
+                Xem thêm <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
           </div>
@@ -140,7 +140,7 @@ const Content = () => {
                 sử dụng IT, tạo nên xu hướng công nghệ cho sinh viên UEH.
               </p>
               <a href="#">
-                Xem thêm <i className="fal fa-long-arrow-right" />
+                Xem thêm <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
           </div>
@@ -167,7 +167,7 @@ const Content = () => {
                 và phát triển hình ảnh câu lạc bộ.
               </p>
               <a href="#">
-                Xem thêm <i className="fal fa-long-arrow-right" />
+                Xem thêm <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
             <div className="day">
@@ -190,7 +190,7 @@ const Content = () => {
                 bên ngoài nhằm giao lưu, học hỏi, tìm kiếm cơ hội hợp tác.
               </p>
               <a href="#">
-                Xem thêm <i className="fal fa-long-arrow-right" />
+                Xem thêm <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
             <div className="col-6 container__organizational-structure--item-image ">
@@ -223,7 +223,7 @@ const Content = () => {
                 bộ cũng do ban Nhân sự - Tổ chức nắm chính.
               </p>
               <a href="#">
-                Xem thêm <i className="fal fa-long-arrow-right" />
+                Xem thêm <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
             <div className="day">
@@ -247,7 +247,7 @@ const Content = () => {
                 phù hợp nhất.
               </p>
               <a href="#">
-                Xem thêm <i className="fal fa-long-arrow-right" />
+                Xem thêm <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
             <div className="col-6 container__organizational-structure--item-image">
@@ -279,7 +279,7 @@ const Content = () => {
                 với lĩnh vực này.
               </p>
               <a href="#">
-                Xem thêm <i className="fal fa-long-arrow-right" />
+                Xem thêm <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
             <div className="day">
@@ -303,7 +303,7 @@ const Content = () => {
                 phù hợp nhất.
               </p>
               <a href="#">
-                Xem thêm <i className="fal fa-long-arrow-right" />
+                Xem thêm <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
             <div className="col-6 container__organizational-structure--item-image">
@@ -336,7 +336,7 @@ const Content = () => {
                 sử dụng IT, tạo nên xu hướng công nghệ cho sinh viên UEH.
               </p>
               <a href="#">
-                Xem thêm <i className="fal fa-long-arrow-right" />
+                Xem thêm <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
           </div>
