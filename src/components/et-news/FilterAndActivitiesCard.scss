@@ -440,7 +440,10 @@
       height: 182px;
       object-fit: cover;
       border-radius: 10px 10px 0px 0px;
-
+      @media (max-width: 385px) {
+        width: 160px;
+        height: 160px;
+      }
       @media only screen and (min-width: 992px) {
         width: 370px;
         height: 370px;
