@@ -217,7 +217,7 @@ const Header = () => {
                   </Link>
                   <Link to="/introduce/cocaunhansu" onClick={handleClickBtn}>
                     <li>
-                      <a href="#">Cơ cấu tổ chức</a>
+                      Cơ cấu tổ chức
                       <hr />
                     </li>
                   </Link>
