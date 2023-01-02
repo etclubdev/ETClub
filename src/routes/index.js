@@ -6,6 +6,7 @@ import AboutClb from "../pages/about-clb";
 import CompetitionCompilationPage from "../pages/competition-compilation";
 import EtNews from "../pages/et-news";
 import HomePage from "../pages/homepage";
+import InfoContestPage from "../pages/info-contest";
 import OrganizationalStructure from "../pages/organizational-structure";
 import StringVideoPage from "../pages/string-video-page";
 
@@ -53,11 +54,7 @@ const AppRoutes = () => {
           ></Route>
           <Route
             path="/cuoc-thi/techconomy"
-            element={
-              <>
-                <p>Techconomy</p>
-              </>
-            }
+            element={<InfoContestPage></InfoContestPage>}
           ></Route>
           <Route
             path="/cuoc-thi/tat-ca-cuoc-thi"

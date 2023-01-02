@@ -1,0 +1,103 @@
+.timeline-time-up {
+  margin-top: 24px;
+  @media (min-width: 1200px) {
+  }
+  h5 {
+    transition: transform 0.2s;
+    margin: 0 auto;
+    width: 79%;
+    font-family: "K2D";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    color: #ffffff;
+    @media (min-width: 576px) {
+      width: 141px;
+    }
+    @media (min-width: 1200px) {
+      margin-top: 63px;
+      padding-left: 0px;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 28px;
+    }
+  }
+}
+.timeline-center-up {
+  height: 80px;
+  padding-left: 4px;
+  transition: transform 0.2s;
+  @media (min-width: 1200px) {
+    height: 193px;
+    padding-left: 0;
+    position: relative;
+  }
+  &__border {
+    margin-top: 48px;
+    width: 177.76px;
+    border: 2px solid #f5a623;
+    background: #f5a623;
+    box-shadow: 10px 10px 10px rgba(245, 166, 35, 0.4);
+    @media (max-width: 392px) {
+      width: 167.76px;
+    }
+    @media (min-width: 576px) {
+      width: 354px;
+    }
+    @media (min-width: 1200px) {
+      border: 4px solid #f5a623;
+      margin-top: 139px;
+      width: 430px;
+    }
+  }
+  &__img--mobile {
+    position: absolute;
+    top: 90px;
+    right: 40%;
+    @media (min-width: 576px) {
+      right: 48%;
+    }
+    @media (min-width: 1200px) {
+      display: none;
+    }
+  }
+  &__img--desktop {
+    display: none;
+    transition: transform 0.2s;
+    @media (min-width: 1200px) {
+      position: absolute;
+      display: block;
+      top: -33%;
+      right: 46%;
+      img {
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+.timeline-title__up-ecommerce,
+.timeline-title__up-global1,
+.timeline-title__up-global2 {
+  align-items: center;
+
+  h5 {
+    transition: transform 0.2s;
+    font-family: "K2D";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    color: #ffffff;
+    @media (min-width: 1200px) {
+      margin: 0 auto;
+
+      padding-right: 38px;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 28px;
+      padding-left: 6px;
+    }
+  }
+}

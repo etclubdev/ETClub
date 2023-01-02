@@ -1,0 +1,43 @@
+.Contest-global__name {
+  margin-top: 30px !important;
+  width: calc(100% - 35px);
+  margin: 0 auto;
+  margin-bottom: 45px;
+  @media (max-width: 392px) {
+    width: calc(100% - 50px) !important;
+  }
+  @media (min-width: 1200px) {
+    width: calc(100% - 50px);
+  }
+  @media (min-width: 1200px) {
+    margin-top: 105px !important;
+    width: calc(100% - 50px);
+  }
+  h1 {
+    font-family: "K2D";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 40px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #ffffff;
+    @media (max-width: 392px) {
+      font-size: 21px !important;
+    }
+    @media (max-width: 500px) {
+      font-size: 23px;
+    }
+    @media (min-width: 576px) {
+      display: flex;
+      justify-content: center;
+    }
+    @media (min-width: 1200px) {
+      // justify-content: center;
+      font-weight: 800;
+      font-size: 45px;
+      line-height: 80px;
+    }
+  }
+}
