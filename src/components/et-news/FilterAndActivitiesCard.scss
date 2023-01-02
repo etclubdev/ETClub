@@ -2,6 +2,9 @@
 .box-container_3 {
   margin: 0 auto;
   margin-top: 50px;
+  @media (max-width: 385px) {
+    width: calc(100% - 10px);
+  }
   @media (max-width: 576px) {
     width: calc(100% - 20px);
   }
