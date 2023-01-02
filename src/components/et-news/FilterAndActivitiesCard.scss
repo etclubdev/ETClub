@@ -418,13 +418,15 @@
     text-decoration: none;
     display: flex;
     flex-direction: column;
-    width: 182px;
     padding: 0;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     cursor: pointer;
     margin-top: 40px;
-
+    @media (max-width: 385px) {
+      width: 169px;
+    }
+    width: 182px;
     @media only screen and (min-width: 992px) {
       width: 370px;
       margin-top: 0;
@@ -441,8 +443,8 @@
       object-fit: cover;
       border-radius: 10px 10px 0px 0px;
       @media (max-width: 385px) {
-        width: 160px;
-        height: 160px;
+        width: 169px;
+        height: 169px;
       }
       @media only screen and (min-width: 992px) {
         width: 370px;
