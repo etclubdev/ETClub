@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Footer from "../layout/Footer";
 import Header from "../layout/Header";
 import AboutClb from "../pages/about-clb";
+import AllCompetitionPage from "../pages/all-competition";
 import CompetitionCompilationPage from "../pages/competition-compilation";
 import EtNews from "../pages/et-news";
 import HomePage from "../pages/homepage";
@@ -58,11 +59,7 @@ const AppRoutes = () => {
           ></Route>
           <Route
             path="/cuoc-thi/tat-ca-cuoc-thi"
-            element={
-              <>
-                <p>tất cả cuộc thi</p>
-              </>
-            }
+            element={<AllCompetitionPage></AllCompetitionPage>}
           ></Route>
           <Route
             path="/tuyen-ctv"

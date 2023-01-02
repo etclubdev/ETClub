@@ -1,0 +1,26 @@
+@import "../../variable.scss";
+.year_number {
+  width: 141px;
+  border-radius: 11.5556px;
+  margin: 0 auto;
+  background-color: rgba(0, 255, 240, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: K2D;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 45px;
+  color: $white;
+  text-align: center;
+  @media only screen and (max-width: 1024px) and (min-width: 800px) {
+    width: 120px;
+    font-size: 32px;
+  }
+}
+.year_line {
+  width: 3px;
+  height: 28px;
+  background-color: $grey;
+  margin: 0 auto;
+}

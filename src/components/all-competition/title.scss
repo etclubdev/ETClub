@@ -1,0 +1,25 @@
+@import "../../variable.scss";
+.competition_title {
+  margin-bottom: 45px;
+  font-family: K2D;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 45px;
+  color: $white;
+  text-align: center;
+  @media only screen and (max-width: 1024px) and (min-width: 800px) {
+    font-size: 32px;
+    margin-bottom: 25px;
+    padding-top: 90px;
+  }
+  @media only screen and (max-width: 799px) {
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-top: 35px;
+    text-align: center;
+    padding-left: 30px;
+  }
+  @media (min-width: 1200px) {
+    margin-top: 108px;
+  }
+}
