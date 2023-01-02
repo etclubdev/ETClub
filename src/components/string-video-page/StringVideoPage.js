@@ -1,4 +1,5 @@
 import React, { Fragment, lazy, Suspense } from "react";
+import BreadCrumb from "../breadcrumb/BreadCrumb";
 
 import "./stringvideopage.scss";
 const StringCard = lazy(() => import("./StringCard"));
@@ -8,6 +9,10 @@ const StringVideoPage = () => {
   return (
     <Fragment>
       <Suspense>
+        <BreadCrumb
+          navPage="Góc công nghệ"
+          navDetail="Chuỗi hoạt động hướng dẫn nâng cao năng lực công nghệ cho SV"
+        />
         <div class="videos-page">
           <div class="container">
             <div class="videos-page__title">

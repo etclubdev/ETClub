@@ -1,4 +1,5 @@
 import React, { Fragment, lazy, Suspense } from "react";
+import BreadCrumb from "../../components/breadcrumb/BreadCrumb";
 
 const Name = lazy(() => import("../../components/info-contest/Name"));
 const ContentGlobalMobile = lazy(() =>
@@ -23,6 +24,10 @@ const InfoContestPage = () => {
   return (
     <Fragment>
       <Suspense>
+        <BreadCrumb
+          navPage="Cuộc thi"
+          navDetail="Cuộc thi Global Talents 2020"
+        />
         <Name />
         <ContentGlobal />
         <ContentGlobalMobile />
