@@ -10,6 +10,15 @@ const ContentGlobal = lazy(() =>
 const ContainerTimelineGlobal = lazy(() =>
   import("../../components/info-contest/ContainerTimelineGlobal")
 );
+const NameResult = lazy(() =>
+  import("../../components/info-contest/NameResult")
+);
+const ContestDonor = lazy(() =>
+  import("../../components/info-contest/ContestDonor")
+);
+const ResultContest = lazy(() =>
+  import("../../components/info-contest/ResultContest")
+);
 const InfoContestPage = () => {
   return (
     <Fragment>
@@ -18,6 +27,9 @@ const InfoContestPage = () => {
         <ContentGlobal />
         <ContentGlobalMobile />
         <ContainerTimelineGlobal />
+        <NameResult />
+        <ResultContest />
+        <ContestDonor />
       </Suspense>
     </Fragment>
   );

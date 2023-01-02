@@ -1,0 +1,178 @@
+.container-fluid__result {
+  width: 396px !important;
+
+  margin: 0 auto;
+  @media (min-width: 576px) {
+    width: 600px !important;
+  }
+  @media (min-width: 1200px) {
+    width: 864px !important;
+  }
+  .prize-title {
+    display: none;
+    @media (min-width: 1200px) {
+      font-family: "K2D";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 60px;
+      display: block;
+
+      color: #f5a623;
+    }
+  }
+  .avt-prize {
+    position: relative;
+    margin-bottom: 25px;
+    @media (min-width: 576px) {
+      margin-bottom: 35px;
+    }
+    @media (min-width: 1200px) {
+      margin-top: 77px;
+      margin-bottom: 46px;
+    }
+    img {
+      width: 67px;
+      height: 67px;
+      @media (min-width: 576px) {
+        width: 120px;
+        height: 120px;
+      }
+      @media (min-width: 1200px) {
+        width: 180px;
+        height: 180px;
+      }
+    }
+    .avt-prize__border {
+      position: absolute;
+      top: -18%;
+      right: 10%;
+      @media (min-width: 576px) {
+        top: -15%;
+        right: 7%;
+      }
+      @media (min-width: 1200px) {
+        top: -11%;
+        right: 8%;
+      }
+      img {
+        width: 95px;
+        height: 95px;
+        @media (min-width: 576px) {
+          width: 160px;
+          height: 160px;
+        }
+        @media (min-width: 1200px) {
+          width: 230px !important;
+          height: 230px !important;
+        }
+      }
+    }
+  }
+  .container-info {
+    h3 {
+      font-family: "K2D";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 28px;
+      color: #ffffff;
+      @media (min-width: 576px) {
+        font-size: 25px;
+        line-height: 32px;
+      }
+      @media (min-width: 1200px) {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 38px;
+      }
+    }
+    h4 {
+      font-family: "K2D";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 22px;
+      color: #ffffff;
+      @media (min-width: 576px) {
+        font-size: 20px;
+        line-height: 25px;
+      }
+      @media (min-width: 1200px) {
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 28px;
+      }
+    }
+  }
+  .second-prize {
+    .avt-prize {
+      .avt-prize__border {
+        top: -20%;
+        right: 8%;
+        transform: rotate(263deg);
+        @media (min-width: 576px) {
+          top: -17%;
+          right: 5%;
+        }
+        @media (min-width: 1200px) {
+          top: -14%;
+          right: 6%;
+        }
+      }
+    }
+  }
+  .third-prize {
+    .avt-prize {
+      .avt-prize__border {
+        top: -24%;
+        right: 9%;
+        transform: rotate(175deg);
+        @media (min-width: 576px) {
+          top: -20%;
+          right: 7%;
+        }
+        @media (min-width: 1200px) {
+          top: -17%;
+          right: 8%;
+        }
+      }
+    }
+  }
+  .container-result--main {
+    margin-bottom: 47px;
+    @media (min-width: 1200px) {
+      margin-bottom: 118px;
+    }
+
+    .second-prize {
+      margin-top: 45px;
+    }
+    .third-prize {
+      margin-top: 85px;
+    }
+  }
+  .container-result--encourage {
+    display: flex;
+    justify-content: space-evenly;
+    .prize-title {
+      @media (max-width: 1190px) {
+        display: block;
+        font-family: "K2D";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 28px;
+        color: #f5a623;
+      }
+    }
+    .avt-prize {
+      @media (max-width: 1190px) {
+        margin-top: 36px;
+      }
+    }
+    .avt-prize__border {
+      right: 17%;
+    }
+  }
+}

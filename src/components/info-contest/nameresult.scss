@@ -1,0 +1,32 @@
+.result-title {
+  margin-top: 100px;
+  margin-bottom: 43px;
+  @media (min-width: 576px) {
+    margin-bottom: 50px;
+  }
+  @media (min-width: 1200px) {
+    margin-bottom: 54px;
+  }
+  h1 {
+    font-family: "K2D";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #ffffff;
+    @media (min-width: 576px) {
+      font-weight: 700;
+      font-size: 35px;
+      line-height: 50px;
+    }
+    @media (min-width: 1200px) {
+      font-weight: 800;
+      font-size: 45px;
+      line-height: 80px;
+    }
+  }
+}

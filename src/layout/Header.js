@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment, useState } from "react";
 
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import "./header.scss";
 
 const Header = () => {
@@ -13,28 +13,11 @@ const Header = () => {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
-  const navbarRef = useRef(null);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (window.scrollY) {
-  //       console.log(navbarRef);
-  //       navbarRef.current.classList.add("sticky");
-  //     } else {
-  //       navbarRef.current.classList.remove("sticky");
-  //     }
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
   const [show, setShow] = useState(false);
   const [showIntro, setShowIntro] = useState(false);
   const [showTech, setShowTech] = useState(false);
   const [showCompetition, setShowCompetition] = useState(false);
+  const [back, setBack] = useState(false);
   const handleClickIcon = () => {
     setShow((show) => !show);
   };
@@ -46,6 +29,15 @@ const Header = () => {
   };
   const handleClickCompetition = () => {
     setShowCompetition((prev) => !prev);
+  };
+  const handleBackMenu = () => {
+    setBack((prev) => !prev);
+    setShowIntro(false);
+    setShowTech(false);
+    setShowCompetition(false);
+  };
+  const handleClickBtn = () => {
+    setShow(false);
   };
   return (
     <Fragment>
@@ -196,12 +188,13 @@ const Header = () => {
                 showIntro || showCompetition || showTech ? "invisible" : ""
               }`}
             >
-              <li className="active">
-                <a href="#" className="homepage-btn">
-                  Trang chủ
-                </a>
-                <hr className="divider-1" />
-              </li>
+              <Link to="/" onClick={handleClickBtn}>
+                <li className="active">
+                  <a className="homepage-btn">Trang chủ</a>
+                  <hr className="divider-1" />
+                </li>
+              </Link>
+
               <li>
                 <a href="#" className="intro-btn" onClick={handleClickIntro}>
                   Giới thiệu
@@ -211,15 +204,23 @@ const Header = () => {
                 <ul
                   className={`intro-show ${showIntro ? "show1 visible" : ""}`}
                 >
-                  <i id="previous-1" className="fas fa-angle-down" />
-                  <li>
-                    <a href="#">Về CLB</a>
-                    <hr />
-                  </li>
-                  <li>
-                    <a href="#">Cơ cấu tổ chức</a>
-                    <hr />
-                  </li>
+                  <i
+                    id="previous-1"
+                    onClick={handleBackMenu}
+                    className="fas fa-angle-down"
+                  />
+                  <Link to="/introduce/about-clb" onClick={handleClickBtn}>
+                    <li>
+                      Về CLB
+                      <hr />
+                    </li>
+                  </Link>
+                  <Link to="/introduce/cocaunhansu" onClick={handleClickBtn}>
+                    <li>
+                      <a href="#">Cơ cấu tổ chức</a>
+                      <hr />
+                    </li>
+                  </Link>
                 </ul>
               </li>
               <li>
@@ -229,22 +230,36 @@ const Header = () => {
                 </a>
                 <hr className="divider-3" />
                 <ul className={`tech-show ${showTech ? "show2 visible" : ""}`}>
-                  <i id="previous-2" className="fas fa-angle-down" />
-                  <li>
-                    <a href="#">Bản tin ET</a>
-                    <hr />
-                  </li>
-                  <li>
-                    <a href="#">
+                  <i
+                    id="previous-2"
+                    onClick={handleBackMenu}
+                    className="fas fa-angle-down"
+                  />
+                  <Link to="/tech-corner/ban-tin-ET" onClick={handleClickBtn}>
+                    <li>
+                      Bản tin ET
+                      <hr />
+                    </li>
+                  </Link>
+                  <Link
+                    to="/tech-corner/chuoi-hoat-dong"
+                    onClick={handleClickBtn}
+                  >
+                    <li>
                       Chuỗi hoạt động hướng dẫn nâng cao năng lực công nghệ cho
                       sinh viên
-                    </a>
-                    <hr />
-                  </li>
-                  <li>
-                    <a href="#">Các cuộc thi về công nghệ</a>
-                    <hr />
-                  </li>
+                      <hr />
+                    </li>
+                  </Link>
+                  <Link
+                    to="/tech-corner/cuoc-thi-cong-nghe"
+                    onClick={handleClickBtn}
+                  >
+                    <li>
+                      Các cuộc thi về công nghệ
+                      <hr />
+                    </li>
+                  </Link>
                 </ul>
               </li>
               <li>
@@ -266,23 +281,37 @@ const Header = () => {
                     showCompetition ? "show3 visible" : ""
                   }`}
                 >
-                  <i id="previous-3" className="fas fa-angle-down" />
-                  <li>
-                    <a href="#">Techconomy</a>
-                    <hr />
-                  </li>
-                  <li>
-                    <a href="#">Tất cả các cuộc thi</a>
-                    <hr />
-                  </li>
+                  <i
+                    id="previous-3"
+                    onClick={handleBackMenu}
+                    className="fas fa-angle-down"
+                  />
+                  <Link
+                    to="/tech-corner/chuoi-hoat-dong"
+                    onClick={handleClickBtn}
+                  >
+                    <li>
+                      Techconomy
+                      <hr />
+                    </li>
+                  </Link>
+                  <Link
+                    to="/tech-corner/chuoi-hoat-dong"
+                    onClick={handleClickBtn}
+                  >
+                    <li>
+                      Tất cả các cuộc thi
+                      <hr />
+                    </li>
+                  </Link>
                 </ul>
               </li>
-              <li>
-                <a href="#" className="CTV-btn">
-                  Tuyển CTV
-                </a>
-                <hr className="divider-5" />
-              </li>
+              <Link to="/tuyen-ctv" onClick={handleClickBtn}>
+                <li>
+                  <a className="CTV-btn">Tuyển CTV</a>
+                  <hr className="divider-5" />
+                </li>
+              </Link>
             </ul>
           </nav>
           <div className="background-blur" onClick={handleClickIcon}></div>
