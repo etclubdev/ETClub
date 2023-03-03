@@ -8,7 +8,7 @@ const database = knex({
 		port: 3306,
 		user: 'root',
 		password: '',
-		database: 'et_website_db',
+		database: 'etclub_website_db',
 	},
 });
 

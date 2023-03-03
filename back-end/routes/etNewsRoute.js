@@ -1,11 +1,11 @@
 import express from 'express'
-import newServices from '../services/etNews-services'
-import bcrypt from 'bcrypt'
-import nodemailer from 'nodemailer';
-import passport from 'passport';
+import newsServices from '../services/etNews-services.js';
 
 const Router = express.Router();
 
-Router.get('/', (req, res, next) => {
+Router.get('/', async (req, res, next) => {
+    const newsList = await newsServices.getAll();
+    res.send({ hello: "abc", 1: "so 1" });
+
 })
 export default Router;

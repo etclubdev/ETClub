@@ -4,14 +4,14 @@ import cors from 'cors'
 
 //Route
 import authRoute from './routes/etNewsRoute.js'
-import searchRoute from './routes/searchRoute.js'
+import competitionRoute from "./routes/competitionRoute.js"
 import homeRoute from './routes/homeRoute.js'
 
 const app = express();
 app.use(cors());
 app.use("/", homeRoute);
 app.use("/news",authRoute);
-app.use('/competition',searchRoute);
+app.use('/competition',competitionRoute);
 
 app.use((err,req,res, next)=> {
   console.log(err);

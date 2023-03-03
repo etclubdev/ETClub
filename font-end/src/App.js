@@ -1,20 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import AppRoutes from "./routes";
-import axios from "axios"
-import basicInfoApi from "./api/basicInfoApi"
+import etNewsApi from "./api/etNewsApi";
 
 function App() {
-  const [popular, setPopular] = useState([]);
-  const [topViewer, setTopViewer] = useState([]);
-  const [listNewest, setListNewest] = useState([]);
-  const [topCateList, setTopCateList] = useState([]);
-
   useEffect(()=>{
-    const fetchProduct = async ()=>{
-      const basicInfoList = await basicInfoApi.get(1)
-      console.log(basicInfoList)
+    const fetchNews = async ()=>{
+      const listNews = await etNewsApi.getAll()
+      console.log(listNews)
+      
     }
-    fetchProduct()
+    fetchNews()
   },[])
 
   return (
