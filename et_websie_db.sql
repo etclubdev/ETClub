@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS et_website_db;
-CREATE DATABASE et_website_db;
+CREATE DATABASE etclub_website_db;
 CREATE TABLE feeling (
   id INT NOT NULL AUTO_INCREMENT,
   quote TEXT NOT NULL,
