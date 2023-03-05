@@ -8,14 +8,19 @@ export const columns = [
     render: (_, record) => <span>{record.stt}</span>,
   },
   {
-    title: "Mô tả",
-    dataIndex: "description",
-    key: "description",
+    title: "Tiêu đề",
+    dataIndex: "title",
+    key: "title",
+  },
+  {
+    title: "Nội dung",
+    dataIndex: "content",
+    key: "content",
   },
   {
     title: "Hình ảnh",
-    dataIndex: "img",
-    key: "img",
+    dataIndex: "picture",
+    key: "picture",
   },
   {
     title: "Link chuyển tiếp",
@@ -42,22 +47,28 @@ export const data = [
   {
     key: "1",
     stt: "1",
-    description: "Cuộc thi Techconomy 2022",
-    img: "Techconomy.png",
+    title: "Sự phát triển của công nghệ Blockchain",
+    content:
+      "Lorem Ipsum   is Lorem Ipsum  is Trans Lorem  Ipsum is Trans  trans   ngh",
+    picture: "Ban tin ET.png",
     link: "acb.xyz.com",
   },
   {
     key: "2",
     stt: "2",
-    description: "Cuộc thi Techconomy 2022",
-    img: "Techconomy.png",
+    title: "Sự phát triển của công nghệ Blockchain",
+    content:
+      "Lorem Ipsum   is Lorem Ipsum  is Trans Lorem  Ipsum is Trans  trans   ngh",
+    picture: "Ban tin ET.png",
     link: "acb.xyz.com",
   },
   {
     key: "3",
     stt: "3",
-    description: "Cuộc thi Techconomy 2022",
-    img: "Techconomy.png",
+    title: "Sự phát triển của công nghệ Blockchain",
+    content:
+      "Lorem Ipsum   is Lorem Ipsum  is Trans Lorem  Ipsum is Trans  trans   ngh",
+    picture: "Ban tin ET.png",
     link: "acb.xyz.com",
   },
 ];

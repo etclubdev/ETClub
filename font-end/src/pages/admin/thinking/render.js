@@ -5,7 +5,7 @@ export const columns = [
     title: "STT",
     dataIndex: "stt",
     key: "stt",
-    render: (_, record) => <a style={{ color: "black" }}>{record.stt}</a>,
+    render: (_, record) => <span>{record.stt}</span>,
   },
   {
     title: "Mô tả",
@@ -32,8 +32,8 @@ export const columns = [
     key: "action",
     render: (_, record) => (
       <Space size='middle'>
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
+        <span>Edit</span>
+        <span>Delete</span>
       </Space>
     ),
   },

@@ -17,6 +17,10 @@ import Partner from "../pages/admin/partner";
 import HomePageAdmin from "../pages/admin/homepage";
 import ThinkingAdmin from "../pages/admin/thinking";
 import EditBanner from "../pages/admin/homepage/Edit";
+import EditPartner from "../pages/admin/partner/Edit";
+import EditThinking from "../pages/admin/thinking/Edit";
+import ETNewsAdmin from "../pages/admin/etnews";
+import EditETNews from "../pages/admin/etnews/Edit";
 
 const AppRoutes = () => {
   return (
@@ -80,7 +84,14 @@ const AppRoutes = () => {
             <Route index element={<HomePageAdmin />}></Route>
             <Route path='/admin/edit' element={<EditBanner />}></Route>
             <Route path='/admin/partner' element={<Partner />}></Route>
+            <Route path='/admin/partner/edit' element={<EditPartner />}></Route>
             <Route path='/admin/thinking' element={<ThinkingAdmin />}></Route>
+            <Route
+              path='/admin/thinking/edit'
+              element={<EditThinking />}
+            ></Route>
+            <Route path='/admin/etnews' element={<ETNewsAdmin />}></Route>
+            <Route path='/admin/etnews/edit' element={<EditETNews />}></Route>
           </Route>
         </Route>
       </Routes>

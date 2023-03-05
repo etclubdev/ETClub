@@ -44,6 +44,9 @@ const LeftMenu = () => {
     if (e.key === "sub2") {
       navigate("/admin");
     }
+    if (e.key === "sub8") {
+      navigate("/admin/etnews");
+    }
   };
   return (
     <Menu
