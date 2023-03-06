@@ -12,6 +12,7 @@ app.use(cors());
 app.use("/", homeRoute);
 app.use("/news",authRoute);
 app.use('/competition',competitionRoute);
+app.use('/banner',bannerRoute);
 
 app.use((err,req,res, next)=> {
   console.log(err);
