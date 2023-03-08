@@ -1,5 +1,6 @@
-DROP DATABASE IF EXISTS et_website_db;
+DROP DATABASE IF EXISTS etclub_website_db;
 CREATE DATABASE etclub_website_db;
+USE etclub_website_db;
 CREATE TABLE feeling (
   id INT NOT NULL AUTO_INCREMENT,
   quote TEXT NOT NULL,
@@ -65,3 +66,10 @@ CREATE TABLE sponsor (
   PRIMARY KEY (id),
   FOREIGN KEY (competition_id) REFERENCES competition(id)
 );
+CREATE TABLE banner (
+stt INT NOT NULL AUTO_INCREMENT,
+description TEXT NOT NULL,
+img TEXT NOT NULL,
+link TEXT NOT NULL,
+PRIMARY KEY (stt)
+)

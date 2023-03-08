@@ -1,15 +1,18 @@
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Upload } from "antd";
 import React from "react";
+import bannerApi from "../../../../api/bannerApi";
 
 const EditBanner = () => {
   const [fileList, setFileList] = React.useState([]);
+  const [form] = Form.useForm();
   const handleChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
   console.log(fileList);
   return (
     <Form
+      form={form}
       style={{
         background: "#fff",
         padding: "40px",
@@ -42,7 +45,22 @@ const EditBanner = () => {
         <Input></Input>
       </Form.Item>
       <Form.Item>
-        <Button>Tạo</Button>
+        <Button
+          onClick={() => {
+            form.validateFields().then((values) => {
+              console.log(values);
+              bannerApi.addBanner({
+                stt: values.index,
+                description: values.description,
+                img: values.picture,
+                link: values.link,
+              });
+              console.log("add banner thành công");
+            });
+          }}
+        >
+          Tạo
+        </Button>
       </Form.Item>
     </Form>
   );
