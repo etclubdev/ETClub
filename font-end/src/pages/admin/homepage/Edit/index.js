@@ -5,11 +5,31 @@ import bannerApi from "../../../../api/bannerApi";
 
 const EditBanner = () => {
   const [fileList, setFileList] = React.useState([]);
+  const [image, setImage] = React.useState();
   const [form] = Form.useForm();
-  const handleChange = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
+  const getBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  const handleChangeImage = async ({ fileList: newFile }) => {
+    setFileList(newFile);
+
+    if (
+      !newFile[newFile.length - 1].url &&
+      !newFile[newFile.length - 1].preview
+    ) {
+      newFile[newFile.length - 1].preview = await getBase64(
+        newFile[newFile.length - 1].originFileObj
+      );
+    }
+    setImage(
+      newFile[newFile.length - 1].url || newFile[newFile.length - 1].preview
+    );
   };
-  console.log(fileList);
+  console.log(image);
   return (
     <Form
       form={form}
@@ -31,7 +51,7 @@ const EditBanner = () => {
           accept='image/*'
           fileList={fileList}
           action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
-          onChange={handleChange}
+          onChange={handleChangeImage}
           listType='picture-card'
         >
           <br />
@@ -52,7 +72,7 @@ const EditBanner = () => {
               bannerApi.addBanner({
                 stt: values.index,
                 description: values.description,
-                img: values.picture,
+                img: image,
                 link: values.link,
               });
               console.log("add banner thành công");
