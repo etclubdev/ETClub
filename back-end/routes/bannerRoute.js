@@ -7,10 +7,10 @@ Router.get("/", async (req, res, next) => {
   const newsList = await bannerService.getAll();
 });
 Router.post("/", async (req, res, next) => {
-  const stt = req.body.data.stt;
-  const description = req.body.data.description;
-  const img = req.body.data.img;
-  const link = req.body.data.link;
+  const stt = req.body.stt;
+  const description = req.body.description;
+  const img = req.body.img;
+  const link = req.body.link;
   const addBanner = await bannerService.addBanner(stt, description, img, link);
   if (addBanner) res.json({ code: 200, msg: "OK" });
   else res.json({ code: 404, msg: "ERROR" });
