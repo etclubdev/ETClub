@@ -2,6 +2,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Upload } from "antd";
 import React from "react";
 import bannerApi from "../../../../api/bannerApi";
+import FilesUploadComponent from "../../../../components/files-upload-component";
 
 const EditBanner = () => {
   const [fileList, setFileList] = React.useState([]);
@@ -47,19 +48,11 @@ const EditBanner = () => {
         <Input></Input>
       </Form.Item>
       <Form.Item name='picture' label='Hình ảnh'>
-        <Upload
-          accept='image/*'
-          fileList={fileList}
-          action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
-          onChange={handleChangeImage}
-          listType='picture-card'
-        >
-          <br />
+        
           <div>
-            <UploadOutlined />
-            <div className='ant-upload-text'>Thêm hình ảnh</div>
+            <FilesUploadComponent/>
           </div>
-        </Upload>
+        
       </Form.Item>
       <Form.Item name='link' label='Link chuyển tiếp'>
         <Input></Input>

@@ -6,7 +6,9 @@ import LayoutAdmin from "./pages/admin";
 import HomePageAdmin from "./pages/admin/homepage";
 import Partner from "./pages/admin/partner";
 import Thinking from "./pages/admin/thinking";
-
+import React from 'react';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import FilesUploadComponent from './components/files-upload-component';
 function App() {
   useEffect(() => {
     const fetchNews = async () => {
@@ -21,6 +23,7 @@ function App() {
       <AppRoutes />
     </>
   );
+  
 }
 
 export default App;
