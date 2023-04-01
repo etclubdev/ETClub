@@ -1,4 +1,5 @@
 import axiosClient from "./axiosClient";
+
 const competitionApi = {
     getAllCompetition(params){
         const url = '/competition';
