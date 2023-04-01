@@ -69,13 +69,15 @@ const EditBanner = () => {
           onClick={() => {
             form.validateFields().then((values) => {
               console.log(values);
-              bannerApi.addBanner({
+              const check = bannerApi.addBanner({
                 stt: values.index,
                 description: values.description,
                 img: image,
                 link: values.link,
               });
-              console.log("add banner thành công");
+              
+                alert(check)
+              
             });
           }}
         >
