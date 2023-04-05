@@ -9,8 +9,8 @@ export default {
         const result = await db.raw(`select * from competition where id = ${id}`)
         return result[0]
     },
-    addCompetition: async(name,status,landscape_poster,portrait_poster,lookback_script,lookbach_img)=>{
-        const result = await db.raw(`INSERT INTO competition (name,status,landscape_poster,portrait_poster,lookback_script,lookbach_img) VALUES (${name}, "${status}", "${landscape_poster}", "${portrait_poster}", "${lookback_script}", "${lookbach_img}")`)
+    addCompetition: async(id,name,status,landscape_poster,portrait_poster,lookback_script,lookbach_img)=>{
+        const result = await db.raw(`INSERT INTO competition (id,name,status,landscape_poster,portrait_poster,lookback_script,lookbach_img) VALUES (${id},${name}, ${status}, ${landscape_poster}, ${portrait_poster}, ${lookback_script}, ${lookbach_img})`)
         return result[0]
     },
     updateCompetition: async(id,name,status,landscape_poster,portrait_poster,lookback_script,lookbach_img) => {

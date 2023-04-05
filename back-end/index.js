@@ -13,7 +13,7 @@ import bannerRoute from "./routes/bannerRoute.js";
 const app = express();
 app.use(cors());
 const upload = multer({dest:"./public/"})
-app.use("/static", express.static("public/"))
+app.use("/static", express.static("/"))
 app.post("/uploadFile", upload.single("img"), (req, res) =>{
   let fileType = req.file.mimetype.split("/")[1];
   let newFileName = req.file.filename + "." + fileType;
