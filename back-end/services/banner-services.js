@@ -18,7 +18,7 @@ export default {
         return result[0];
     },
     updateBanner: async(stt, description, img, link)=>{
-        const result = await db.raw(`update banner set description = ${description},img= ${img},link=${link} where (${stt}`);
+        const result = await db.raw(`update banner set description = ${description},img= ${img},link=${link} where stt = ${stt}`);
         return result[0];
     }
 }
