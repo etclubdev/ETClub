@@ -3,7 +3,8 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import multer from "multer";
-import fs from "fs"
+import fs from "fs";
+import db from "../back-end/utils/db.js";
 
 //Route
 import authRoute from "./routes/etNewsRoute.js";
@@ -12,17 +13,23 @@ import homeRoute from "./routes/homeRoute.js";
 import bannerRoute from "./routes/bannerRoute.js";
 const app = express();
 app.use(cors());
-const upload = multer({dest:"./public/"})
-app.use("/static", express.static("public/"))
-app.post("/uploadFile", upload.single("img"), (req, res) =>{
+const upload = multer({ dest: "./public/" });
+app.use("/static", express.static("public/"));
+app.post("/uploadFile", upload.single("img"), async (req, res) => {
   let fileType = req.file.mimetype.split("/")[1];
   let newFileName = req.file.filename + "." + fileType;
-
-  fs.rename(`./public/${req.file.filename}`, `./public/${newFileName}`, function(){
-    console.log("callback");
-    res.send("200");
-  })
-})
+  const uploadResponse = await db.raw(
+    `update banner set img = './public/${newFileName}' where stt = 1`
+  );
+  fs.rename(
+    `./public/${req.file.filename}`,
+    `./public/${newFileName}`,
+    function () {
+      console.log("callback");
+      res.send("200");
+    }
+  );
+});
 
 app.use(
   bodyParser.urlencoded({
@@ -36,8 +43,6 @@ app.use("/", homeRoute);
 app.use("/news", authRoute);
 app.use("/competition", competitionRoute);
 app.use("/banner", bannerRoute);
-
-
 
 app.use((err, req, res, next) => {
   console.log(err);
