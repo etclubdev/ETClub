@@ -5,7 +5,9 @@ const Router = express.Router();
 
 Router.get("/", async (req, res, next) => {
   const newsList = await bannerService.getAll();
+  res.json(newsList)
 });
+
 Router.post("/", async (req, res, next) => {
   const stt = req.body.stt;
   const description = req.body.description;

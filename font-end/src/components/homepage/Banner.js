@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 // import Swiper core and required modules
-
+import React from "react";
 // Import Swiper styles
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import "./banner.scss";
+import bannerApi from "../../api/bannerApi";
+import { ConsoleSqlOutlined } from "@ant-design/icons";
 export default function Banner() {
   const options = {
     nav: true,
@@ -32,12 +34,21 @@ export default function Banner() {
     },
   };
   const array = [1, 2, 3, 4, 5, 6, 8, 9, 10];
+  const [data, setData] = React.useState();
+  React.useEffect(() => {
+    const fetchNews = async () => {
+      const dataApi = await bannerApi.getAll();
+      setData(dataApi);
+    };
+    fetchNews();
+  }, []);
+
   return (
     <>
-      <OwlCarousel className="owl-theme owl-carousel-banner" {...options}>
+      <OwlCarousel className='owl-theme owl-carousel-banner' {...options}>
         {array.map((item, index) => (
-          <div className="item" key={index}>
-            <img src="./img/banner.png" />
+          <div className='item' key={index}>
+            <img src='./img/banner.png' />
           </div>
         ))}
       </OwlCarousel>
