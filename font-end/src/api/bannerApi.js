@@ -6,6 +6,7 @@ const bannerApi = {
     },
     addBanner(data){
         const url = `/banner`;
+        
         return axiosClient.post(url,data)
     },
 }
