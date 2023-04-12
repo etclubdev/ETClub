@@ -2,7 +2,7 @@ import _ from "./config/config.js";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-
+import morgan from "morgan";
 import fs from "fs";
 import db from "../back-end/utils/db.js";
 
@@ -13,24 +13,9 @@ import homeRoute from "./routes/homeRoute.js";
 import bannerRoute from "./routes/bannerRoute.js";
 const app = express();
 app.use(cors());
-
+app.use(morgan('dev'))
+app.use(express.json())
 app.use("/public", express.static("public/"));
-
-// app.post("/uploadFile", upload.single("img"), async (req, res) => {
-//   let fileType = req.file.mimetype.split("/")[1];
-//   let newFileName = req.file.filename + "." + fileType;
-//   const uploadResponse = await db.raw(
-//     `update banner set img = './public/${newFileName}' where stt = 1`
-//   );
-//   fs.rename(
-//     `./public/${req.file.filename}`,
-//     `./public/${newFileName}`,
-//     function () {
-//       console.log("callback");
-//       res.send("200");
-//     }
-//   );
-// });
 
 app.use(
   bodyParser.urlencoded({

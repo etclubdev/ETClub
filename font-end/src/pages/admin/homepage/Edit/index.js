@@ -50,9 +50,6 @@ const EditBanner = () => {
       }}
     >
       <h3>Tạo banner</h3>
-      <Form.Item name='index' label='STT'>
-        <Input></Input>
-      </Form.Item>
       <Form.Item name='description' label='Mô tả'>
         <Input></Input>
       </Form.Item>
@@ -71,7 +68,6 @@ const EditBanner = () => {
   onClick={() => {
     form.validateFields().then((values) => {
       const data = new FormData();
-      data.append("stt", values.index);
       data.append("description", values.description);
       data.append("img", image);
       data.append("link", values.link);
@@ -79,6 +75,7 @@ const EditBanner = () => {
       if (check){
         alert("ADD SUCCESS!")
       }
+      
     });
   }}
 >

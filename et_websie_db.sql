@@ -146,7 +146,9 @@ CREATE TABLE `sponsor` (
 --
 ALTER TABLE `competition`
   ADD PRIMARY KEY (`id`);
-
+  
+ALTER TABLE `banner`
+  ADD PRIMARY KEY (`stt`);
 --
 -- Chỉ mục cho bảng `competition_result`
 --
@@ -219,6 +221,9 @@ ALTER TABLE `milestone`
 --
 ALTER TABLE `sponsor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `banner`
+  MODIFY `stt` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
