@@ -39,7 +39,7 @@ const EditBanner = () => {
       alert("Please select a file.");
     }
   };
-  console.log(image);
+
   return (
     <Form
       form={form}
@@ -54,33 +54,30 @@ const EditBanner = () => {
         <Input></Input>
       </Form.Item>
       <Form.Item name='picture' label='Hình ảnh'>
-        
-          <div>
+        <div>
           <input type='file' onChange={fileOnChange} />
-          </div>
-        
+        </div>
       </Form.Item>
       <Form.Item name='link' label='Link chuyển tiếp'>
         <Input></Input>
       </Form.Item>
       <Form.Item>
-      <Button
-  onClick={() => {
-    form.validateFields().then((values) => {
-      const data = new FormData();
-      data.append("description", values.description);
-      data.append("img", image);
-      data.append("link", values.link);
-      const check = bannerApi.addBanner(data);
-      if (check){
-        alert("ADD SUCCESS!")
-      }
-      
-    });
-  }}
->
-  Tạo
-</Button>
+        <Button
+          onClick={() => {
+            form.validateFields().then((values) => {
+              const data = new FormData();
+              data.append("description", values.description);
+              data.append("img", image);
+              data.append("link", values.link);
+              const check = bannerApi.addBanner(data);
+              if (check) {
+                alert("ADD SUCCESS!");
+              }
+            });
+          }}
+        >
+          Tạo
+        </Button>
       </Form.Item>
     </Form>
   );
