@@ -6,7 +6,7 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import "./banner.scss";
-import abc from "../../../../back-end/public/images/banners";
+
 import bannerApi from "../../api/bannerApi";
 import { ConsoleSqlOutlined } from "@ant-design/icons";
 export default function Banner() {
@@ -34,8 +34,7 @@ export default function Banner() {
       },
     },
   };
-  const array = [1, 2, 3, 4, 5, 6, 8, 9, 10];
-  const [data, setData] = React.useState();
+  const [data, setData] = React.useState([]);
   const fetchBanners = async () => {
     try {
       const dataApi = await bannerApi.getAll();
@@ -44,21 +43,26 @@ export default function Banner() {
       console.log(error);
     }
   };
+
   React.useEffect(() => {
     fetchBanners();
   }, []);
-  console.log(data);
   return (
     <>
-      <OwlCarousel className='owl-theme owl-carousel-banner' {...options}>
-        {data?.map((item, index) => (
-          <div className='item' key={index}>
-            <img
-              src={`../../../../back-end/public/images/banners/${item.img}`}
-            />
-          </div>
-        ))}
-      </OwlCarousel>
+      {data.length > 0 ? (
+        <OwlCarousel className='owl-theme owl-carousel-banner' {...options}>
+          {data?.map((item, index) => (
+            <div className='item' key={index}>
+              <img
+                src={`http://127.0.0.1:1111/public/images/banners/${item.img}`}
+                alt={`Banner ${index + 1}`}
+              />
+            </div>
+          ))}
+        </OwlCarousel>
+      ) : (
+        <span>Loading...</span>
+      )}
     </>
   );
 }

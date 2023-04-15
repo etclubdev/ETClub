@@ -13,8 +13,8 @@ import homeRoute from "./routes/homeRoute.js";
 import bannerRoute from "./routes/bannerRoute.js";
 const app = express();
 app.use(cors());
-app.use(morgan('dev'))
-app.use(express.json())
+app.use(morgan("dev"));
+app.use(express.json());
 app.use("/public", express.static("public/"));
 
 app.use(
