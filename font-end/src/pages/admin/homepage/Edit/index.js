@@ -39,7 +39,7 @@ const EditBanner = () => {
       alert("Please select a file.");
     }
   };
-  console.log(image);
+
   return (
     <Form
       form={form}
@@ -54,11 +54,9 @@ const EditBanner = () => {
         <Input></Input>
       </Form.Item>
       <Form.Item name='picture' label='Hình ảnh'>
-
         <div>
           <input type='file' onChange={fileOnChange} />
         </div>
-
       </Form.Item>
       <Form.Item name='link' label='Link chuyển tiếp'>
         <Input></Input>
@@ -73,9 +71,8 @@ const EditBanner = () => {
               data.append("link", values.link);
               const check = bannerApi.addBanner(data);
               if (check) {
-                alert("ADD SUCCESS!")
+                alert("ADD SUCCESS!");
               }
-
             });
           }}
         >
