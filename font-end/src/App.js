@@ -10,12 +10,7 @@ import React from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import FilesUploadComponent from "./components/files-upload-component";
 function App() {
-  useEffect(() => {
-    const fetchNews = async () => {
-      const listNews = await etNewsApi.getAll();
-    };
-    fetchNews();
-  }, []);
+  
 
   return (
     <>
