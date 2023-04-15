@@ -15,11 +15,11 @@ const competitionApi = {
     },
     updateCompetition(data){
         const url = `/competition?id=${data.id}`;
-        return axiosClient.patch(url, data)
+        return axiosClient.post(url, data)
     },
     removeCompiton(id){
         const url = `/competition?id=${id}`;
-        return axiosClient.delete(url)
+        return axiosClient.post(url)
     },
    //the same for milestone
 
