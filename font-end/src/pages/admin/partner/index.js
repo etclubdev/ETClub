@@ -1,20 +1,38 @@
 import React from "react";
-import { Button, Table } from "antd";
+import { Button, Col, Row, Table } from "antd";
 import { columns, data } from "./render";
 import { useNavigate } from "react-router-dom";
 const Partner = () => {
   const navigate = useNavigate();
   return (
-    <div>
-      <div>Đối tác đồng hành</div>
-      <Button
-        onClick={() => navigate("/admin/partner/edit")}
-        style={{ display: "flex", justifyContent: "end" }}
+    <Row justify='center'>
+      <Col
+        style={{
+          marginTop: "15px",
+        }}
+        span={20}
       >
-        Thêm
-      </Button>
-      <Table columns={columns} dataSource={data} />
-    </div>
+        <div>
+          <h1>Quản lý danh sách đối tác đồng hành</h1>
+          <Row
+            style={{
+              display: "flex",
+              justifyContent: "end",
+              marginBottom: "10px",
+            }}
+          >
+            <Button
+              type='primary'
+              onClick={() => navigate("/admin/partner/edit")}
+            >
+              Tạo mới{" "}
+            </Button>
+          </Row>
+
+          <Table columns={columns} dataSource={data} />
+        </div>
+      </Col>{" "}
+    </Row>
   );
 };
 
