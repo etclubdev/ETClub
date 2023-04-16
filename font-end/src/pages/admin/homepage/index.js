@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form, Input, Modal, Table } from "antd";
+import { Button, Col, Form, Input, Modal, Row, Table } from "antd";
 import { columns } from "./render";
 import { useNavigate } from "react-router-dom";
 import bannerApi from "../../../api/bannerApi";
@@ -9,7 +9,7 @@ const HomePageAdmin = () => {
   const [dataDetail, setDataDetail] = React.useState();
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-
+  const [loading, setLoading] = React.useState(true);
   const showModal = async (stt) => {
     setIsModalOpen(true);
     const dataApiDetail = await bannerApi.getById(stt);
@@ -51,48 +51,64 @@ const HomePageAdmin = () => {
 
   React.useEffect(() => {
     fetchBanners();
+    setLoading(false);
   }, []);
   return (
-    <div>
-      <h1>Homepage</h1>
-      <div>Banner</div>
-      <Button
-        onClick={() => navigate("/admin/edit")}
-        style={{ display: "flex", justifyContent: "end" }}
+    <Row justify='center'>
+      <Col
+        style={{
+          marginTop: "15px",
+        }}
+        span={20}
       >
-        Thêm
-      </Button>
-      <Modal
-        title='Chỉnh sửa banner'
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        okText={"Lưu"}
-      >
-        {dataDetail ? (
-          <Form form={form}>
-            <Form.Item
-              name='description'
-              initialValue={dataDetail.description}
-              label='Mô tả'
-            >
-              <Input />
-            </Form.Item>
+        <h1>Quản lý danh sách Banner</h1>
+        <Row
+          style={{
+            display: "flex",
+            justifyContent: "end",
+            marginBottom: "10px",
+          }}
+        >
+          <Button type='primary' onClick={() => navigate("/admin/edit")}>
+            Tạo mới{" "}
+          </Button>
+        </Row>
+        <Modal
+          title='Chỉnh sửa banner'
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          okText={"Lưu"}
+        >
+          {dataDetail ? (
+            <Form form={form}>
+              <Form.Item
+                name='description'
+                initialValue={dataDetail.description}
+                label='Mô tả'
+              >
+                <Input />
+              </Form.Item>
 
-            <Form.Item
-              name='link'
-              initialValue={dataDetail.link}
-              label='Link chuyển tiếp'
-            >
-              <Input></Input>
-            </Form.Item>
-          </Form>
-        ) : (
-          <span>Loading ...</span>
-        )}
-      </Modal>
-      <Table columns={columns(handleDelete, showModal)} dataSource={data} />
-    </div>
+              <Form.Item
+                name='link'
+                initialValue={dataDetail.link}
+                label='Link chuyển tiếp'
+              >
+                <Input></Input>
+              </Form.Item>
+            </Form>
+          ) : (
+            <span>Loading ...</span>
+          )}
+        </Modal>
+        <Table
+          columns={columns(handleDelete, showModal)}
+          loading={loading}
+          dataSource={data}
+        />
+      </Col>
+    </Row>
   );
 };
 

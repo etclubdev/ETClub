@@ -1,6 +1,5 @@
 import React from "react";
-import { Space, Table, Tag } from "antd";
-import bannerApi from "../../../api/bannerApi";
+import { Space } from "antd";
 
 export const columns = (handleDelete, showModal) => {
   return [

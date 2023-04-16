@@ -8,7 +8,7 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import "./banner.scss";
 
 import bannerApi from "../../api/bannerApi";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
+
 export default function Banner() {
   const options = {
     nav: true,
@@ -55,6 +55,7 @@ export default function Banner() {
             <div className='item' key={index}>
               <img
                 src={`http://127.0.0.1:1111/public/images/banners/${item.img}`}
+                style={{ height: "600px" }}
                 alt={`Banner ${index + 1}`}
               />
             </div>

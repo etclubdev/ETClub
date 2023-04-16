@@ -4,8 +4,9 @@ import {
   SettingOutlined,
   AppstoreOutlined,
 } from "@ant-design/icons";
-import { Menu } from "antd";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Layout, Menu, Row } from "antd";
+
+import { useNavigate } from "react-router-dom";
 function getItem(label, key, icon, link, children, type) {
   return {
     key,
@@ -49,16 +50,26 @@ const LeftMenu = () => {
     }
   };
   return (
-    <Menu
-      onClick={onClick}
-      defaultSelectedKeys={["1"]}
-      defaultOpenKeys={["sub1"]}
-      mode='inline'
-      style={{
-        height: "100%",
-      }}
-      items={items}
-    />
+    <Layout.Sider width='100%' style={{ zIndex: 9999, background: "#fff" }}>
+      <Row justify='center'>
+        <img
+          src='/img/ET 1.png'
+          style={{ margin: "5px" }}
+          alt='Logo ET'
+          height={48}
+        />
+      </Row>
+      <Menu
+        onClick={onClick}
+        defaultSelectedKeys={["1"]}
+        defaultOpenKeys={["sub1"]}
+        mode='inline'
+        style={{
+          height: "100vh",
+        }}
+        items={items}
+      />
+    </Layout.Sider>
   );
 };
 export default LeftMenu;

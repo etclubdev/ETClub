@@ -9,7 +9,7 @@ const LayoutAdmin = () => {
       <Col span={5}>
         <LeftMenu />
       </Col>
-      <Col span={19}>
+      <Col style={{ background: "#6f6f6f" }} span={19}>
         <Outlet></Outlet>
       </Col>
     </Row>
