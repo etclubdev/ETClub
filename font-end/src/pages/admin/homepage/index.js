@@ -10,6 +10,9 @@ const HomePageAdmin = () => {
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
+  const [image, setImage] = React.useState();
+  const [imageURL, setImageURL] = React.useState("");
+  let objectURL = "";
   const showModal = async (stt) => {
     setIsModalOpen(true);
     const dataApiDetail = await bannerApi.getById(stt);
@@ -21,11 +24,12 @@ const HomePageAdmin = () => {
     setIsModalOpen(false);
 
     form.validateFields().then((values) => {
-      const check = bannerApi.updateBanner({
-        description: values.description,
-        link: values.link,
-        stt: dataDetail.stt,
-      });
+      const data = new FormData();
+      data.append("description", values.description);
+      data.append("img", imageURL.length > 0 ? image : dataDetail.img);
+      data.append("stt", dataDetail.stt);
+      data.append("link", values.link);
+      const check = bannerApi.updateBanner(data);
       if (check) {
         alert("ADD SUCCESS!");
         fetchBanners();
@@ -35,6 +39,7 @@ const HomePageAdmin = () => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    setImageURL("");
   };
   const fetchBanners = async () => {
     try {
@@ -47,6 +52,18 @@ const HomePageAdmin = () => {
   const handleDelete = async (stt) => {
     await bannerApi.delBanner(stt);
     await fetchBanners();
+  };
+  const fileOnChange = (event) => {
+    const file = event.target.files[0];
+    console.log(file);
+    objectURL = URL.createObjectURL(file);
+    setImageURL(objectURL);
+    if (file) {
+      setImage(file);
+    } else {
+      setImage(null);
+      alert("Please select a file.");
+    }
   };
 
   React.useEffect(() => {
@@ -96,6 +113,22 @@ const HomePageAdmin = () => {
                 label='Link chuyển tiếp'
               >
                 <Input></Input>
+              </Form.Item>
+              <Form.Item name='picture' label='Hình ảnh'>
+                <div>
+                  <img
+                    style={{ width: "100%" }}
+                    src={
+                      imageURL.length > 0
+                        ? imageURL
+                        : `http://127.0.0.1:1111/public/images/banners/${dataDetail.img}`
+                    }
+                    alt=''
+                  />
+                </div>
+                <div>
+                  <input type='file' onChange={fileOnChange} />
+                </div>
               </Form.Item>
             </Form>
           ) : (

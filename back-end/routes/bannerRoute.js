@@ -38,9 +38,28 @@ Router.post("/delete-banner", async (req, res) => {
   if (delBanner) res.json({ code: 200, msg: "OK" });
   else res.json({ code: 404, msg: "ERROR" });
 });
-Router.post("/update-banner", async (req, res) => {
+Router.post("/update-banner", upload.single("img"), async (req, res) => {
+  //image process
+  let fileType = req.file.mimetype.split("/")[1];
+  let imgName = req.file.filename + "." + fileType;
+  fs.rename(
+    `./public/images/banners/${req.file.filename}`,
+    `./public/images/banners/${imgName}`,
+    function (err) {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Error uploading file");
+      }
+    }
+  );
+
   const { description, link, stt } = req.body;
-  const updateBanner = await bannerService.updateBanner(stt, description, link);
+  const updateBanner = await bannerService.updateBanner(
+    stt,
+    description,
+    imgName,
+    link
+  );
   if (updateBanner) res.json({ code: 200, msg: "OK" });
   else res.json({ code: 404, msg: "ERROR" });
 });

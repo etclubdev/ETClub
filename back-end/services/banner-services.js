@@ -19,9 +19,9 @@ export default {
   delBanner: async (stt) => {
     await db.raw(`DELETE FROM banner WHERE stt= ${stt}`);
   },
-  updateBanner: async (stt, description, link) => {
+  updateBanner: async (stt, description, img, link) => {
     await db.raw(
-      `UPDATE banner SET description = '${description}', link= '${link}' WHERE stt = ${stt}`
+      `UPDATE banner SET description = '${description}', link= '${link}', img= '${img}' WHERE stt = ${stt}`
     );
   },
 };
