@@ -4,11 +4,11 @@ import knex from "knex";
 const database = knex({
   client: "mysql",
   connection: {
-    host: "127.0.0.1",
+    host: "sql615.main-hosting.eu",
     port: 3306,
-    user: "root",
-    password: "",
-    database: "etclub_website_db",
+    user: "u123045693_O6Yyd",
+    password: "123456Et.",
+    database: "u123045693_rExF4",
   },
 });
 
