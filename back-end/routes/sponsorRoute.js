@@ -30,7 +30,7 @@ Router.post("/", upload.single("logo"), async (req, res, next) => {
 
   const addSponsor = await sponsorService.addSponsor(
     name,
-    logo,
+    imgName,
     kind,
     competition_id
   );
@@ -44,25 +44,28 @@ Router.post("/delete-sponsor", async (req, res) => {
 });
 Router.post("/update-sponsor", upload.single("logo"), async (req, res) => {
   //image process
-  let fileType = req.file.mimetype.split("/")[1];
-  let imgName = req.file.filename + "." + fileType;
-  fs.rename(
-    `./public/images/sponsor/${req.file.filename}`,
-    `./public/images/sponsor/${imgName}`,
-    function (err) {
-      if (err) {
-        console.error(err);
-        return res.status(500).send("Error uploading file");
+  let imgName = "";
+  if (req.body.logo === undefined) {
+    let fileType = req.file.mimetype.split("/")[1];
+    imgName = req.file.filename + "." + fileType;
+    fs.rename(
+      `./public/images/sponsor/${req.file.filename}`,
+      `./public/images/sponsor/${imgName}`,
+      function (err) {
+        if (err) {
+          console.error(err);
+          return res.status(500).send("Error uploading file");
+        }
       }
-    }
-  );
+    );
+  }
 
   const { name, logo, kind, id } = req.body;
   const updateSponsor = await sponsorService.updateSponsor(
+    id,
     name,
-    logo,
-    kind,
-    id
+    req.body.logo === undefined ? imgName : logo,
+    kind
   );
   if (updateSponsor) res.json({ code: 200, msg: "OK" });
   else res.json({ code: 404, msg: "ERROR" });

@@ -55,7 +55,7 @@ const SponsorAdmin = () => {
   };
   const fileOnChange = (event) => {
     const file = event.target.files[0];
-    console.log(file);
+
     objectURL = URL.createObjectURL(file);
     setImageURL(objectURL);
     if (file) {
@@ -94,7 +94,7 @@ const SponsorAdmin = () => {
           </Button>
         </Row>
         <Modal
-          title='Chỉnh sửa banner'
+          title='Chỉnh sửa nhà tài trợ'
           open={isModalOpen}
           onOk={handleOk}
           width={800}
@@ -113,7 +113,7 @@ const SponsorAdmin = () => {
 
               <Form.Item
                 name='kind'
-                initialValue={dataDetail.logo}
+                initialValue={dataDetail.kind}
                 label='Thể loại'
               >
                 <Input></Input>
@@ -121,7 +121,11 @@ const SponsorAdmin = () => {
               <Form.Item name='logo' label='Logo'>
                 <div>
                   <img
-                    style={{ width: "100%" }}
+                    style={{
+                      width: "100%",
+                      height: "150px",
+                      objectFit: "contain",
+                    }}
                     src={
                       imageURL.length > 0
                         ? imageURL

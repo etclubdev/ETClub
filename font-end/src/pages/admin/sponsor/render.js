@@ -44,8 +44,8 @@ export const columns = (handleDelete, showModal) => {
       key: "action",
       render: (_, record) => (
         <Space size='middle'>
-          <button onClick={() => showModal(record.stt)}>Edit</button>
-          <button onClick={() => handleDelete(record.stt)}>Delete</button>
+          <button onClick={() => showModal(record.id)}>Edit</button>
+          <button onClick={() => handleDelete(record.id)}>Delete</button>
         </Space>
       ),
     },

@@ -29,6 +29,7 @@ const HomePageAdmin = () => {
       data.append("img", imageURL.length > 0 ? image : dataDetail.img);
       data.append("stt", dataDetail.stt);
       data.append("link", values.link);
+
       const check = bannerApi.updateBanner(data);
       if (check) {
         alert("ADD SUCCESS!");
@@ -118,7 +119,11 @@ const HomePageAdmin = () => {
               <Form.Item name='picture' label='Hình ảnh'>
                 <div>
                   <img
-                    style={{ width: "100%" }}
+                    style={{
+                      width: "100%",
+                      height: "150px",
+                      objectFit: "contain",
+                    }}
                     src={
                       imageURL.length > 0
                         ? imageURL

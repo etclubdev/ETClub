@@ -1,74 +1,52 @@
 import React from "react";
-import { Space, Table, Tag } from "antd";
-export const columns = [
-  {
-    title: "STT",
-    dataIndex: "stt",
-    key: "stt",
-    render: (_, record) => <span>{record.stt}</span>,
-  },
-  {
-    title: "Tiêu đề",
-    dataIndex: "title",
-    key: "title",
-  },
-  {
-    title: "Nội dung",
-    dataIndex: "content",
-    key: "content",
-  },
-  {
-    title: "Hình ảnh",
-    dataIndex: "picture",
-    key: "picture",
-  },
-  {
-    title: "Link chuyển tiếp",
-    key: "Link",
-    dataIndex: "Link",
-    render: (_, record) => (
-      <>
-        <Space>{record.link}</Space>
-      </>
-    ),
-  },
-  {
-    title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size='middle'>
-        <span>Edit</span>
-        <span>Delete</span>
-      </Space>
-    ),
-  },
-];
-export const data = [
-  {
-    key: "1",
-    stt: "1",
-    title: "Sự phát triển của công nghệ Blockchain",
-    content:
-      "Lorem Ipsum   is Lorem Ipsum  is Trans Lorem  Ipsum is Trans  trans   ngh",
-    picture: "Ban tin ET.png",
-    link: "acb.xyz.com",
-  },
-  {
-    key: "2",
-    stt: "2",
-    title: "Sự phát triển của công nghệ Blockchain",
-    content:
-      "Lorem Ipsum   is Lorem Ipsum  is Trans Lorem  Ipsum is Trans  trans   ngh",
-    picture: "Ban tin ET.png",
-    link: "acb.xyz.com",
-  },
-  {
-    key: "3",
-    stt: "3",
-    title: "Sự phát triển của công nghệ Blockchain",
-    content:
-      "Lorem Ipsum   is Lorem Ipsum  is Trans Lorem  Ipsum is Trans  trans   ngh",
-    picture: "Ban tin ET.png",
-    link: "acb.xyz.com",
-  },
-];
+import { Space } from "antd";
+
+export const columns = (handleDelete, showModal) => {
+  return [
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "status",
+      key: "status",
+    },
+    {
+      title: "Tên cuộc thi",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Ảnh ngang",
+      dataIndex: "landscape_poster",
+      key: "landscape_poster",
+    },
+    {
+      title: "Ảnh dọc",
+      key: "portrait_poster",
+      dataIndex: "portrait_poster",
+    },
+    {
+      title: "Nội dung recap",
+      key: "lookback_script",
+      dataIndex: "lookback_script",
+    },
+    {
+      title: "Ảnh recap",
+      key: "lookback_img",
+      dataIndex: "lookback_img",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <Space size='middle'>
+          <button onClick={() => showModal(record.id)}>Edit</button>
+          <button onClick={() => handleDelete(record.id)}>Delete</button>
+        </Space>
+      ),
+    },
+  ];
+};

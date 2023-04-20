@@ -6,7 +6,7 @@ export default {
     return result[0];
   },
   getBySponsorId: async (id) => {
-    const result = await db.raw(`select * from sponsor where stt = ${id}`);
+    const result = await db.raw(`select * from sponsor where id = ${id}`);
     return result[0];
   },
   addSponsor: async (name, logo, kind, competition_id) => {
@@ -21,7 +21,7 @@ export default {
   },
   updateSponsor: async (id, name, logo, kind) => {
     const result = await db.raw(
-      `update sponsor set name = ${name},logo= ${logo},kind=${kind}  where id = ${id}`
+      `update sponsor set name = '${name}',logo= '${logo}',kind='${kind}'  where id = ${id}`
     );
     return result[0];
   },
