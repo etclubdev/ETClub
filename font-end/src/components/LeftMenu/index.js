@@ -39,7 +39,10 @@ const LeftMenu = () => {
     console.log("click ", e);
     if (e.key === "sub5") {
       navigate("/admin/partner");
-    }
+      }
+    if (e.key === "sub3") {
+          navigate("/admin/competition");
+      }
     if (e.key === "sub4") {
       navigate("/admin/thinking");
     }

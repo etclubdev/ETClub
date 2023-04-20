@@ -23,6 +23,8 @@ import ETNewsAdmin from "../pages/admin/etnews";
 import EditETNews from "../pages/admin/etnews/Edit";
 import SponsorAdmin from "../pages/admin/sponsor";
 import EditSponsor from "../pages/admin/sponsor/Edit";
+import CompetitionAdmin from "../pages/admin/competition";
+import EditCompetition from "../pages/admin/competition/Edit";
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -95,6 +97,14 @@ const AppRoutes = () => {
           <Route path='/admin/etnews/edit' element={<EditETNews />}></Route>
           <Route path='/admin/sponsor' element={<SponsorAdmin />}></Route>
           <Route path='/admin/sponsor/edit' element={<EditSponsor />}></Route>
+          <Route
+            path='/admin/competition/Edit'
+            element={<EditCompetition />}
+          ></Route>
+          <Route
+            path='/admin/competition'
+            element={<CompetitionAdmin />}
+          ></Route>
         </Route>
       </Routes>
       {shouldShowHeaderAndFooter && <Footer></Footer>}
