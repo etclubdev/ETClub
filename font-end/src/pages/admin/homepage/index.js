@@ -94,6 +94,7 @@ const HomePageAdmin = () => {
           title='Chỉnh sửa banner'
           open={isModalOpen}
           onOk={handleOk}
+          width={800}
           onCancel={handleCancel}
           okText={"Lưu"}
         >
