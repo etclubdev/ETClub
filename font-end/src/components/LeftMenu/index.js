@@ -31,6 +31,7 @@ const items = [
   getItem("Cơ cấu các ban", "sub10", <SettingOutlined />),
   getItem("Hình ảnh hoạt động các ban", "sub11", <SettingOutlined />),
   getItem("Thành tựu các ban", "sub12", <SettingOutlined />),
+  getItem("Quản lý nhà tài trợ", "sub13", <SettingOutlined />),
 ];
 const LeftMenu = () => {
   const navigate = useNavigate();
@@ -47,6 +48,9 @@ const LeftMenu = () => {
     }
     if (e.key === "sub8") {
       navigate("/admin/etnews");
+    }
+    if (e.key === "sub13") {
+      navigate("/admin/sponsor");
     }
   };
   return (

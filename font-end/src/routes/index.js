@@ -21,6 +21,8 @@ import EditPartner from "../pages/admin/partner/Edit";
 import EditThinking from "../pages/admin/thinking/Edit";
 import ETNewsAdmin from "../pages/admin/etnews";
 import EditETNews from "../pages/admin/etnews/Edit";
+import SponsorAdmin from "../pages/admin/sponsor";
+import EditSponsor from "../pages/admin/sponsor/Edit";
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -91,6 +93,8 @@ const AppRoutes = () => {
           <Route path='/admin/thinking/edit' element={<EditThinking />}></Route>
           <Route path='/admin/etnews' element={<ETNewsAdmin />}></Route>
           <Route path='/admin/etnews/edit' element={<EditETNews />}></Route>
+          <Route path='/admin/sponsor' element={<SponsorAdmin />}></Route>
+          <Route path='/admin/sponsor/edit' element={<EditSponsor />}></Route>
         </Route>
       </Routes>
       {shouldShowHeaderAndFooter && <Footer></Footer>}

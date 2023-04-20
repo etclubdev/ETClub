@@ -11,6 +11,7 @@ import authRoute from "./routes/etNewsRoute.js";
 import competitionRoute from "./routes/competitionRoute.js";
 import homeRoute from "./routes/homeRoute.js";
 import bannerRoute from "./routes/bannerRoute.js";
+import sponsorRoute from "./routes/sponsorRoute.js";
 const app = express();
 app.use(cors());
 app.use(morgan("dev"));
@@ -29,6 +30,7 @@ app.use("/", homeRoute);
 app.use("/news", authRoute);
 app.use("/competition", competitionRoute);
 app.use("/banner", bannerRoute);
+app.use("/sponsor", sponsorRoute);
 
 app.use((err, req, res, next) => {
   console.log(err);
