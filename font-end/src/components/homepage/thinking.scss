@@ -29,6 +29,7 @@
   &-desc {
     font-size: 18px;
     color: #ffffff;
+    flex: 1;
     margin-top: 10px;
     padding: 0 46px 0 38px;
     p {
@@ -38,10 +39,14 @@
   &-detail {
     display: flex;
     padding: 0 38px;
-    margin-top: 38px;
+    margin-top: auto;
+    margin-bottom: 38px;
+    flex-shrink: 0;
     img {
-      width: 80px;
+      border-radius: 100%;
+      width: 80px !important;
       height: 80px;
+      object-fit: cover;
     }
   }
   &-info {

@@ -3,6 +3,7 @@ import "./thinking.scss";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
+import feelingApi from "../../api/feelingApi";
 const Thinking = () => {
   const options = {
     dotsEach: true,
@@ -22,144 +23,50 @@ const Thinking = () => {
       },
     },
   };
+  const [data, setData] = React.useState([]);
+  const fetchFeelings = async () => {
+    try {
+      const dataApi = await feelingApi.getAll();
+      setData(dataApi);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  React.useEffect(() => {
+    fetchFeelings();
+  }, []);
   return (
     <div>
-      <div className="thingking container">
-        <div className="thingking-name">CẢM NGHĨ</div>
-        <OwlCarousel className="owl-theme thingking-list" {...options}>
-          <div className="thingking-item item">
-            <div className="thingking-quote">
-              <img src="/img/Rectangle 2640.png" alt="" />
-            </div>
-            <div className="thingking-desc">
-              <p>Bạn có quá nhiều deadline? </p>
-              <p>
-                {" "}
-                Hãy tham gia ET CLUB, dù không bớt việc nhưng sẽ có người vừa
-                khóc vừa chạy deadline cùng.
-              </p>
-            </div>
-            <div className="thingking-detail">
-              <div className="thingking-avatar">
-                <img src="/img/Ellipse 109.png" alt="" />
+      <div className='thingking container'>
+        <div className='thingking-name'>CẢM NGHĨ</div>
+        {data.length > 0 ? (
+          <OwlCarousel className='owl-theme thingking-list' {...options}>
+            {data?.map((item) => (
+              <div key={item.id} className='thingking-item item'>
+                <div className='thingking-quote'>
+                  <img src='/img/Rectangle 2640.png' alt='' />
+                </div>
+                <div className='thingking-desc'>
+                  <p>{item.quote}</p>
+                </div>
+                <div className='thingking-detail'>
+                  <div className='thingking-avatar'>
+                    <img
+                      src={`http://127.0.0.1:1111/public/images/feeling/${item.avatar}`}
+                      alt=''
+                    />
+                  </div>
+                  <div className='thingking-info'>
+                    <div className='info-name'>{item.author}</div>
+                    <div className='info-where'>{item.department}</div>
+                  </div>
+                </div>
               </div>
-              <div className="thingking-info">
-                <div className="info-name">Bùi Xuân Mai</div>
-                <div className="info-where">Ban TECH</div>
-              </div>
-            </div>
-          </div>
-          <div className="thingking-item item">
-            <div className="thingking-quote">
-              <img src="/img/Rectangle 2640.png" alt="" />
-            </div>
-            <div className="thingking-desc">
-              <p>Bạn có quá nhiều deadline? </p>
-              <p>
-                {" "}
-                Hãy tham gia ET CLUB, dù không bớt việc nhưng sẽ có người vừa
-                khóc vừa chạy deadline cùng.
-              </p>
-            </div>
-            <div className="thingking-detail">
-              <div className="thingking-avatar">
-                <img src="/img/Ellipse 109.png" alt="" />
-              </div>
-              <div className="thingking-info">
-                <div className="info-name">Bùi Xuân Mai</div>
-                <div className="info-where">Ban TECH</div>
-              </div>
-            </div>
-          </div>
-          <div className="thingking-item item">
-            <div className="thingking-quote">
-              <img src="/img/Rectangle 2640.png" alt="" />
-            </div>
-            <div className="thingking-desc">
-              <p>Bạn có quá nhiều deadline? </p>
-              <p>
-                {" "}
-                Hãy tham gia ET CLUB, dù không bớt việc nhưng sẽ có người vừa
-                khóc vừa chạy deadline cùng.
-              </p>
-            </div>
-            <div className="thingking-detail">
-              <div className="thingking-avatar">
-                <img src="/img/Ellipse 109.png" alt="" />
-              </div>
-              <div className="thingking-info">
-                <div className="info-name">Bùi Xuân Mai</div>
-                <div className="info-where">Ban TECH</div>
-              </div>
-            </div>
-          </div>
-          <div className="thingking-item item">
-            <div className="thingking-quote">
-              <img src="/img/Rectangle 2640.png" alt="" />
-            </div>
-            <div className="thingking-desc">
-              <p>Bạn có quá nhiều deadline? </p>
-              <p>
-                {" "}
-                Hãy tham gia ET CLUB, dù không bớt việc nhưng sẽ có người vừa
-                khóc vừa chạy deadline cùng.
-              </p>
-            </div>
-            <div className="thingking-detail">
-              <div className="thingking-avatar">
-                <img src="/img/Ellipse 109.png" alt="" />
-              </div>
-              <div className="thingking-info">
-                <div className="info-name">Bùi Xuân Mai</div>
-                <div className="info-where">Ban TECH</div>
-              </div>
-            </div>
-          </div>
-          <div className="thingking-item item">
-            <div className="thingking-quote">
-              <img src="/img/Rectangle 2640.png" alt="" />
-            </div>
-            <div className="thingking-desc">
-              <p>Bạn có quá nhiều deadline? </p>
-              <p>
-                {" "}
-                Hãy tham gia ET CLUB, dù không bớt việc nhưng sẽ có người vừa
-                khóc vừa chạy deadline cùng.
-              </p>
-            </div>
-            <div className="thingking-detail">
-              <div className="thingking-avatar">
-                <img src="/img/Ellipse 109.png" alt="" />
-              </div>
-              <div className="thingking-info">
-                <div className="info-name">Bùi Xuân Mai</div>
-                <div className="info-where">Ban TECH</div>
-              </div>
-            </div>
-          </div>
-          <div className="thingking-item item">
-            <div className="thingking-quote">
-              <img src="/img/Rectangle 2640.png" alt="" />
-            </div>
-            <div className="thingking-desc">
-              <p>Bạn có quá nhiều deadline? </p>
-              <p>
-                {" "}
-                Hãy tham gia ET CLUB, dù không bớt việc nhưng sẽ có người vừa
-                khóc vừa chạy deadline cùng.
-              </p>
-            </div>
-            <div className="thingking-detail">
-              <div className="thingking-avatar">
-                <img src="/img/Ellipse 109.png" alt="" />
-              </div>
-              <div className="thingking-info">
-                <div className="info-name">Bùi Xuân Mai</div>
-                <div className="info-where">Ban TECH</div>
-              </div>
-            </div>
-          </div>
-        </OwlCarousel>
+            ))}
+          </OwlCarousel>
+        ) : (
+          <span>Loading...</span>
+        )}
       </div>
     </div>
   );

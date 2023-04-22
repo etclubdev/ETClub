@@ -91,8 +91,8 @@ const AppRoutes = () => {
           <Route path='/admin/edit' element={<EditBanner />}></Route>
           <Route path='/admin/partner' element={<Partner />}></Route>
           <Route path='/admin/partner/edit' element={<EditPartner />}></Route>
-          <Route path='/admin/thinking' element={<ThinkingAdmin />}></Route>
-          <Route path='/admin/thinking/edit' element={<EditThinking />}></Route>
+          <Route path='/admin/feeling' element={<ThinkingAdmin />}></Route>
+          <Route path='/admin/feeling/edit' element={<EditThinking />}></Route>
           <Route path='/admin/etnews' element={<ETNewsAdmin />}></Route>
           <Route path='/admin/etnews/edit' element={<EditETNews />}></Route>
           <Route path='/admin/sponsor' element={<SponsorAdmin />}></Route>
