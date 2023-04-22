@@ -1,51 +1,71 @@
-import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Upload } from "antd";
+import { Button, Form, Input } from "antd";
 import React from "react";
+import feelingApi from "../../../../api/feelingApi";
 
-const EditThinking = () => {
-  const [fileList, setFileList] = React.useState([]);
-  const handleChange = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
+const EditBanner = () => {
+  const [image, setImage] = React.useState();
+  const [form] = Form.useForm();
+
+  const fileOnChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setImage(file);
+    } else {
+      setImage(null);
+      alert("Please select a file.");
+    }
   };
-  console.log(fileList);
+  //fafa
   return (
-    <Form
-      style={{
-        background: "#fff",
-        padding: "40px",
-        height: "100%",
-      }}
-    >
-      <h3>Tạo Thinking</h3>
-      <Form.Item name='index' label='STT'>
-        <Input></Input>
-      </Form.Item>
-      <Form.Item name='description' label='Mô tả'>
-        <Input></Input>
-      </Form.Item>
-      <Form.Item name='picture' label='Hình ảnh'>
-        <Upload
-          accept='image/*'
-          fileList={fileList}
-          action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
-          onChange={handleChange}
-          listType='picture-card'
-        >
-          <br />
+    <>
+      <Form
+        form={form}
+        style={{
+          background: "#fff",
+          padding: "40px",
+          height: "100%",
+        }}
+      >
+        <h3>Tạo Cảm nghĩ</h3>
+        <Form.Item name='quote' label='Quote'>
+          <Input></Input>
+        </Form.Item>
+
+        <Form.Item name='author' label='Tác giả'>
+          <Input></Input>
+        </Form.Item>
+        <Form.Item name='department' label='Ban'>
+          <Input></Input>
+        </Form.Item>
+        <Form.Item name='avatar' label='Ảnh đại diện'>
           <div>
-            <UploadOutlined />
-            <div className='ant-upload-text'>Thêm hình ảnh</div>
+            <input type='file' onChange={fileOnChange} />
           </div>
-        </Upload>
-      </Form.Item>
-      <Form.Item name='link' label='Link chuyển tiếp'>
-        <Input></Input>
-      </Form.Item>
-      <Form.Item>
-        <Button>Tạo</Button>
-      </Form.Item>
-    </Form>
+        </Form.Item>
+        <Form.Item>
+          <Button
+            onClick={() => {
+              form.validateFields().then((values) => {
+                console.log(values);
+                const data = new FormData();
+                data.append("quote", values.quote);
+                data.append("author", values.author);
+                data.append("department", values.department);
+                data.append("avatar", image);
+
+                const check = feelingApi.addFeeling(data);
+                if (check) {
+                  alert("ADD SUCCESS!");
+                }
+              });
+            }}
+          >
+            Tạo
+          </Button>
+        </Form.Item>
+      </Form>
+    </>
   );
 };
 
-export default EditThinking;
+export default EditBanner;

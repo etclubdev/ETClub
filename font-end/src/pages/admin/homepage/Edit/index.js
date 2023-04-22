@@ -5,31 +5,9 @@ import bannerApi from "../../../../api/bannerApi";
 import FilesUploadComponent from "../../../../components/files-upload-component";
 
 const EditBanner = () => {
-  const [fileList, setFileList] = React.useState([]);
   const [image, setImage] = React.useState();
   const [form] = Form.useForm();
-  const getBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  const handleChangeImage = async ({ fileList: newFile }) => {
-    setFileList(newFile);
 
-    if (
-      !newFile[newFile.length - 1].url &&
-      !newFile[newFile.length - 1].preview
-    ) {
-      newFile[newFile.length - 1].preview = await getBase64(
-        newFile[newFile.length - 1].originFileObj
-      );
-    }
-    setImage(
-      newFile[newFile.length - 1].url || newFile[newFile.length - 1].preview
-    );
-  };
   const fileOnChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -39,7 +17,7 @@ const EditBanner = () => {
       alert("Please select a file.");
     }
   };
-    //fafa 
+  //fafa
   return (
     <>
       <Form
