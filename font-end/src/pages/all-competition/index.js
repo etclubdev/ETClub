@@ -12,13 +12,13 @@ const AllCompetitionPage = () => {
   return (
     <Fragment>
       <Suspense>
-        <BreadCrumb navPage="Cuộc thi" navDetail="Tất cả các cuộc thi" />
+        <BreadCrumb navPage='Cuộc thi' navDetail='Tất cả các cuộc thi' />
         <Title />
-        <Year year="2022" />
+        <Year year='2022' />
         <Upcomming />
-        <Year year="2021" />
+        <Year year='2021' />
         <EventReverse />
-        <Year year="2020" />
+        <Year year='2020' />
         <Event />
         <Mobile />
       </Suspense>
