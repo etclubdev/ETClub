@@ -50,6 +50,7 @@ const EditBanner = () => {
                 data.append("img", image);
                 data.append("link", values.link);
                 const check = bannerApi.addBanner(data);
+                console.log(check)
                 if (check) {
                   alert("ADD SUCCESS!");
                 }
