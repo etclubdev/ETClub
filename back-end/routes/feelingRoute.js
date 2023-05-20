@@ -11,8 +11,18 @@ Router.get("/", async (req, res, next) => {
 });
 Router.use("/public/images/feeling", express.static("public/images/feeling/"));
 // const upload = multer({ dest: "./public/images/feeling" });
-const storage = multer.memoryStorage();
-const upload = multer(storage);
+// const storage = multer.memoryStorage();
+// const upload = multer(storage);
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/images/feeling');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({ storage });
 Router.post("/", upload.single("avatar"), async (req, res, next) => {
   //data process
 

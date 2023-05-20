@@ -16,8 +16,18 @@ Router.get("/get-competition-by-id/:id", async (req, res) => {
 
 //});
 // const upload = multer({ dest: "./public/images/competition" });
-const storage = multer.memoryStorage();
-const upload = multer(storage);
+// const storage = multer.memoryStorage();
+// const upload = multer(storage);
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/images/competition');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({ storage });
 const fields = [
   { name: "landscape_poster", maxCount: 3 },
   { name: "portrait_poster", maxCount: 3 },

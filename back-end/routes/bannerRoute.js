@@ -10,8 +10,18 @@ Router.get("/", async (req, res, next) => {
 });
 Router.use("/public/images/banners", express.static("public/images/banners/"));
 // const upload = multer({ dest: "./public/images/banners" });
-const storage = multer.memoryStorage();
-const upload = multer(storage);
+// const storage = multer.memoryStorage();
+// const upload = multer(storage);
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/images/banners');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({ storage });
 Router.post("/", upload.single("img"), async (req, res, next) => {
   //data process
   const description = req.body.description;
