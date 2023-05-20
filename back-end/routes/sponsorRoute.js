@@ -9,7 +9,10 @@ Router.get("/", async (req, res, next) => {
   res.json(newsList);
 });
 Router.use("/public/images/sponsor", express.static("public/images/sponsor/"));
-const upload = multer({ dest: "./public/images/sponsor" });
+
+// const upload = multer({ dest: "./public/images/sponsor" });
+const storage = multer.memoryStorage();
+const upload = multer(storage);
 Router.post("/", upload.single("logo"), async (req, res, next) => {
   //data process
   console.log("check sponsor", req.body);

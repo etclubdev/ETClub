@@ -10,7 +10,9 @@ Router.get("/", async (req, res, next) => {
   res.json(newsList);
 });
 Router.use("/public/images/feeling", express.static("public/images/feeling/"));
-const upload = multer({ dest: "./public/images/feeling" });
+// const upload = multer({ dest: "./public/images/feeling" });
+const storage = multer.memoryStorage();
+const upload = multer(storage);
 Router.post("/", upload.single("avatar"), async (req, res, next) => {
   //data process
 

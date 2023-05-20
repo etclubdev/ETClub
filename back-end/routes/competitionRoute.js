@@ -15,7 +15,9 @@ Router.get("/get-competition-by-id/:id", async (req, res) => {
 //const ret = await competitionService.add(req.body);
 
 //});
-const upload = multer({ dest: "./public/images/competition" });
+// const upload = multer({ dest: "./public/images/competition" });
+const storage = multer.memoryStorage();
+const upload = multer(storage);
 const fields = [
   { name: "landscape_poster", maxCount: 3 },
   { name: "portrait_poster", maxCount: 3 },
