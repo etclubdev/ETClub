@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "https://et-api-psi.vercel.app/",
+  baseURL: "https://et-api-psi.vercel.app",
 });
 
 // Add a request interceptor

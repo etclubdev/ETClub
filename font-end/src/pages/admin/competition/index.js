@@ -184,7 +184,7 @@ const CompetitionAdmin = () => {
                     src={
                       imageURLLanscape.length > 0
                         ? imageURLLanscape
-                        : `et-api-psi.vercel.app/public/images/competition/${dataDetail.landscape_poster}`
+                        : `https://et-api-psi.vercel.app/public/images/competition/${dataDetail.landscape_poster}`
                     }
                     alt=''
                   />
@@ -204,7 +204,7 @@ const CompetitionAdmin = () => {
                     src={
                       imageURLPortrait.length > 0
                         ? imageURLPortrait
-                        : `et-api-psi.vercel.app/public/images/competition/${dataDetail.portrait_poster}`
+                        : `https://et-api-psi.vercel.app/public/images/competition/${dataDetail.portrait_poster}`
                     }
                     alt=''
                   />
@@ -224,7 +224,7 @@ const CompetitionAdmin = () => {
                     src={
                       imageURLLookback.length > 0
                         ? imageURLLookback
-                        : `et-api-psi.vercel.app/public/images/competition/${dataDetail.lookback_img}`
+                        : `https://et-api-psi.vercel.app/public/images/competition/${dataDetail.lookback_img}`
                     }
                     alt=''
                   />

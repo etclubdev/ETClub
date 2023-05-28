@@ -25,6 +25,7 @@ import SponsorAdmin from "../pages/admin/sponsor";
 import EditSponsor from "../pages/admin/sponsor/Edit";
 import CompetitionAdmin from "../pages/admin/competition";
 import EditCompetition from "../pages/admin/competition/Edit";
+import DetailDepartment from '../pages/detail-department';
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -73,6 +74,10 @@ const AppRoutes = () => {
         <Route
           path='/cuoc-thi/techconomy'
           element={<InfoContestPage></InfoContestPage>}
+        ></Route>
+        <Route
+          path='/introduce/cocaunhansu/ban-nhan-su'
+          element={<DetailDepartment></DetailDepartment>}
         ></Route>
         <Route
           path='/cuoc-thi/tat-ca-cuoc-thi'

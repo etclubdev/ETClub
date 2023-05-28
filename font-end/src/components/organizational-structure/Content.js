@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import "./Content.scss";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Link } from 'react-router-dom';
 const Content = () => {
   useEffect(() => {
     AOS.init();
@@ -62,9 +63,9 @@ const Content = () => {
                 việc trong mảng tổ chức hỗ trợ cho các công tác hành chính nội
                 bộ cũng do ban Nhân sự - Tổ chức nắm chính.
               </p>
-              <a href="#">
+              <Link to='/introduce/cocaunhansu/ban-nhan-su'>
                 Xem thêm <i className="fas fa-long-arrow-alt-right" />
-              </a>
+              </Link>
             </div>
           </div>
           <div className="container__organizational-structure--item-mobile">
@@ -222,9 +223,9 @@ const Content = () => {
                 việc trong mảng tổ chức hỗ trợ cho các công tác hành chính nội
                 bộ cũng do ban Nhân sự - Tổ chức nắm chính.
               </p>
-              <a href="#">
+              <Link to='/introduce/cocaunhansu/ban-nhan-su'>
                 Xem thêm <i className="fas fa-long-arrow-alt-right" />
-              </a>
+              </Link>
             </div>
             <div className="day">
               <img src="/img/day.png" alt />

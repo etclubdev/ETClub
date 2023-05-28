@@ -127,7 +127,7 @@ const HomePageAdmin = () => {
                     src={
                       imageURL.length > 0
                         ? imageURL
-                        : `et-api-psi.vercel.app/public/images/banners/${dataDetail.img}`
+                        : `https://et-api-psi.vercel.app/public/images/banners/${dataDetail.img}`
                     }
                     alt=''
                   />

@@ -54,7 +54,7 @@ export default function Banner() {
           {data?.map((item, index) => (
             <div className='item' key={index}>
               <img
-                src={`et-api-psi.vercel.app/public/images/banners/${item.img}`}
+                src={`https://et-api-psi.vercel.app/public/images/banners/${item.img}`}
                 style={{ height: "600px" }}
                 alt={`Banner ${index + 1}`}
               />

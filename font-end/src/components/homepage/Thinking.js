@@ -53,7 +53,7 @@ const Thinking = () => {
                 <div className='thingking-detail'>
                   <div className='thingking-avatar'>
                     <img
-                      src={`et-api-psi.vercel.app/public/images/feeling/${item.avatar}`}
+                      src={`https://et-api-psi.vercel.app/public/images/feeling/${item.avatar}`}
                       alt=''
                     />
                   </div>
