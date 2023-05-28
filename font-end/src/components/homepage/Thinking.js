@@ -9,6 +9,7 @@ const Thinking = () => {
     dotsEach: true,
     loop: false,
     nav: false,
+    margin: 20,
     items: 3,
     responsive: {
       0: {
