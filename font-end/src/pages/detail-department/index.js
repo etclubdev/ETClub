@@ -3,7 +3,12 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import './index.scss'
+import { useParams } from 'react-router-dom';
+import { ToDepartment } from '../../utils';
 const DetailDepartment = () => {
+    const { department } = useParams();
+    const data = ToDepartment(department)
+
     const options = {
         nav: true,
         items: 1,
@@ -41,7 +46,7 @@ const DetailDepartment = () => {
     };
     return (
         <div className='w-full max-w-[1300px] mx-auto flex flex-col justify-center'>
-            <h1 className='flex justify-center text-[45px] leading-[80px] font-extrabold'>BAN NHÂN SỰ - TỔ CHỨC</h1>
+            <h1 className='flex justify-center text-[45px] leading-[80px] font-extrabold'>{data?.name ?? '-'}</h1>
             <div className='px-[115px] mt-[70px]'>
                 <div className='flex justify-end mb-[60px]'>
                     <div className='w-[60%] flex '>
@@ -57,23 +62,23 @@ const DetailDepartment = () => {
                             <img className='-translate-y-[33%]' src="/img/Arrow-3.png" alt="" />
                         </div>
                         <div className='flex items-center'>
-                            <div className='flex flex-col text-[32px] leading-[38px] font-bold -translate-y-[33%]'>
+                            <div className='flex flex-col text-[27px] leading-[36px] font-bold -translate-y-[33%]'>
                                 <h2 className='text-center'>Trưởng ban</h2>
-                                <h2>Nguyễn Thị Anh Thi</h2>
+                                <h2 className='text-center'>{data?.lead ?? '-'}</h2>
                             </div>
                         </div>
                     </div>
 
                 </div>
                 <div className='flex flex-wrap items-center justify-center gap-[50px] mb-[90px]'>
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item, index) => {
+                    {data?.members?.map((item, index) => {
                         return <div key={index} className='flex flex-col items-center'>
                             <div className='w-[184px] h-[184px] p-[8px] rounded-full border-[3px] border-[#F5A623]'>
-                                <img className='w-[164px] h-[164px] rounded-full' src='/img/Circle-M.png' />
+                                <img className='w-[164px] h-[164px] rounded-full' src={item.image} />
                             </div>
                             <div className='flex flex-col text-[21px] leading-[29px] font-bold'>
                                 <h2 className='text-center'>Thành viên</h2>
-                                <h2>Nguyễn Thị Anh Thi</h2>
+                                <h2>{item.name}</h2>
                             </div>
                         </div>
                     })}
@@ -84,7 +89,7 @@ const DetailDepartment = () => {
             </div>
             <div className='flex flex-col justify-center items-center'>
                 <h1 className='text-[40px] leading-[70px] font-bold text-[#F5A623]'>Giới thiệu cơ bản về ban</h1>
-                <p className='text-xl font-normal'>Ban Nhân sự - Tổ chức đảm nhận các công việc liên quan đến việc quản lý nhân sự nội bộ, nhằm tạo nên sự kết nối giữa các tất cả cộng tác viên và thành viên của câu lạc bộ. Bên cạnh đó, công việc trong mảng tổ chức hỗ trợ cho các công tác hành chính nội bộ cũng do ban Nhân sự - Tổ chức nắm chính.</p>
+                <p className='text-xl font-normal'>{data?.introduce ?? '-'}</p>
             </div>
             <div className='flex flex-row gap-x-[66px] items-baseline mt-[45px]'>
                 <div className='relative w-[510px] h-[352px]'>
@@ -96,11 +101,9 @@ const DetailDepartment = () => {
                             <h1 className='text-[32px] leading-[38px] font-bold text-[#F5A623]'>Công việc trong CLB</h1>
                             <div className='px-[20px] mt-[25px]'>
                                 <ul className='list-disc text-lg font-normal'>
-                                    <li>Quản trị nhân sự, phân chia tổ chức</li>
-                                    <li>Phát triển và gắn kết nhân sự</li>
-                                    <li>Công tác hành chính (giấy tờ, kế hoạch, ...)</li>
-                                    <li>Xây dựng và tổ chức các chương trình nội bộ</li>
-                                    <li>Quản lý tài chính</li>
+                                    {data?.job?.map((item, i) => {
+                                        return <li key={i}>{item}</li>
+                                    })}
                                 </ul>
                             </div>
                         </div>
@@ -112,13 +115,9 @@ const DetailDepartment = () => {
                         <h1 className='text-[32px] leading-[38px] font-bold text-[#F5A623]'>Yêu cầu vị trí</h1>
                         <div className='px-[20px] mt-[25px]'>
                             <ul className='list-disc text-lg font-normal'>
-                                <li>Chủ động, hoạt ngôn, thân thiện, có khả năng hoạt náo và làm chủ bầu không khí.</li>
-                                <li>Có khả năng gắn kết các thành viên.</li>
-                                <li>Chỉn chu, cẩn thận.</li>
-                                <li>Cầu tiến, ham học hỏi, không ngại tiếp thu.</li>
-                                <li>Có kỹ năng sử dụng cơ bản một số công cụ Google để hỗ trợ công việc.</li>
-                                <li>Khả năng tổ chức, quản lý và sắp xếp nhân sự.</li>
-                                <li>Khả năng quản lý thời gian.</li>
+                                {data?.requirement?.map((item, i) => {
+                                    return <li key={i}>{item}</li>
+                                })}
                             </ul>
                         </div>
                     </div>
@@ -187,7 +186,7 @@ const DetailDepartment = () => {
             <div className='w-full flex flex-col justify-center items-center mt-[70px]'>
                 <div className='mb-[40px] flex flex-col items-center'>
                     <h1 className='text-[45px] leading-[80px] font-extrabold '>TÍNH ĐẾN NAY,</h1>
-                    <h1 className='text-[45px] leading-[80px] font-extrabold '> BAN NHÂN SỰ TỔ CHỨC CÓ</h1>
+                    <h1 className='text-[45px] leading-[80px] font-extrabold '> {data?.name ?? '-'} CÓ</h1>
                 </div>
                 <div className='flex flex-row justify-between w-full px-[50px]'>
                     <div className='flex flex-col items-center text-gradient'>

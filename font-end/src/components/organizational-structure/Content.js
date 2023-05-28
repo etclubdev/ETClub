@@ -26,7 +26,7 @@ const Content = () => {
                 và phát triển hình ảnh câu lạc bộ.
               </p>
               <a href="#">
-                Xem thêm <i className="fas fa-long-arrow-alt-right" />
+                Xem chi tiết <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
           </div>
@@ -42,9 +42,9 @@ const Content = () => {
                 đảm nhận việc tạo dựng các mối quan hệ lâu dài với các tổ chức
                 bên ngoài nhằm giao lưu, học hỏi, tìm kiếm cơ hội hợp tác.
               </p>
-              <a href="#">
-                Xem thêm <i className="fas fa-long-arrow-alt-right" />
-              </a>
+              <Link to='/introduce/cocaunhansu/ban-er'>
+                Xem chi tiết <i className="fas fa-long-arrow-alt-right" />
+              </Link>
             </div>
           </div>
           <div className="container__organizational-structure--item-mobile">
@@ -64,7 +64,7 @@ const Content = () => {
                 bộ cũng do ban Nhân sự - Tổ chức nắm chính.
               </p>
               <Link to='/introduce/cocaunhansu/ban-nhan-su'>
-                Xem thêm <i className="fas fa-long-arrow-alt-right" />
+                Xem chi tiết <i className="fas fa-long-arrow-alt-right" />
               </Link>
             </div>
           </div>
@@ -81,9 +81,9 @@ const Content = () => {
                 phối chương trình, dự trù rủi ro và phân công nhân sự sao cho
                 phù hợp nhất.
               </p>
-              <a href="#">
-                Xem thêm <i className="fas fa-long-arrow-alt-right" />
-              </a>
+              <Link to='/introduce/cocaunhansu/ban-event'>
+                Xem chi tiết <i className="fas fa-long-arrow-alt-right" />
+              </Link>
             </div>
           </div>
           <div className="container__organizational-structure--item-mobile">
@@ -101,9 +101,9 @@ const Content = () => {
                 thi nhằm hỗ trợ sinh viên tiếp cận nhanh và hiệu quả nhất đến
                 với lĩnh vực này.
               </p>
-              <a href="#">
-                Xem thêm <i className="fas fa-long-arrow-alt-right" />
-              </a>
+              <Link to='/introduce/cocaunhansu/ban-pr'>
+                Xem chi tiết <i className="fas fa-long-arrow-alt-right" />
+              </Link>
             </div>
           </div>
           <div className="container__organizational-structure--item-mobile">
@@ -120,7 +120,7 @@ const Content = () => {
                 phù hợp nhất.
               </p>
               <a href="#">
-                Xem thêm <i className="fas fa-long-arrow-alt-right" />
+                Xem chi tiết <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
           </div>
@@ -140,9 +140,9 @@ const Content = () => {
                 học thuật cho các cuộc thi, chia sẻ những kiến thức và kỹ năng
                 sử dụng IT, tạo nên xu hướng công nghệ cho sinh viên UEH.
               </p>
-              <a href="#">
-                Xem thêm <i className="fas fa-long-arrow-alt-right" />
-              </a>
+              <Link to='/introduce/cocaunhansu/ban-tech'>
+                Xem chi tiết <i className="fas fa-long-arrow-alt-right" />
+              </Link>
             </div>
           </div>
         </div>
@@ -168,7 +168,7 @@ const Content = () => {
                 và phát triển hình ảnh câu lạc bộ.
               </p>
               <a href="#">
-                Xem thêm <i className="fas fa-long-arrow-alt-right" />
+                Xem chi tiết <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
             <div className="day">
@@ -190,9 +190,9 @@ const Content = () => {
                 đảm nhận việc tạo dựng các mối quan hệ lâu dài với các tổ chức
                 bên ngoài nhằm giao lưu, học hỏi, tìm kiếm cơ hội hợp tác.
               </p>
-              <a href="#">
-                Xem thêm <i className="fas fa-long-arrow-alt-right" />
-              </a>
+              <Link to='/introduce/cocaunhansu/ban-er'>
+                Xem chi tiết <i className="fas fa-long-arrow-alt-right" />
+              </Link>
             </div>
             <div className="col-6 container__organizational-structure--item-image ">
               <img src="/img/chunhiem.png" alt />
@@ -224,7 +224,7 @@ const Content = () => {
                 bộ cũng do ban Nhân sự - Tổ chức nắm chính.
               </p>
               <Link to='/introduce/cocaunhansu/ban-nhan-su'>
-                Xem thêm <i className="fas fa-long-arrow-alt-right" />
+                Xem chi tiết <i className="fas fa-long-arrow-alt-right" />
               </Link>
             </div>
             <div className="day">
@@ -247,9 +247,9 @@ const Content = () => {
                 phối chương trình, dự trù rủi ro và phân công nhân sự sao cho
                 phù hợp nhất.
               </p>
-              <a href="#">
-                Xem thêm <i className="fas fa-long-arrow-alt-right" />
-              </a>
+              <Link to='/introduce/cocaunhansu/ban-event'>
+                Xem chi tiết <i className="fas fa-long-arrow-alt-right" />
+              </Link>
             </div>
             <div className="col-6 container__organizational-structure--item-image">
               <img src="/img/chunhiem.png" alt />
@@ -279,9 +279,9 @@ const Content = () => {
                 thi nhằm hỗ trợ sinh viên tiếp cận nhanh và hiệu quả nhất đến
                 với lĩnh vực này.
               </p>
-              <a href="#">
-                Xem thêm <i className="fas fa-long-arrow-alt-right" />
-              </a>
+              <Link to='/introduce/cocaunhansu/ban-pr'>
+                Xem chi tiết <i className="fas fa-long-arrow-alt-right" />
+              </Link>
             </div>
             <div className="day">
               <img src="/img/day.png" alt />
@@ -304,7 +304,7 @@ const Content = () => {
                 phù hợp nhất.
               </p>
               <a href="#">
-                Xem thêm <i className="fas fa-long-arrow-alt-right" />
+                Xem chi tiết <i className="fas fa-long-arrow-alt-right" />
               </a>
             </div>
             <div className="col-6 container__organizational-structure--item-image">
@@ -336,9 +336,9 @@ const Content = () => {
                 học thuật cho các cuộc thi, chia sẻ những kiến thức và kỹ năng
                 sử dụng IT, tạo nên xu hướng công nghệ cho sinh viên UEH.
               </p>
-              <a href="#">
-                Xem thêm <i className="fas fa-long-arrow-alt-right" />
-              </a>
+              <Link to='/introduce/cocaunhansu/ban-tech'>
+                Xem chi tiết <i className="fas fa-long-arrow-alt-right" />
+              </Link>
             </div>
           </div>
         </div>

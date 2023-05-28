@@ -76,7 +76,7 @@ const AppRoutes = () => {
           element={<InfoContestPage></InfoContestPage>}
         ></Route>
         <Route
-          path='/introduce/cocaunhansu/ban-nhan-su'
+          path='/introduce/cocaunhansu/:department'
           element={<DetailDepartment></DetailDepartment>}
         ></Route>
         <Route
