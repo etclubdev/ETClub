@@ -68,7 +68,7 @@ const Competition = () => {
           {data?.map((item) => (
             <div key={item.id} className='item'>
               <img
-                src={`http://127.0.0.1:1111/public/images/competition/${item.portrait_poster}`}
+                src={`et-api-psi.vercel.app/public/images/competition/${item.portrait_poster}`}
               />
             </div>
           ))}
