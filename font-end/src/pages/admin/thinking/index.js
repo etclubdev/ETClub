@@ -138,7 +138,7 @@ const HomePageAdmin = () => {
                     src={
                       imageURL.length > 0
                         ? imageURL
-                        : `http://127.0.0.1:1111/public/images/feeling/${dataDetail.avatar}`
+                        : `et-api-psi.vercel.app/public/images/feeling/${dataDetail.avatar}`
                     }
                     alt=''
                   />

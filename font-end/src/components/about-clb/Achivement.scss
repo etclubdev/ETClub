@@ -91,7 +91,34 @@
         height: 81.48px;
       }
     }
+    @media (min-width: 1200px) {
+      .achievement-year,
+      .achievement-communication,
+      .achievement-competition,
+      .achievement-workshop,
+      .achievement-year,
+      .achievement-oldmember,
+      .achievement-member {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    @media (max-width: 1200px) {
+      .achievement-year,
+      .achievement-communication,
+      .achievement-competition,
+      .achievement-workshop,
+      .achievement-year,
+      .achievement-oldmember,
+      .achievement-member {
+        display: flex;
+        flex-direction: column;
 
+        align-items: center;
+      }
+    }
     .achievement-communication,
     .achievement-workshop {
       h1 {
