@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useState } from "react";
 
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import "./header.scss";
 
 const Header = () => {
   const { pathname } = useLocation();
-  console.log(pathname);
+  const id = pathname.substring(pathname.lastIndexOf('/') + 1);
+
   const handleClick = (div) => {
     if (pathname === "/") {
       const element = document.querySelector("#" + div);
@@ -48,7 +49,7 @@ const Header = () => {
               <Link to="/">
                 <img
                   className="logo_img"
-                  src="./img/Logo ET.png"
+                  src="./img/Logo-ET.png"
                   alt="Logo ET"
                 />
               </Link>
@@ -70,12 +71,11 @@ const Header = () => {
                 onClick={() => handleClick("introduce")}
               >
                 <Link
-                  className={` ${
-                    pathname === "/introduce/about-clb" ||
+                  className={` ${pathname === "/introduce/about-clb" ||
                     pathname === "/introduce/cocaunhansu"
-                      ? " active"
-                      : ""
-                  }`}
+                    ? " active"
+                    : ""
+                    }`}
                 >
                   <span>
                     Giới thiệu <i className="fas fa-angle-down"></i>
@@ -96,13 +96,13 @@ const Header = () => {
               <div className="nav-link nav-link__grTechnology">
                 <Link
                   onClick={() => handleClick("tech-corner")}
-                  className={` ${
-                    pathname === "/tech-corner/ban-tin-ET" ||
+                  className={` ${pathname === "/tech-corner/ban-tin-ET" ||
+                    pathname === `/tech-corner/ban-tin-ET/${id}` ||
                     pathname === "/tech-corner/chuoi-hoat-dong" ||
                     pathname === "/tech-corner/cuoc-thi-cong-nghe"
-                      ? " active"
-                      : ""
-                  }`}
+                    ? " active"
+                    : ""
+                    }`}
                 >
                   <span>
                     Góc công nghệ <i className="fas fa-angle-down"></i>
@@ -130,12 +130,11 @@ const Header = () => {
               <div className="nav-link nav-link__contest">
                 <Link
                   onClick={() => handleClick("cuoc-thi")}
-                  className={` ${
-                    pathname === "/cuoc-thi/techconomy" ||
+                  className={` ${pathname === "/cuoc-thi/techconomy" ||
                     pathname === "/cuoc-thi/tat-ca-cuoc-thi"
-                      ? " active"
-                      : ""
-                  }`}
+                    ? " active"
+                    : ""
+                    }`}
                 >
                   <span>
                     Cuộc thi <i className="fas fa-angle-down"></i>
@@ -155,9 +154,8 @@ const Header = () => {
               </div>
               <Link
                 to="/tuyen-ctv"
-                className={` ${
-                  pathname === "/tuyen-ctv" ? "nav-link active" : "nav-link"
-                }`}
+                className={` ${pathname === "/tuyen-ctv" ? "nav-link active" : "nav-link"
+                  }`}
               >
                 <span>Tuyển CTV</span>
               </Link>
@@ -167,7 +165,7 @@ const Header = () => {
         <div className="cover-nav-mobile">
           <div className="nav-mobile">
             <div className="logo">
-              <img src="img/Logo ET.png" alt="Logo ET" />
+              <img src="img/Logo-ET.png" alt="Logo ET" />
               <a href="#">Economic Technology</a>
             </div>
             <i
@@ -178,15 +176,13 @@ const Header = () => {
           </div>
           <nav className={`side-bar ${show ? "show" : ""}`}>
             <i
-              className={`far fa-times icon-close ${
-                showIntro || showCompetition || showTech ? "invisible" : ""
-              }`}
+              className={`far fa-times icon-close ${showIntro || showCompetition || showTech ? "invisible" : ""
+                }`}
               onClick={handleClickIcon}
             />
             <ul
-              className={`side-bar__menu ${
-                showIntro || showCompetition || showTech ? "invisible" : ""
-              }`}
+              className={`side-bar__menu ${showIntro || showCompetition || showTech ? "invisible" : ""
+                }`}
             >
               <Link to="/" onClick={handleClickBtn}>
                 <li className="active">
@@ -272,14 +268,12 @@ const Header = () => {
                   <i id="next" className="fas fa-angle-down" />
                 </a>
                 <hr
-                  className={`divider-4 ${
-                    showCompetition ? "toggle-color" : ""
-                  }`}
+                  className={`divider-4 ${showCompetition ? "toggle-color" : ""
+                    }`}
                 />
                 <ul
-                  className={`competition-show ${
-                    showCompetition ? "show3 visible" : ""
-                  }`}
+                  className={`competition-show ${showCompetition ? "show3 visible" : ""
+                    }`}
                 >
                   <i
                     id="previous-3"

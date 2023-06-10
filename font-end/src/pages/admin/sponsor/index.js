@@ -129,7 +129,7 @@ const SponsorAdmin = () => {
                     src={
                       imageURL.length > 0
                         ? imageURL
-                        : `https://et-api-psi.vercel.app/public/images/sponsor/${dataDetail.logo}`
+                        : `http://127.0.0.1:1111/public/images/sponsor/${dataDetail.logo}`
                     }
                     alt=''
                   />

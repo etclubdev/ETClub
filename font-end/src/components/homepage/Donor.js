@@ -24,7 +24,7 @@ const Donor = () => {
           <img
             key={item.id}
             className={`donor-logo_${index + 1}`}
-            src={`https://et-api-psi.vercel.app/public/images/sponsor/${item.logo}`}
+            src={`http://127.0.0.1:1111/public/images/sponsor/${item.logo}`}
             alt={item.name}
           />
         ))}

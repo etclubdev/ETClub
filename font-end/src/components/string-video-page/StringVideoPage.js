@@ -37,11 +37,11 @@ const StringVideoPage = () => {
                 <VideoCard />
                 <VideoCard />
               </div>
-              <button class="new-video__all">
-                <a href="https://www.youtube.com/channel/UCI3jwuX0dBKc8Iy3VIXZb_Q">
+              <a href="https://www.youtube.com/channel/UCI3jwuX0dBKc8Iy3VIXZb_Q" target='_blank' rel='noreferrer' class="new-video__all w-fit">
+                <a href="https://www.youtube.com/channel/UCI3jwuX0dBKc8Iy3VIXZb_Q" target='_blank' rel='noreferrer'>
                   Xem tất cả
                 </a>
-              </button>
+              </a>
             </div>
             <div class="videos-page__string">
               <div class="string__head">

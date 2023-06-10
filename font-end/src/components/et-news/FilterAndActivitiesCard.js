@@ -2,7 +2,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import "./FilterAndActivitiesCard.scss";
+import etNewsApi from '../../api/etNewsApi';
+import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
+import { Pagination } from 'antd';
+
 const FilterAndActivitiesCard = () => {
+  const [data, setData] = React.useState()
+  const [currentPage, setCurrentPage] = React.useState(1)
+  const [sortNew, setSortNew] = React.useState()
+  const onChangePage = (page) => {
+    setCurrentPage(page)
+  }
+
   React.useEffect(() => {
     document
       .querySelector(".time-cover__time")
@@ -42,13 +54,17 @@ const FilterAndActivitiesCard = () => {
         .classList.toggle("display");
     });
 
-    document
-      .querySelector(".more-cover .more")
-      .addEventListener("click", () => {
-        document.querySelector(".show-more").classList.add("display");
-        document.querySelector(".more-cover").classList.add("display");
-      });
+
   }, []);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const result = await etNewsApi.getAll({ page: currentPage, sort: sortNew ? sortNew : undefined })
+      setData(result)
+    }
+    fetchData()
+  }, [currentPage, sortNew])
+
   return (
     <>
       <div
@@ -60,7 +76,11 @@ const FilterAndActivitiesCard = () => {
             <div className="popular-cover">
               <span className="popular">Phổ biến</span>
             </div>
-            <span className="newest">Mới nhất</span>
+            <div className={`${sortNew === 1 ? ' ' : 'newest__un-active--container'}`}>
+              <span className={`${sortNew === 1 ? 'newest' : 'newest__un-active'}`} onClick={() => setSortNew(1)}>Mới nhất</span>
+            </div>
+
+
             <div className="time-cover">
               <span className="time-cover__time">Thời gian</span>
               <i className="drop-down-1 fa-solid fa-angle-down" />
@@ -102,13 +122,28 @@ const FilterAndActivitiesCard = () => {
               </div>
               {/*--------------- end --------------*/}
             </div>
-            <span className="clear">Xóa lọc</span>
+            <span className="clear" onClick={() => setSortNew(undefined)}>Xóa lọc</span>
           </div>
           <div className="col-lg-1" />
         </div>
         <div className="body-3">
-          <div className="cover-card row row-1">
-            <a href="#" className="card card-1">
+          <div className="cover-card flex flex-wrap items-center justify-start gap-5">
+            {data?.data && data?.data?.map((item, index) => {
+              return <Link key={index} to={`/tech-corner/ban-tin-ET/${item?.id}`} className="card card-1">
+                <img
+                  className="card-image"
+                  src={`http://127.0.0.1:1111/public/images/news/${item?.image}`}
+                  alt="Image"
+                />
+                <span className="card-time">
+                  <i id="card-calendar" className="far fa-calendar-alt" /> {dayjs(item?.created_at).format('MM/YY') || '-'}
+                </span>
+                <p className="card-heading">
+                  {item?.name}
+                </p>
+              </Link>
+            })}
+            {/* <a href="#" className="card card-1">
               <img
                 className="card-image"
                 src="/img/card-Image.png"
@@ -120,49 +155,8 @@ const FilterAndActivitiesCard = () => {
               <p className="card-heading">
                 Tình hình công nghệ Việt Nam và thế giới
               </p>
-            </a>
-            <a href="#" className="card card-2">
-              <img
-                className="card-image"
-                src="/img/card-Image.png"
-                alt="Image"
-              />
-              <span className="card-time">
-                <i id="card-calendar" className="far fa-calendar-alt" /> 02/2022
-              </span>
-              <p className="card-heading">
-                Tình hình công nghệ Việt Nam và thế giới
-              </p>
-            </a>
-            <a href="#" className="card card-3">
-              <img
-                className="card-image"
-                src="/img/card-Image.png"
-                alt="Image"
-              />
-              <span className="card-time">
-                <i id="card-calendar" className="far fa-calendar-alt" /> 02/2022
-              </span>
-              <p className="card-heading">
-                Tình hình công nghệ Việt Nam và thế giới
-              </p>
-            </a>
-          </div>
-          <div className="cover-card row row-2">
-            <a href="#" className="card card-1">
-              <img
-                className="card-image"
-                src="/img/card-Image.png"
-                alt="Image"
-              />
-              <span className="card-time">
-                <i id="card-calendar" className="far fa-calendar-alt" /> 02/2022
-              </span>
-              <p className="card-heading">
-                Tình hình công nghệ Việt Nam và thế giới
-              </p>
-            </a>
-            <a href="#" className="card card-2">
+            </a> */}
+            {/* <a href="#" className="card card-2">
               <img
                 className="card-image"
                 src="/img/card-Image.png"
@@ -187,95 +181,16 @@ const FilterAndActivitiesCard = () => {
               <p className="card-heading">
                 Tình hình công nghệ Việt Nam và thế giới
               </p>
-            </a>
+            </a> */}
           </div>
-          <div className="cover-card row row-3">
-            <a href="#" className="card card-1">
-              <img
-                className="card-image"
-                src="/img/card-Image.png"
-                alt="Image"
-              />
-              <span className="card-time">
-                <i id="card-calendar" className="far fa-calendar-alt" /> 02/2022
-              </span>
-              <p className="card-heading">
-                Tình hình công nghệ Việt Nam và thế giới
-              </p>
-            </a>
-            <a href="#" className="card card-2">
-              <img
-                className="card-image"
-                src="/img/card-Image.png"
-                alt="Image"
-              />
-              <span className="card-time">
-                <i id="card-calendar" className="far fa-calendar-alt" /> 02/2022
-              </span>
-              <p className="card-heading">
-                Tình hình công nghệ Việt Nam và thế giới
-              </p>
-            </a>
-            <a href="#" className="card card-3">
-              <img
-                className="card-image"
-                src="/img/card-Image.png"
-                alt="Image"
-              />
-              <span className="card-time">
-                <i id="card-calendar" className="far fa-calendar-alt" /> 02/2022
-              </span>
-              <p className="card-heading">
-                Tình hình công nghệ Việt Nam và thế giới
-              </p>
-            </a>
-          </div>
-          <div className="cover-card row row-4">
-            <a href="#" className="card card-1">
-              <img
-                className="card-image"
-                src="/img/card-Image.png"
-                alt="Image"
-              />
-              <span className="card-time">
-                <i id="card-calendar" className="far fa-calendar-alt" /> 02/2022
-              </span>
-              <p className="card-heading">
-                Tình hình công nghệ Việt Nam và thế giới
-              </p>
-            </a>
-            <a href="#" className="card card-2">
-              <img
-                className="card-image"
-                src="/img/card-Image.png"
-                alt="Image"
-              />
-              <span className="card-time">
-                <i id="card-calendar" className="far fa-calendar-alt" /> 02/2022
-              </span>
-              <p className="card-heading">
-                Tình hình công nghệ Việt Nam và thế giới
-              </p>
-            </a>
-            <a href="#" className="card  card-3">
-              <img
-                className="card-image"
-                src="/img/card-Image.png"
-                alt="Image"
-              />
-              <span className="card-time">
-                <i id="card-calendar" className="far fa-calendar-alt" /> 02/2022
-              </span>
-              <p className="card-heading">
-                Tình hình công nghệ Việt Nam và thế giới
-              </p>
-            </a>
-          </div>
-          <div className="more-cover">
-            <span className="more">Xem thêm</span>
+          {/* <div className="more-cover">
+            <Pagination defaultCurrent={1} total={data?.total} />
+          </div> */}
+          <div className='mt-4 flex justify-center'>
+            <Pagination className='pagination-news flex' onChange={onChangePage} current={currentPage} defaultCurrent={currentPage} total={data?.total} />
           </div>
           {/*-------------- Hiện thêm 12 card ---------------------*/}
-          <div className="show-more">
+          {/* <div className="show-more">
             <div className="cover-card row row-5">
               <a href="#" className="card card-1">
                 <img
@@ -452,7 +367,7 @@ const FilterAndActivitiesCard = () => {
                 </p>
               </a>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

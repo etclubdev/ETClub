@@ -26,6 +26,7 @@ import EditSponsor from "../pages/admin/sponsor/Edit";
 import CompetitionAdmin from "../pages/admin/competition";
 import EditCompetition from "../pages/admin/competition/Edit";
 import DetailDepartment from '../pages/detail-department';
+import DetailNews from '../pages/detail-news';
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -78,6 +79,10 @@ const AppRoutes = () => {
         <Route
           path='/introduce/cocaunhansu/:department'
           element={<DetailDepartment></DetailDepartment>}
+        ></Route>
+        <Route
+          path='/tech-corner/ban-tin-ET/:id'
+          element={<DetailNews></DetailNews>}
         ></Route>
         <Route
           path='/cuoc-thi/tat-ca-cuoc-thi'

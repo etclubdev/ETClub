@@ -14,12 +14,12 @@ const SubcribeBox = () => {
           <p>clb công nghệ kinh tế</p>
         </div>
       </div>
-      <button className="box__button">
+      <a href='https://www.youtube.com/@CaulacboCongNgheKinhTe' target='_blank' rel="noreferrer" className="box__button">
         <div className="icon">
           <img src="/img/YT-icon.png" alt />
         </div>
         <p>ĐĂNG KÝ</p>
-      </button>
+      </a>
     </div>
   );
 };
