@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import newsServices from "../services/etNews-services.js";
 import fs from "fs";
+import db from "../utils/db.js";
 const Router = express.Router();
 
 Router.get("/", async (req, res, next) => {
