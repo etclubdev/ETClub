@@ -26,7 +26,7 @@ const MaybeInterested = () => {
         <div className="body-2">
           <Link to={`/tech-corner/ban-tin-ET/${data?.data?.[0]?.id}`} className="left-side col-md-6 col-sm-12">
             <div href="#" className="body-2-image">
-              <img src={`http://127.0.0.1:1111/public/images/news/${data?.data?.[0]?.image}`} alt="image" />
+              <img src={`https://et-api-2023.onrender.com/public/images/news/${data?.data?.[0]?.image}`} alt="image" />
             </div>
             <div className="body-2-info">
               <div className="body-2-info__datetime-1">
@@ -50,7 +50,7 @@ const MaybeInterested = () => {
           </Link>
           <Link to={`/tech-corner/ban-tin-ET/${data?.data?.[1]?.id}`} className="right-side col-md-6 col-sm-12">
             <Link to={`/tech-corner/ban-tin-ET/${data?.data?.[1]?.id}`} className="body-2-image">
-              <img src={`http://127.0.0.1:1111/public/images/news/${data?.data?.[1]?.image}`} alt="image" />
+              <img src={`https://et-api-2023.onrender.com/public/images/news/${data?.data?.[1]?.image}`} alt="image" />
             </Link>
             <div className="body-2-info">
               <div className="body-2-info__datetime-1">

@@ -127,7 +127,7 @@ const ETNewsAdmin = () => {
                     src={
                       imageURL.length > 0
                         ? imageURL
-                        : `http://127.0.0.1:1111/public/images/banners/${dataDetail.img}`
+                        : `https://et-api-2023.onrender.com/public/images/banners/${dataDetail.img}`
                     }
                     alt=''
                   />

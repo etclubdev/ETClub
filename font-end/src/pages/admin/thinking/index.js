@@ -138,7 +138,7 @@ const HomePageAdmin = () => {
                     src={
                       imageURL.length > 0
                         ? imageURL
-                        : `http://127.0.0.1:1111/public/images/feeling/${dataDetail.avatar}`
+                        : `https://et-api-2023.onrender.com/public/images/feeling/${dataDetail.avatar}`
                     }
                     alt=''
                   />
