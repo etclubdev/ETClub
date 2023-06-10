@@ -32,8 +32,17 @@ Router.get('/newest', async (req, res) => {
   res.json(news)
 })
 Router.get("/:id", async (req, res) => {
-  const news = await newsServices.getById(req.params.id);
-  res.json(news)
+  try {
+    const { id } = req.params;
+    const sql = 'UPDATE et_news SET view = view + 1 WHERE id = ?';
+    await db.query(sql, [id]);
+    const news = await newsServices.getById(id);
+    return res.json(news);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Lỗi server');
+  }
+
 })
 Router.use("/public/images/news", express.static("public/images/news/"));
 const storage = multer.diskStorage({
