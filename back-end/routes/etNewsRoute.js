@@ -36,7 +36,7 @@ Router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const sql = 'UPDATE et_news SET view = view + 1 WHERE id = ?';
-    await db.query(sql, [id]);
+    await db.raw(sql, [id]);
     const news = await newsServices.getById(id);
     return res.json(news);
   } catch (error) {
