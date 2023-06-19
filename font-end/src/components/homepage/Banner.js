@@ -57,7 +57,7 @@ export default function Banner() {
             <a href={item.link} target='_blank' rel="noreferrer" className='item' key={index}>
               <img
                 src={`https://et-api-2023.onrender.com/public/images/banners/${item.img}`}
-                className='md:h-[600px] object-cover'
+                className='h-[240px] md:h-[600px] object-fill'
                 alt={`Banner ${index + 1}`}
               />
             </a>
