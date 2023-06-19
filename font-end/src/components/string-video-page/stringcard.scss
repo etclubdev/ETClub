@@ -8,6 +8,9 @@
     flex-grow: 1;
     margin-right: 20px;
   }
+  @media only screen and (min-width: 1400px) and (max-width: 1500px) {
+    width: 300px;
+  }
   @media only screen and (min-width: 1440px) {
     flex-grow: unset;
     margin-right: unset;

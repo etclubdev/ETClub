@@ -2,6 +2,8 @@ import React, { Fragment, lazy, Suspense } from "react";
 import BreadCrumb from "../breadcrumb/BreadCrumb";
 
 import "./stringvideopage.scss";
+import { Breadcrumb } from 'antd';
+import { Link } from 'react-router-dom';
 const StringCard = lazy(() => import("./StringCard"));
 const SubcribeBox = lazy(() => import("./SubcribeBox"));
 const VideoCard = lazy(() => import("./VideoCard"));
@@ -9,10 +11,35 @@ const StringVideoPage = () => {
   return (
     <Fragment>
       <Suspense>
-        <BreadCrumb
-          navPage="Góc công nghệ"
-          navDetail="Chuỗi hoạt động hướng dẫn nâng cao năng lực công nghệ cho SV"
-        />
+        <div className='mx-auto w-full xxl:w-[1300px] xxl:px-[30px] mt-[30px]'>
+          <Breadcrumb
+            separator=">"
+
+            itemRender={(route, _, routes) => {
+              const last = routes.indexOf(route) === routes.length - 1;
+              return last ? (
+                <span className='breadcrumb-active  max-sm:text-[14px] text-[18px] font-bold'>{route.breadcrumbName}</span>
+              ) : (
+                <Link className='max-sm:text-[14px] text-[18px] cursor-pointer font-bold text-white ' to={route.path}>{route.breadcrumbName}</Link>
+              );
+            }}
+            routes={[
+              {
+                path: '/',
+                breadcrumbName: 'Trang chủ',
+              },
+              {
+                path: '/',
+                breadcrumbName: 'Góc công nghệ',
+              },
+              {
+                path: '/tech-corner/chuoi-hoat-dong',
+                breadcrumbName: 'Chuỗi hoạt động nâng cao năng lực công nghệ cho sinh viên',
+              },
+
+            ]}
+          />
+        </div>
         <div class="videos-page">
           <div class="container">
             <div class="videos-page__title">

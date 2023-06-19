@@ -96,6 +96,9 @@ const EditETNews = () => {
 
           </Select>
         </Form.Item>
+        <div>
+          Nội dung
+        </div>
         <div className=' w-full'>
           <div className='' >
             <EditorComponent setValue={setValue} />

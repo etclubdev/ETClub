@@ -4,7 +4,7 @@
 }
 @media screen and (max-width: 800px) {
   .competition {
-    display: none;
+    display: none !important;
   }
   .competition-mobile {
     display: block !important;
@@ -104,7 +104,8 @@
       }
     }
     &_name {
-      @include word(K2D, bold, 20px);
+      max-width: 270px;
+      @include word(K2D, bold, 18px);
       text-transform: uppercase;
       text-shadow: 0px 4px 25px #00fff0;
       margin-bottom: 5px;
@@ -122,7 +123,7 @@
     }
     &_picture {
       border: 2px solid #a1dcff;
-      width: 300px;
+      width: 280px;
       border-radius: 10px;
       margin-top: 10px;
       padding: 10px 10px;

@@ -25,9 +25,9 @@ const Content = () => {
                 trong việc đưa ra những định hướng, kế hoạch phù hợp để xây dựng
                 và phát triển hình ảnh câu lạc bộ.
               </p>
-              <a href="#">
+              <Link to="/introduce/cocaunhansu/ban-chu-nhiem">
                 Xem chi tiết <i className="fas fa-long-arrow-alt-right" />
-              </a>
+              </Link>
             </div>
           </div>
           <div className="container__organizational-structure--item-mobile">
@@ -167,9 +167,9 @@ const Content = () => {
                 trong việc đưa ra những định hướng, kế hoạch phù hợp để xây dựng
                 và phát triển hình ảnh câu lạc bộ.
               </p>
-              <a href="#">
+              <Link to='/introduce/cocaunhansu/ban-chu-nhiem'>
                 Xem chi tiết <i className="fas fa-long-arrow-alt-right" />
-              </a>
+              </Link>
             </div>
             <div className="day">
               <img src="/img/day.png" alt />

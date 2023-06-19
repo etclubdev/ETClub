@@ -2,9 +2,9 @@ import React from 'react';
 import Editor from './EditorWithUseQuill';
 
 
-const EditorComponent = ({ setValue }) => {
+const EditorComponent = ({ setValue, initialValue }) => {
     return (
-        <Editor setValue={setValue} placeholder={'Write something...'} />
+        <Editor initialValue={initialValue} setValue={setValue} placeholder={'Write something...'} />
     );
 };
 

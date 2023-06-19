@@ -1,11 +1,9 @@
 .container-fluid__result {
-  width: 396px !important;
-
   margin: 0 auto;
   @media (min-width: 576px) {
     width: 600px !important;
   }
-  @media (min-width: 1200px) {
+  @media (min-width: 850px) {
     width: 864px !important;
   }
   .prize-title {
@@ -161,7 +159,7 @@
         font-family: "K2D";
         font-style: normal;
         font-weight: 700;
-        font-size: 20px;
+        font-size: 18px;
         line-height: 28px;
         color: #f5a623;
       }
@@ -175,4 +173,12 @@
       right: 17%;
     }
   }
+}
+.ant-popover-inner {
+  background: #3f3356 !important;
+  border: 3px solid #f5a623;
+  /* Hover card 2 (vàng cam) */
+  padding: 0px !important;
+  box-shadow: 10px 10px 10px rgba(245, 166, 35, 0.4);
+  border-radius: 10px;
 }

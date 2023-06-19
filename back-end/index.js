@@ -13,6 +13,8 @@ import homeRoute from "./routes/homeRoute.js";
 import bannerRoute from "./routes/bannerRoute.js";
 import sponsorRoute from "./routes/sponsorRoute.js";
 import feelingRoute from "./routes/feelingRoute.js";
+import competitionResultRoute from './routes/competitionResultRoute.js'
+import milestoneRoute from './routes/milestoneRoute.js';
 const app = express();
 app.use(cors());
 app.use(morgan("dev"));
@@ -33,6 +35,8 @@ app.use("/competition", competitionRoute);
 app.use("/banner", bannerRoute);
 app.use("/sponsor", sponsorRoute);
 app.use("/feeling", feelingRoute);
+app.use('/competition-result', competitionResultRoute);
+app.use('/milestone', milestoneRoute);
 
 app.use((err, req, res, next) => {
   console.log(err);

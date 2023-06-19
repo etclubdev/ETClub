@@ -1,5 +1,6 @@
 import { Fragment, lazy, Suspense } from "react";
-import BreadCrumb from "../../components/breadcrumb/BreadCrumb";
+
+import { Breadcrumb } from 'antd';
 
 const NewestNew = lazy(() => import("../../components/et-news/NewestNew"));
 const Title = lazy(() => import("../../components/et-news/Title"));
@@ -13,7 +14,8 @@ const EtNews = () => {
   return (
     <Fragment>
       <Suspense>
-        <BreadCrumb navPage="Góc công nghệ" navDetail="Bản tin ET" />
+
+
         <Title></Title>
         <NewestNew></NewestNew>
         <MaybeInterested></MaybeInterested>

@@ -72,7 +72,7 @@
   @media (min-width: 1200px) {
     width: 518px !important;
     float: right;
-    margin-bottom: 60px;
+    // margin-bottom: 60px;
   }
 
   .cc-navbar__item {
@@ -104,7 +104,7 @@
       line-height: 22px;
       text-align: center;
       padding: 6px 16px;
-      margin-top: 8px;
+      // margin-top: 8px;
       background: -webkit-linear-gradient(#7496ff, #5dd7d0);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -113,7 +113,7 @@
       }
 
       @media (min-width: 1200px) {
-        padding: 3px 24px;
+        padding: 10px 24px;
         font-weight: 700;
         font-size: 18px;
         line-height: 22px;
@@ -126,7 +126,7 @@
   @media (min-width: 1200px) {
     width: 1217px;
     margin: 0 auto !important;
-    justify-content: space-between;
+    // justify-content: space-between;
 
     .competition-poster {
       margin: 20px 0 70px 0 !important;
@@ -194,4 +194,73 @@
   background-image: linear-gradient(to right top, #7496ff, #5dd7d0);
   border-radius: inherit;
   box-shadow: 0px 0px 8px 2px rgba(161, 220, 255, 0.8);
+}
+.pagination-news {
+  .ant-pagination-prev {
+    background: unset;
+    width: 40px;
+    height: 40px;
+    border: solid 3px transparent;
+    border-radius: 50%;
+    background-image: linear-gradient(#0e1643, #0e1643),
+      radial-gradient(circle at top left, #7496ff, #5dd7d0);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    .ant-pagination-item-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .anticon svg {
+      color: white;
+    }
+  }
+  .ant-pagination-next {
+    background: unset;
+    border: solid 3px transparent;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-image: linear-gradient(#0e1643, #0e1643),
+      radial-gradient(circle at top left, #7496ff, #5dd7d0);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    .ant-pagination-item-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .anticon svg {
+      color: white;
+    }
+  }
+  .ant-pagination-item-active {
+    background-image: linear-gradient(#7496ff, #5dd7d0),
+      radial-gradient(circle at top left, #7496ff, #5dd7d0) !important;
+    a {
+      font-size: 20px;
+      background: #0e1643 !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+    }
+  }
+  .ant-pagination-item {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border: solid 3px transparent;
+    border-radius: 5px !important;
+    background-image: linear-gradient(#0e1643, #0e1643),
+      radial-gradient(circle at top left, #7496ff, #5dd7d0);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    a {
+      font-size: 20px;
+      background: -webkit-linear-gradient(#7496ff, #5dd7d0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
 }

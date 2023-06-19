@@ -1,80 +1,75 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React from "react";
+import React, { useEffect } from "react";
 import "./contestDonor.scss";
+import sponsorApi from '../../api/sponsorApi';
+import { useParams } from 'react-router-dom';
 const ContestDonor = () => {
+  const [data, setData] = React.useState([]);
+  const { id } = useParams();
+  useEffect(() => {
+    if (id) {
+      const getData = async () => {
+        const result = await sponsorApi.getAllsponsor({ competition_id: id, pageSize: 14 });
+        setData(result?.data)
+      }
+      getData();
+    }
+  }, [id])
+
   return (
     <div className="container-donors">
       <div className="donors-title">
         <h1>NHÀ TÀI TRỢ</h1>
       </div>
-      <div className="diamond-donor">
+      <div className="diamond-donor flex flex-col items-center">
         <h3>NHÀ TÀI TRỢ KIM CƯƠNG</h3>
-        <img src="/img/nashtech.png" alt />
+        <div className='flex flex-wrap gap-[50px] items-center justify-center max-sm:px-[15px]'>
+          {
+            data?.filter(item => item.kind == 1).map((item, index) => {
+              return <div key={index}>
+                <img className='max-w-[80px] h-[80px] md:max-w-[150px] md:h-[150px] object-cover' src={`http://127.0.0.1:1111/public/images/sponsor/${item.logo}`} alt={`diamond_logo_${item.logo}`} />
+              </div>
+            })
+          }
+
+        </div>
       </div>
-      <div className="gold-donor">
+      <div className="mb-[60px]">
         <h3>NHÀ TÀI VÀNG</h3>
-        <div className="row container-category__gold-donors">
-          <div className="col-lg-3">
-            <img src="/img/diginet.png" alt />
-          </div>
-          <div className="col-lg-3 text-center">
-            <img src="/img/momo.png" alt />
-          </div>
-          <div className="col-lg-3 text-center">
-            <img src="/img/ueh.png" alt />
-          </div>
-          <div className="col-lg-3  text-end">
-            <img src="/img/infinity.png" alt />
-          </div>
+        <div className='flex flex-wrap gap-[50px] md:gap-[80px] items-center justify-center max-sm:px-[15px]'>
+          {
+            data?.filter(item => item.kind == 2).map((item, index) => {
+              return <div key={index}>
+                <img className='max-w-[80px] h-[80px] md:max-w-[150px] md:h-[150px] object-cover' src={`http://127.0.0.1:1111/public/images/sponsor/${item.logo}`} alt={`diamond_logo_${item.logo}`} />
+              </div>
+            })
+          }
         </div>
-        <div className="row container-category__gold-donors--mobile">
-          <div className="row container-fluid">
-            <div className="col-3 text-center">
-              <img src="/img/momo.png" alt />
-            </div>
-            <div className="col-3 text-center">
-              <img src="/img/infinity.png" alt />
-            </div>
-          </div>
-          <div className="row container-fluid">
-            <div className="col-3 text-center">
-              <img src="/img/diginet.png" alt />
-            </div>
-            <div className="col-3 text-center">
-              <img src="/img/ueh.png" alt />
-            </div>
-          </div>
-        </div>
+
       </div>
       <div className="co-donor">
         <h3>ĐỒNG TÀI TRỢ</h3>
-        <div className="row container-category__co-donors">
-          <div className="col-lg-2 col-2 text-center">
-            <img src="/img/shangri.png" alt />
-          </div>
-          <div className="col-lg-3 col-3 text-center">
-            <img src="/img/edu2review.png" alt />
-          </div>
-          <div className="col-lg-2 col-2 text-center">
-            <img src="/img/camhouse.png" alt />
-          </div>
+        <div className='flex flex-wrap gap-[50px] md:gap-[80px] items-center justify-center max-sm:px-[15px]'>
+          {
+            data?.filter(item => item.kind == 4).map((item, index) => {
+              return <div key={index}>
+                <img className='max-w-[80px] h-[80px] md:max-w-[150px] md:h-[150px] object-cover' src={`http://127.0.0.1:1111/public/images/sponsor/${item.logo}`} alt={`diamond_logo_${item.logo}`} />
+              </div>
+            })
+          }
         </div>
       </div>
       <div className="media-patronage">
         <h3>BẢO TRỢ TRUYỀN THÔNG</h3>
-        <div className="row container-category__media-patronage">
-          <div className="col-lg-3 col-3">
-            <img src="/img/s-communications.png" alt />
-          </div>
-          <div className="col-lg-3 col-3 text-center">
-            <img src="/img/topcv.png" alt />
-          </div>
-          <div className="col-lg-3 col-3 text-center">
-            <img src="/img/internship.png" alt />
-          </div>
-          <div className="col-lg-3 col-3 text-end">
-            <img src="/img/blockchain.png" alt />
-          </div>
+        <div className='flex flex-wrap gap-[50px] md:gap-[80px] items-center justify-center max-sm:px-[15px]'>
+          {
+            data?.filter(item => item.kind == 5).map((item, index) => {
+
+              return <div key={index}>
+                <img className='max-w-[80px] h-[80px] md:max-w-[150px] md:h-[150px] object-cover' src={`http://127.0.0.1:1111/public/images/sponsor/${item.logo}`} alt={`diamond_logo_${item.logo}`} />
+              </div>
+            })
+          }
         </div>
       </div>
     </div>

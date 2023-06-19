@@ -53,7 +53,7 @@ const Thinking = () => {
                 <div className='thingking-detail'>
                   <div className='thingking-avatar'>
                     <img
-                      src={`https://et-api-2023.onrender.com/public/images/feeling/${item.avatar}`}
+                      src={`http://127.0.0.1:1111/public/images/feeling/${item.avatar}`}
                       alt=''
                     />
                   </div>

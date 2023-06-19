@@ -254,6 +254,7 @@
     .competition-btn {
       display: flex;
       justify-content: space-between;
+      align-items: center;
 
       #next {
         font-size: 16px;
@@ -336,6 +337,7 @@
 
     li a {
       margin-left: 15px;
+      padding: 8px 0px;
     }
 
     ul li:nth-child(2) {
@@ -350,7 +352,7 @@
       background-image: linear-gradient(to right, #7496ff, #5dd7d0);
     }
 
-    li.active > a {
+    li.active > div > a {
       background: -webkit-linear-gradient(45deg, #7496ff, #5dd7d0);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;

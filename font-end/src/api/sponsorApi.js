@@ -1,8 +1,8 @@
 import axiosClient from "./axiosClient";
 const sponsorApi = {
-  getAllsponsor() {
+  getAllsponsor(params) {
     const url = "/sponsor";
-    return axiosClient.get(url);
+    return axiosClient.get(url, { params });
   },
   getBySponsorId(id) {
     const url = `/sponsor/get-sponsor-by-id/${id}`;

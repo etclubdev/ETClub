@@ -1,9 +1,9 @@
 import axiosClient from "./axiosClient";
 
 const competitionApi = {
-  getAllCompetition() {
+  getAllCompetition(params) {
     const url = "/competition";
-    return axiosClient.get(url);
+    return axiosClient.get(url, { params });
   },
   getByCompetitionId(id) {
     const url = `/competition/get-competition-by-id/${id}`;

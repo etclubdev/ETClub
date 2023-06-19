@@ -3,10 +3,13 @@ import { Button, Col, Form, Input, Modal, Row, Table } from "antd";
 import { columns } from "./render";
 import { useNavigate } from "react-router-dom";
 import sponsorApi from "../../../api/sponsorApi";
+import competitionApi from '../../../api/competitionApi';
 const SponsorAdmin = () => {
   const navigate = useNavigate();
   const [data, setData] = React.useState([]);
+  const [dataCompetition, setDataCompetion] = React.useState([]);
   const [dataDetail, setDataDetail] = React.useState();
+  const [currentPage, setCurrentPage] = React.useState(1);
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
@@ -43,7 +46,7 @@ const SponsorAdmin = () => {
   };
   const fetchSponsor = async () => {
     try {
-      const dataApi = await sponsorApi.getAllsponsor();
+      const dataApi = await sponsorApi.getAllsponsor({ page: currentPage });
       setData(dataApi);
     } catch (error) {
       console.log(error);
@@ -69,7 +72,30 @@ const SponsorAdmin = () => {
   React.useEffect(() => {
     fetchSponsor();
     setLoading(false);
+  }, [currentPage]);
+  React.useEffect(() => {
+
+    const fetchData = async () => {
+      const data = await competitionApi.getAllCompetition({ pageSize: 500 });
+      setDataCompetion(data.data)
+    }
+    fetchData()
+
   }, []);
+
+  React.useEffect(() => {
+    form.setFieldsValue({
+      name: dataDetail?.name,
+      kind: dataDetail?.kind,
+
+    });
+  }, [dataDetail]);
+
+  React.useEffect(() => {
+    if (!isModalOpen) {
+      setDataDetail(undefined)
+    }
+  }, [isModalOpen])
   return (
     <Row justify='center'>
       <Col
@@ -78,7 +104,7 @@ const SponsorAdmin = () => {
         }}
         span={20}
       >
-        <h1>Quản lý danh sách nhà tài trợ</h1>
+        <h1 className='text-2xl font-bold'>Quản lý danh sách nhà tài trợ</h1>
         <Row
           style={{
             display: "flex",
@@ -87,7 +113,7 @@ const SponsorAdmin = () => {
           }}
         >
           <Button
-            type='primary'
+            className='min-w-[200px] bg-green-500 text-white font-bold'
             onClick={() => navigate("/admin/sponsor/edit")}
           >
             Tạo mới{" "}
@@ -97,6 +123,7 @@ const SponsorAdmin = () => {
           title='Chỉnh sửa nhà tài trợ'
           open={isModalOpen}
           onOk={handleOk}
+          okButtonProps={{ style: { background: 'green', minWidth: '150px' } }}
           width={800}
           onCancel={handleCancel}
           okText={"Lưu"}
@@ -129,7 +156,7 @@ const SponsorAdmin = () => {
                     src={
                       imageURL.length > 0
                         ? imageURL
-                        : `https://et-api-2023.onrender.com/public/images/sponsor/${dataDetail.logo}`
+                        : `http://127.0.0.1:1111/public/images/sponsor/${dataDetail.logo}`
                     }
                     alt=''
                   />
@@ -144,9 +171,11 @@ const SponsorAdmin = () => {
           )}
         </Modal>
         <Table
-          columns={columns(handleDelete, showModal)}
+          columns={columns(handleDelete, showModal, dataCompetition)}
           loading={loading}
-          dataSource={data}
+          pagination={{ current: currentPage, defaultCurrent: 1, pageSize: 10, total: data?.total || 0, onChange: (number) => setCurrentPage(number) }}
+          rootClassName='table-admin'
+          dataSource={data?.data || []}
         />
       </Col>
     </Row>

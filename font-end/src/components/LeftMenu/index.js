@@ -19,18 +19,18 @@ function getItem(label, key, icon, link, children, type) {
 }
 
 const items = [
-  getItem("Pages", "sub1", <MailOutlined />),
+
   getItem("Banner", "sub2", <AppstoreOutlined />),
   getItem("Cuộc thi", "sub3", <SettingOutlined />),
   getItem("Cảm nghĩ", "sub4", <SettingOutlined />),
-  getItem("Đối tác đồng hành", "sub5", <SettingOutlined />),
+
   getItem("Kết quả Cuộc thi", "sub6", <SettingOutlined />),
-  getItem("Nhà tài trợ cuộc thi", "sub7", <SettingOutlined />),
+
   getItem("Bản tin ET", "sub8", <SettingOutlined />),
-  getItem("Tổng hợp các cuộc thi công nghệ", "sub9", <SettingOutlined />),
-  getItem("Cơ cấu các ban", "sub10", <SettingOutlined />),
+  getItem("Timeline cuộc thi", "sub9", <SettingOutlined />),
+
   getItem("Hình ảnh hoạt động các ban", "sub11", <SettingOutlined />),
-  getItem("Thành tựu các ban", "sub12", <SettingOutlined />),
+
   getItem("Quản lý nhà tài trợ", "sub13", <SettingOutlined />),
 ];
 const LeftMenu = () => {
@@ -43,6 +43,9 @@ const LeftMenu = () => {
     if (e.key === "sub3") {
       navigate("/admin/competition");
     }
+    if (e.key === "sub6") {
+      navigate("/admin/competition-results");
+    }
     if (e.key === "sub4") {
       navigate("/admin/feeling");
     }
@@ -51,6 +54,9 @@ const LeftMenu = () => {
     }
     if (e.key === "sub8") {
       navigate("/admin/etnews");
+    }
+    if (e.key === "sub9") {
+      navigate("/admin/milestone");
     }
     if (e.key === "sub13") {
       navigate("/admin/sponsor");

@@ -5,7 +5,7 @@ import 'quill/dist/quill.snow.css';
 
 import './styles.css';
 
-const Editor = ({ setValue }) => {
+const Editor = ({ setValue, initialValue }) => {
     const { quill, quillRef, Quill } = useQuill({
         modules: { blotFormatter: {} }
     });
@@ -17,10 +17,10 @@ const Editor = ({ setValue }) => {
 
     useEffect(() => {
         if (quill) {
+            quill.clipboard.dangerouslyPasteHTML(initialValue ?? "");
             quill.on('text-change', (delta, oldContents) => {
-                console.log('Text change!');
-                console.log(quillRef.current.firstChild.innerHTML);
-                setValue(quillRef.current.firstChild.innerHTML)
+
+                setValue(quill?.root.innerHTML)
             });
         }
     }, [quill, Quill]);

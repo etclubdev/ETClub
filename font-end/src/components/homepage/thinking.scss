@@ -139,7 +139,8 @@
       margin-top: 17px;
     }
     &-desc {
-      font-size: 20px;
+      font-size: 16px;
+      flex-shrink: 0;
       padding: 0 22px 0 23px;
       text-align: justify;
     }
@@ -152,6 +153,20 @@
       top: -10px;
       left: -10px;
       width: 20%;
+    }
+  }
+}
+.thingking-list {
+  .owl-stage {
+    display: flex;
+    @media screen and (max-width: 576px) {
+      .thingking-item {
+        height: calc(100% - 37px) !important;
+        .thingking-detail {
+          margin-bottom: auto !important;
+          margin-top: 15px !important;
+        }
+      }
     }
   }
 }

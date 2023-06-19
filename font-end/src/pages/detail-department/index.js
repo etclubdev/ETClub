@@ -3,11 +3,14 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import './index.scss'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ToDepartment } from '../../utils';
+import { useWindowDimensions } from '../../hook/useWindowDimension';
+import { Breadcrumb } from 'antd';
 const DetailDepartment = () => {
     const { department } = useParams();
     const data = ToDepartment(department)
+    const { isMobile } = useWindowDimensions();
 
     const options = {
         nav: true,
@@ -31,24 +34,72 @@ const DetailDepartment = () => {
             0: {
                 margin: 30,
                 nav: false,
+                dot: false,
+                dotsEach: false,
             },
             600: {
                 margin: 30,
                 stagePadding: 0,
                 nav: false,
+                dot: false,
+                dotsEach: false,
             },
             1200: {
                 stagePadding: 175,
                 dotsEach: true,
+
                 // margin: -1,
             },
         },
     };
     return (
         <div className='w-full max-w-[1300px] mx-auto flex flex-col justify-center'>
-            <h1 className='flex justify-center text-[45px] leading-[80px] font-extrabold'>{data?.name ?? '-'}</h1>
-            <div className='px-[115px] mt-[70px]'>
-                <div className='flex justify-end mb-[60px]'>
+            <div className='mx-auto w-full xxl:w-[1300px] xxl:px-[30px] mt-[30px]'>
+                <Breadcrumb
+                    separator=">"
+
+                    itemRender={(route, _, routes) => {
+                        const last = routes.indexOf(route) === routes.length - 1;
+                        return last ? (
+                            <span className='breadcrumb-active  max-sm:text-[14px] text-[18px] font-bold'>{route.breadcrumbName}</span>
+                        ) : (
+                            <Link className='max-sm:text-[14px] text-[18px] cursor-pointer font-bold text-white ' to={route.path}>{route.breadcrumbName}</Link>
+                        );
+                    }}
+                    routes={[
+                        {
+                            path: '/',
+                            breadcrumbName: 'Trang chủ',
+                        },
+                        {
+                            path: '/',
+                            breadcrumbName: 'Giới thiệu',
+                        },
+                        {
+                            path: '/introduce/cocaunhansu',
+                            breadcrumbName: 'Cơ cấu tổ chức',
+                        },
+                        {
+                            path: '/introduce/cocaunhansu/ban-chu-nhiem',
+                            breadcrumbName: `${data?.name}`,
+                        },
+
+                    ]}
+                />
+            </div>
+            <h1 className='flex justify-center text-[30px] md:text-[45px] leading-[80px] mt-[20px] font-extrabold'>{data?.name ?? '-'}</h1>
+            <div className='px-[15px] mt-[20px] md:px-[115px] md:mt-[70px]'>
+                {isMobile ? <div >
+                    <div className='flex '>
+                        <div className='w-[100px] flex-shrink-0 h-[100px] p-[8px] rounded-full border-[3px] border-[#F5A623]'>
+                            <img className='w-[80px] h-[80px] rounded-full' src="/img/Circle - L.png" />
+                        </div>
+                        <div className='flex flex-col items-center justify-center flex-1 text-[18px] md:text-[21px] leading-[29px] font-bold'>
+                            <h2 className='text-center'>Trưởng ban</h2>
+                            <h2>{data?.lead ?? '-'}</h2>
+                        </div>
+                    </div>
+                </div> : <div className='flex justify-end mb-[60px]'>
                     <div className='w-[60%] flex '>
                         <div className='relative w-[236px] h-[230px]' style={{ backgroundImage: 'url(/img/Ellipse-187.png)', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover' }}>
 
@@ -69,16 +120,17 @@ const DetailDepartment = () => {
                         </div>
                     </div>
 
-                </div>
-                <div className='flex flex-wrap items-center justify-center gap-[50px] mb-[90px]'>
+                </div>}
+
+                <div className='flex flex-wrap items-center justify-center gap-[50px] max-sm:mt-[20px] mb-[50px] md:mb-[90px]'>
                     {data?.members?.map((item, index) => {
-                        return <div key={index} className='flex flex-col items-center'>
-                            <div className='w-[184px] h-[184px] p-[8px] rounded-full border-[3px] border-[#F5A623]'>
-                                <img className='w-[164px] h-[164px] rounded-full' src={item.image} />
+                        return <div key={index} className='flex max-sm:w-[330px] md:flex-col items-center'>
+                            <div className='max-sm:flex-shrink-0 max-sm:mr-2 w-[100px] md:w-[184px] h-[100px] md:h-[184px] p-[8px] rounded-full border-[3px] border-[#F5A623]'>
+                                <img className='w-[80px] h-[80px] md:w-[164px] md:h-[164px] rounded-full' alt='' src={item.image} />
                             </div>
-                            <div className='flex flex-col text-[21px] leading-[29px] font-bold'>
+                            <div className='flex max-sm:flex-1 flex-col text-[18px] md:text-[21px] leading-[29px] font-bold'>
                                 <h2 className='text-center'>Thành viên</h2>
-                                <h2>{item.name}</h2>
+                                <h2 className='max-sm:text-center'>{item.name}</h2>
                             </div>
                         </div>
                     })}
@@ -87,20 +139,20 @@ const DetailDepartment = () => {
                 </div>
 
             </div>
-            <div className='flex flex-col justify-center items-center'>
-                <h1 className='text-[40px] leading-[70px] font-bold text-[#F5A623]'>Giới thiệu cơ bản về ban</h1>
-                <p className='text-xl font-normal'>{data?.introduce ?? '-'}</p>
+            <div className='flex flex-col max-sm:px-[15px] justify-center items-center'>
+                <h1 className='text-[30px] leading-[50px] md:text-[40px] md:leading-[70px] font-bold text-[#F5A623]'>Giới thiệu cơ bản về ban</h1>
+                <p className='text-base text-justify md:text-xl font-normal'>{data?.introduce ?? '-'}</p>
             </div>
-            <div className='flex flex-row gap-x-[66px] items-baseline mt-[45px]'>
-                <div className='relative w-[510px] h-[352px]'>
-                    <img className='abosulte w-[510px] h-[352px] top-0 bottom-0' src="/img/Rectangle-2644.png" alt="" />
-                    <div className='w-[486px] h-[290px] top-[14%] left-[1.5%]  absolute'>
+            <div className='flex flex-col max-sm:px-[15px] md:flex-row md:gap-x-[66px] items-baseline mt-[25px] md:mt-[45px]'>
+                <div className='relative w-full h-[210px] md:w-[510px] md:h-[352px]'>
+                    <img className='abosulte max-sm:hidden w-[calc(100%-30px)]  md:w-[510px] md:h-[352px] top-0 bottom-0' src="/img/Rectangle-2644.png" alt="" />
+                    <div className=' w-[97%] md:w-[486px] md:h-[290px]  top-[14%] left-[1.5%]  absolute'>
 
-                        <img className=' absolute' src="/img/Rectangle-2646.png" alt="" />
-                        <div className='px-[6%] py-[10%]'>
-                            <h1 className='text-[32px] leading-[38px] font-bold text-[#F5A623]'>Công việc trong CLB</h1>
-                            <div className='px-[20px] mt-[25px]'>
-                                <ul className='list-disc text-lg font-normal'>
+                        <img className='w-full absolute max-sm:h-full' src="/img/Rectangle-2646.png" alt="" />
+                        <div className='px-[8%] py-[6%] md:px-[6%] md:py-[10%]'>
+                            <h1 className='text-[26px] md:text-[32px] leading-[30px] md:leading-[38px] font-bold text-[#F5A623]'>Công việc trong CLB</h1>
+                            <div className='px-[20px] mt-[10px] md:mt-[25px]'>
+                                <ul className='list-disc text-sm md:text-lg font-normal'>
                                     {data?.job?.map((item, i) => {
                                         return <li key={i}>{item}</li>
                                     })}
@@ -109,12 +161,29 @@ const DetailDepartment = () => {
                         </div>
                     </div>
                 </div>
-                <div className='relative w-[724px] h-[379px]'>
-                    <img className='' src='/img/Rectangle-2645.png' alt='' />
-                    <div className='absolute top-0 py-[40px] px-[30px]'>
-                        <h1 className='text-[32px] leading-[38px] font-bold text-[#F5A623]'>Yêu cầu vị trí</h1>
-                        <div className='px-[20px] mt-[25px]'>
-                            <ul className='list-disc text-lg font-normal'>
+                {isMobile && <div className='relative w-full h-[320px] md:w-[510px] md:h-[352px]'>
+                    <img className='abosulte max-sm:hidden w-[calc(100%-30px)]  md:w-[510px] md:h-[352px] top-0 bottom-0' src="/img/Rectangle-2644.png" alt="" />
+                    <div className=' w-[97%] md:w-[486px] md:h-[290px]  top-[14%] left-[1.5%]  absolute'>
+
+                        <img className=' absolute max-sm:h-full' src="/img/Rectangle-2646.png" alt="" />
+                        <div className='px-[8%] py-[6%] md:px-[6%] md:py-[10%]'>
+                            <h1 className='text-[26px] md:text-[32px] leading-[30px] md:leading-[38px] font-bold text-[#F5A623]'>Yêu cầu vị trí</h1>
+                            <div className='px-[20px] mt-[10px] md:mt-[25px]'>
+                                <ul className='list-disc text-sm md:text-lg font-normal'>
+                                    {data?.requirement?.map((item, i) => {
+                                        return <li key={i}>{item}</li>
+                                    })}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>}
+                <div className='relative max-sm:hidden w-full md:w-[724px] h-[379px]'>
+                    <img className='w-[97%]' src='/img/Rectangle-2645.png' alt='' />
+                    <div className='absolute top-0 px-[8%] py-[6%] md:py-[40px] md:px-[30px]'>
+                        <h1 className='text-[26px] md:text-[32px] leading-[30px] md:leading-[38px] font-bold text-[#F5A623]'>Yêu cầu vị trí</h1>
+                        <div className='px-[20px] mt-[10px] md:mt-[25px]'>
+                            <ul className='list-disc text-sm md:text-lg font-normal'>
                                 {data?.requirement?.map((item, i) => {
                                     return <li key={i}>{item}</li>
                                 })}
@@ -124,11 +193,11 @@ const DetailDepartment = () => {
                 </div>
 
             </div>
-            <div className='w-full border-[3px] border-[#F5A623] px-[30px] py-[40px] flex flex-row gap-x-[60px] mt-[45px]'>
+            <div className='w-[calc(100%-45px)] max-sm:mx-auto md:w-full border-[3px] border-[#F5A623] px-[30px] py-[25px] md:py-[40px] flex flex-col md:flex-row gap-x-[60px] mt-[45px]'>
                 <div>
-                    <h1 className='text-[32px] leading-[38px] font-bold text-[#F5A623]'>Quyền lợi</h1>
-                    <div className='px-[20px] mt-[25px]'>
-                        <ul className='list-disc text-lg font-normal'>
+                    <h1 className='text-[26px] md:text-[32px] leading-[30px] md:leading-[38px] font-bold text-[#F5A623]'>Quyền lợi</h1>
+                    <div className='px-[20px] mt-[10px] md:mt-[25px]'>
+                        <ul className='list-disc text-base md:text-lg font-normal'>
                             <li>Rèn luyện và nâng cao được các kỹ năng mềm quan trọng phục vụ môi trường công việc thực tế trong tương lai</li>
                             <div className='px-[25px]'>
                                 <ul className='list-disc'>
@@ -153,8 +222,8 @@ const DetailDepartment = () => {
                     <img src="/img/charac2-5.png" alt="" />
                 </div>
             </div>
-            <div className='w-full flex flex-col items-center justify-center mt-[70px] '>
-                <h1 className='text-[45px] leading-[80px] font-extrabold mb-[40px]'>HÌNH ẢNH HOẠT ĐỘNG</h1>
+            <div className='w-full flex flex-col items-center justify-center mt-[40px] md:mt-[70px] '>
+                <h1 className='text-[30px] md:text-[45px] leading-[80px] font-extrabold mb-[20px] md:mb-[40px]'>HÌNH ẢNH HOẠT ĐỘNG</h1>
                 <div className='competition__detail-container'>
                     <OwlCarousel
                         className='owl-theme owl-carousel__competition'
@@ -183,26 +252,26 @@ const DetailDepartment = () => {
                     </OwlCarousel>
                 </div>
             </div>
-            <div className='w-full flex flex-col justify-center items-center mt-[70px]'>
+            <div className='w-full flex flex-col justify-center items-center md:mt-[70px]'>
                 <div className='mb-[40px] flex flex-col items-center'>
-                    <h1 className='text-[45px] leading-[80px] font-extrabold '>TÍNH ĐẾN NAY,</h1>
-                    <h1 className='text-[45px] leading-[80px] font-extrabold '> {data?.name ?? '-'} CÓ</h1>
+                    <h1 className='text-[30px] md:text-[45px] leading-[50px] md:leading-[80px] font-extrabold '>TÍNH ĐẾN NAY,</h1>
+                    <h1 className='text-[30px] md:text-[45px] leading-[50px] md:leading-[80px] font-extrabold '> {data?.name ?? '-'} CÓ</h1>
                 </div>
-                <div className='flex flex-row justify-between w-full px-[50px]'>
+                <div className='flex flex-row justify-between w-full px-[15px] md:px-[50px]'>
                     <div className='flex flex-col items-center text-gradient'>
                         <img src="/img/member.png" alt="" />
-                        <p className='text-[55px] leading-[50px] font-bold'>25</p>
-                        <h2 className='text-[38px] leading-[50px] font-normal'>Thành viên</h2>
+                        <p className='text-[30px] md:text-[55px] leading-[50px] font-bold'>25</p>
+                        <h2 className='text-[18px] md:text-[38px] leading-[50px] font-normal'>Thành viên</h2>
                     </div>
                     <div className='flex flex-col items-center text-gradient'>
                         <img src="/img/oldmember.png" alt="" />
-                        <p className='text-[55px] leading-[50px] font-bold'>120+</p>
-                        <h2 className='text-[38px] leading-[50px] font-normal'>Cựu thành viên</h2>
+                        <p className='text-[30px] md:text-[55px] leading-[50px] font-bold'>120+</p>
+                        <h2 className='text-[18px] md:text-[38px] leading-[50px] font-normal'>Cựu thành viên</h2>
                     </div>
                     <div className='flex flex-col items-center text-gradient'>
                         <img src="/img/member.png" alt="" />
-                        <p className='text-[55px] leading-[50px] font-bold'>25</p>
-                        <h2 className='text-[38px] leading-[50px] font-normal'>Cộng tác viên</h2>
+                        <p className='text-[30px] md:text-[55px] leading-[50px] font-bold'>25</p>
+                        <h2 className='text-[18px] md:text-[38px] leading-[50px] font-normal'>Cộng tác viên</h2>
                     </div>
                 </div>
             </div>

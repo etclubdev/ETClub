@@ -3,7 +3,7 @@ import React, { Fragment, useState } from "react";
 
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import "./header.scss";
-
+import { ArrowDown2, CloseCircle, HambergerMenu } from 'iconsax-react'
 const Header = () => {
   const { pathname } = useLocation();
   const id = pathname.substring(pathname.lastIndexOf('/') + 1);
@@ -49,7 +49,7 @@ const Header = () => {
               <Link to="/">
                 <img
                   className="logo_img"
-                  src="./img/Logo-ET.png"
+                  src="/img/Logo-ET.png"
                   alt="Logo ET"
                 />
               </Link>
@@ -72,7 +72,7 @@ const Header = () => {
               >
                 <Link
                   className={` ${pathname === "/introduce/about-clb" ||
-                    pathname === "/introduce/cocaunhansu"
+                    pathname === "/introduce/cocaunhansu" || pathname === `/introduce/cocaunhansu/${id}`
                     ? " active"
                     : ""
                     }`}
@@ -143,58 +143,66 @@ const Header = () => {
 
                 <div className="more-link">
                   <div className="more__border"></div>
-                  <Link to="/cuoc-thi/techconomy">
+                  {/* <Link to="/cuoc-thi/techconomy">
                     <li>Techconomy</li>
-                  </Link>
+                  </Link> */}
                   <hr />
                   <Link to="/cuoc-thi/tat-ca-cuoc-thi">
                     <li>Tất cả các cuộc thi</li>
                   </Link>
                 </div>
               </div>
-              <Link
+              {/* <Link
                 to="/tuyen-ctv"
                 className={` ${pathname === "/tuyen-ctv" ? "nav-link active" : "nav-link"
                   }`}
               >
                 <span>Tuyển CTV</span>
-              </Link>
+              </Link> */}
             </nav>
           </div>
         </div>
-        <div className="cover-nav-mobile">
-          <div className="nav-mobile">
+        <div className="cover-nav-mobile w-full">
+          <div className="nav-mobile w-full">
             <div className="logo">
-              <img src="img/Logo-ET.png" alt="Logo ET" />
-              <a href="#">Economic Technology</a>
+              <img src="/img/Logo-ET.png" alt="Logo ET" />
+              <Link to='/'>Economic Technology</Link>
             </div>
-            <i
+            <HambergerMenu onClick={handleClickIcon} size="32" color="#FFFFFF" />
+            {/* <i
               id="menu-mobile"
               onClick={handleClickIcon}
               className="fas fa-bars"
-            />
+            /> */}
           </div>
           <nav className={`side-bar ${show ? "show" : ""}`}>
-            <i
+            <CloseCircle className={`icon-close ${showIntro || showCompetition || showTech ? "invisible" : ""
+              }`} onClick={handleClickIcon} size="32" color="#FFFFFF" />
+            {/* <i
               className={`far fa-times icon-close ${showIntro || showCompetition || showTech ? "invisible" : ""
                 }`}
               onClick={handleClickIcon}
-            />
+            /> */}
             <ul
               className={`side-bar__menu ${showIntro || showCompetition || showTech ? "invisible" : ""
                 }`}
             >
-              <Link to="/" onClick={handleClickBtn}>
-                <li className="active">
-                  <a className="homepage-btn">Trang chủ</a>
-                  <hr className="divider-1" />
-                </li>
-              </Link>
+              <div>
+                <Link to="/" onClick={handleClickBtn}>
+                  <li className="active">
+                    <div className='py-2'>
+                      <a className="homepage-btn">
+                        Trang chủ
+                      </a></div>
+                    <hr className="divider-1" />
+                  </li>
+                </Link>
+              </div>
 
               <li>
                 <a href="#" className="intro-btn" onClick={handleClickIntro}>
                   Giới thiệu
-                  <i id="next" className="fas fa-angle-down" />
+                  <ArrowDown2 size="32" color="#FFFFFF" />
                 </a>
                 <hr className="divider-2" />
                 <ul
@@ -222,7 +230,7 @@ const Header = () => {
               <li>
                 <a href="#" className="tech-btn" onClick={handleClickTech}>
                   Góc công nghệ
-                  <i id="next" className="fas fa-angle-down" />
+                  <ArrowDown2 size="32" color="#FFFFFF" />
                 </a>
                 <hr className="divider-3" />
                 <ul className={`tech-show ${showTech ? "show2 visible" : ""}`}>
@@ -265,7 +273,7 @@ const Header = () => {
                   onClick={handleClickCompetition}
                 >
                   Cuộc thi
-                  <i id="next" className="fas fa-angle-down" />
+                  <ArrowDown2 size="32" color="#FFFFFF" />
                 </a>
                 <hr
                   className={`divider-4 ${showCompetition ? "toggle-color" : ""
@@ -280,17 +288,17 @@ const Header = () => {
                     onClick={handleBackMenu}
                     className="fas fa-angle-down"
                   />
-                  <Link
-                    to="/tech-corner/chuoi-hoat-dong"
+                  {/* <Link
+                    to="/cuoc-thi/techconomy"
                     onClick={handleClickBtn}
                   >
                     <li>
                       Techconomy
                       <hr />
                     </li>
-                  </Link>
+                  </Link> */}
                   <Link
-                    to="/tech-corner/chuoi-hoat-dong"
+                    to="/cuoc-thi/tat-ca-cuoc-thi"
                     onClick={handleClickBtn}
                   >
                     <li>
@@ -300,12 +308,12 @@ const Header = () => {
                   </Link>
                 </ul>
               </li>
-              <Link to="/tuyen-ctv" onClick={handleClickBtn}>
+              {/* <Link to="/tuyen-ctv" onClick={handleClickBtn}>
                 <li>
                   <a className="CTV-btn">Tuyển CTV</a>
                   <hr className="divider-5" />
                 </li>
-              </Link>
+              </Link> */}
             </ul>
           </nav>
           <div className="background-blur" onClick={handleClickIcon}></div>

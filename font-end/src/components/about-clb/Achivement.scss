@@ -119,6 +119,19 @@
         align-items: center;
       }
     }
+    @media only screen and (max-width: 1500px) and (min-width: 1300px) {
+      .achievement-year,
+      .achievement-communication,
+      .achievement-competition,
+      .achievement-workshop,
+      .achievement-year,
+      .achievement-oldmember,
+      .achievement-member {
+        h1 {
+          font-size: 32px;
+        }
+      }
+    }
     .achievement-communication,
     .achievement-workshop {
       h1 {

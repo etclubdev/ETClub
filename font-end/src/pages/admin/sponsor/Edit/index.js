@@ -6,7 +6,8 @@ import sponsorApi from "../../../../api/sponsorApi";
 
 const EditSponsor = () => {
   const [image, setImage] = React.useState();
-  const [competitionIdSelected, setCompetitionSelected] = React.useState();
+  const [competitionIdSelected, setCompetitionSelected] = React.useState(undefined);
+  const [kindSelected, setKindSelected] = React.useState(undefined);
   const [dataCompetition, setDataCompetition] = React.useState();
   const [form] = Form.useForm();
   const fileOnChange = (event) => {
@@ -21,7 +22,7 @@ const EditSponsor = () => {
   const fetchCompetitions = async () => {
     try {
       const dataApi = await competitionApi.getAllCompetition();
-      setDataCompetition(dataApi);
+      setDataCompetition(dataApi?.data);
     } catch (error) {
       console.log(error);
     }
@@ -40,15 +41,46 @@ const EditSponsor = () => {
             height: "100%",
           }}
         >
-          <h3>Tạo nhà tài trợ</h3>
+          <h3 className='text-xl font-bold'>Tạo nhà tài trợ</h3>
+
           <Form.Item name='name' label='Tên nhà tài trợ'>
             <Input></Input>
           </Form.Item>
           <Form.Item name='kind' label='Thể loại'>
-            <Input></Input>
+            <Select
+              onChange={(e) => setKindSelected(e)}
+              value={kindSelected}
+              options={[
+                {
+                  value: 1,
+                  label: 'Nhà tài trợ kim cương'
+                },
+                {
+                  value: 2,
+                  label: 'Nhà tài trợ vàng'
+                },
+                {
+                  value: 3,
+                  label: 'Nhà tài trợ bạc'
+                },
+                {
+                  value: 4,
+                  label: 'Nhà tài trợ đồng'
+                },
+                {
+                  value: 5,
+                  label: 'Bảo trợ truyền thông'
+                },
+                {
+                  value: 6,
+                  label: 'Đối tác Marketing'
+                },
+              ]}
+            />
           </Form.Item>
           <Form.Item name='competition_id' label='ID cuộc thi'>
             <Select
+              value={competitionIdSelected}
               onChange={(e) => setCompetitionSelected(e)}
               options={[
                 ...dataCompetition.map((item) => {
@@ -68,16 +100,33 @@ const EditSponsor = () => {
 
           <Form.Item>
             <Button
+              className='min-w-[150px] bg-blue-400'
+
               onClick={() => {
                 form.validateFields().then((values) => {
+                  if (!competitionIdSelected) {
+                    alert('Vui lòng chọn ID cuộc thi')
+                    return null
+                  }
+                  if (!kindSelected) {
+                    alert('Vui lòng chọn loại nhà tài trợ')
+                    return null
+                  }
+                  if (!image) {
+                    alert('Vui lòng chọn logo')
+                    return null
+                  }
                   const data = new FormData();
                   data.append("name", values.name);
                   data.append("logo", image);
-                  data.append("kind", values.kind);
+                  data.append("kind", kindSelected);
                   data.append("competition_id", competitionIdSelected);
                   const check = sponsorApi.addSponsor(data);
                   if (check) {
                     alert("ADD SUCCESS!");
+                    form.resetFields();
+                    setCompetitionSelected(undefined)
+                    setKindSelected(undefined)
                   }
                 });
               }}

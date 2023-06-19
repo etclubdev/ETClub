@@ -5,6 +5,7 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import competitionApi from "../../api/competitionApi";
+import { Link } from 'react-router-dom';
 const Competition = () => {
   const options = {
     nav: true,
@@ -45,7 +46,7 @@ const Competition = () => {
   const fetchCompetitions = async () => {
     try {
       const dataApi = await competitionApi.getAllCompetition();
-      setData(dataApi);
+      setData(dataApi.data);
     } catch (error) {
       console.log(error);
     }
@@ -66,11 +67,11 @@ const Competition = () => {
           {...options}
         >
           {data?.map((item) => (
-            <div key={item.id} className='item'>
+            <Link to={`/cuoc-thi/${item.id}`} key={item.id} className='item'>
               <img
-                src={`https://et-api-2023.onrender.com/public/images/competition/${item.portrait_poster}`}
+                src={`http://127.0.0.1:1111/public/images/competition/${item.landscape_poster}`}
               />
-            </div>
+            </Link>
           ))}
         </OwlCarousel>
       ) : (

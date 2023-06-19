@@ -45,14 +45,24 @@ const EditBanner = () => {
           <Button
             onClick={() => {
               form.validateFields().then((values) => {
+                if (!image) {
+                  alert('Vui lòng chọn ảnh banner')
+                  return null;
+                }
+                if (!values.link) {
+                  alert('Vui lòng điền link liên kết')
+                  return null;
+                }
                 const data = new FormData();
                 data.append("description", values.description);
                 data.append("img", image);
                 data.append("link", values.link);
                 const check = bannerApi.addBanner(data);
-                console.log(check.then((res) => res.json()).then((data) => console.log(data)))
+
                 if (check) {
                   alert("ADD SUCCESS!");
+                  form.resetFields();
+                  setImage(undefined)
                 }
               });
             }}

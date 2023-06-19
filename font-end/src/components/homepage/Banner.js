@@ -8,6 +8,7 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import "./banner.scss";
 
 import bannerApi from "../../api/bannerApi";
+import { Link } from 'react-router-dom';
 
 export default function Banner() {
   const options = {
@@ -47,18 +48,19 @@ export default function Banner() {
   React.useEffect(() => {
     fetchBanners();
   }, []);
+
   return (
     <>
       {data.length > 0 ? (
         <OwlCarousel className='owl-theme owl-carousel-banner' {...options}>
           {data?.map((item, index) => (
-            <div className='item' key={index}>
+            <a href={item.link} target='_blank' rel="noreferrer" className='item' key={index}>
               <img
-                src={`https://et-api-2023.onrender.com/public/images/banners/${item.img}`}
-                style={{ height: "600px" }}
+                src={`http://127.0.0.1:1111/public/images/banners/${item.img}`}
+                className='md:h-[600px] object-cover'
                 alt={`Banner ${index + 1}`}
               />
-            </div>
+            </a>
           ))}
         </OwlCarousel>
       ) : (

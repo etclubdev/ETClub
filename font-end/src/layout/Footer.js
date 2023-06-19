@@ -14,7 +14,7 @@ const Footer = () => {
                 </div>
 
                 <div className="container">
-                    <div className="row">
+                    <div className="row max-sm:text-justify md:w-full">
 
                         <div class="footer-left col-12 col-lg-7">
                             <div className="footer-left__img">

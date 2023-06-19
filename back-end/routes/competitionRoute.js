@@ -4,12 +4,41 @@ import competitionService from "../services/competition-service.js";
 import multer from "multer";
 const Router = express.Router();
 Router.get("/", async (req, res, next) => {
-  const newsList = await competitionService.getAllCompetition();
-  res.json(newsList);
+  //enum status competition 
+  //  1: Sắp diễn ra 
+  //  2: Đang diễn ra 
+  //  3: Đã diễn ra
+  let newsList = await competitionService.getAllCompetition();
+  const status = req.query.status;
+  const pageSize = parseInt(req.query.pageSize) || 9;
+  const page = parseInt(req.query.page) || 1;
+
+  const skip = (page - 1) * pageSize;
+  if (status) {
+    newsList = newsList.filter((item) => {
+      return item.status == (status == 1 ? 'Sắp diễn ra' : status == 2 ? 'Đang diễn ra' : 'Đã diễn ra');
+    });
+  }
+  const total = newsList.length;
+  newsList = newsList.slice(skip, skip + pageSize);
+
+  res.json({ data: newsList, total: total });
 });
 Router.get("/get-competition-by-id/:id", async (req, res) => {
-  const getById = await competitionService.getCompetitionById(req.params.id);
-  res.json(getById);
+  try {
+
+    if (
+      !isNaN(Number(req.params.id))
+    ) {
+      const getById = await competitionService.getCompetitionById(req.params.id);
+      res.json(getById);
+    } else {
+      res.json('nodata')
+    }
+
+  } catch (error) {
+    console.log(error)
+  }
 });
 //Router.post("/competition", async (req, res) => {
 //const ret = await competitionService.add(req.body);
@@ -31,11 +60,11 @@ const upload = multer({ storage });
 const fields = [
   { name: "landscape_poster", maxCount: 3 },
   { name: "portrait_poster", maxCount: 3 },
-  { name: "lookback_img", maxCount: 3 },
+  // { name: "lookback_img", maxCount: 3 },
 ];
 Router.post("/", upload.fields(fields), async (req, res, next) => {
   //data process
-  const { name, status, lookback_script } = req.body;
+  const { name, status, lookback_script, content } = req.body;
   //image process
   const landscape_poster = req.files["landscape_poster"].map((file) => {
     let fileType = file.mimetype.split("/")[1];
@@ -55,15 +84,15 @@ Router.post("/", upload.fields(fields), async (req, res, next) => {
     );
     return imgName;
   });
-  const lookback_img = req.files["lookback_img"].map((file) => {
-    let fileType = file.mimetype.split("/")[1];
-    let imgName = file.filename + "." + fileType;
-    fs.renameSync(
-      `./public/images/competition/${file.filename}`,
-      `./public/images/competition/${imgName}`
-    );
-    return imgName;
-  });
+  // const lookback_img = req.files["lookback_img"].map((file) => {
+  //   let fileType = file.mimetype.split("/")[1];
+  //   let imgName = file.filename + "." + fileType;
+  //   fs.renameSync(
+  //     `./public/images/competition/${file.filename}`,
+  //     `./public/images/competition/${imgName}`
+  //   );
+  //   return imgName;
+  // });
 
   const addcompetition = await competitionService.addCompetition(
     name,
@@ -71,7 +100,7 @@ Router.post("/", upload.fields(fields), async (req, res, next) => {
     landscape_poster,
     portrait_poster,
     lookback_script,
-    lookback_img
+    content
   );
   if (addcompetition) res.json({ code: 200, msg: "OK" });
   else res.json({ code: 404, msg: "ERROR" });
@@ -88,15 +117,16 @@ Router.post("/update-competition", upload.fields(fields), async (req, res) => {
     id,
     name,
     status,
-    lookback_script,
     landscape_poster,
     portrait_poster,
-    lookback_img,
+    lookback_script,
+    content
+
   } = req.body;
   let imgName = "";
   let landscape_posters = "";
   let portrait_posters = "";
-  let lookback_imgs = "";
+
   if (req.body.landscape_poster === undefined) {
     landscape_posters = req.files["landscape_poster"].map((file) => {
       let fileType = file.mimetype.split("/")[1];
@@ -120,17 +150,6 @@ Router.post("/update-competition", upload.fields(fields), async (req, res) => {
     });
   }
 
-  if (req.body.lookback_img === undefined) {
-    lookback_imgs = req.files["lookback_img"].map((file) => {
-      let fileType = file.mimetype.split("/")[1];
-      imgName = file.filename + "." + fileType;
-      fs.renameSync(
-        `./public/images/competition/${file.filename}`,
-        `./public/images/competition/${imgName}`
-      );
-      return imgName;
-    });
-  }
   const updatecompetition = await competitionService.updateCompetition(
     id,
     name,
@@ -140,7 +159,7 @@ Router.post("/update-competition", upload.fields(fields), async (req, res) => {
       : landscape_poster,
     req.body.portrait_poster === undefined ? portrait_posters : portrait_poster,
     lookback_script,
-    req.body.lookback_img === undefined ? lookback_imgs : lookback_img
+    content
   );
   if (updatecompetition) res.json({ code: 200, msg: "OK" });
   else res.json({ code: 404, msg: "ERROR" });

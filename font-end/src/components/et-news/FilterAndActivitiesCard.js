@@ -16,43 +16,43 @@ const FilterAndActivitiesCard = () => {
   }
 
   React.useEffect(() => {
-    document
-      .querySelector(".time-cover__time")
-      .addEventListener("click", () => {
-        document
-          .querySelector(".time-cover__option")
-          .classList.toggle("display");
-      });
+    // document
+    //   .querySelector(".time-cover__time")
+    //   .addEventListener("click", () => {
+    //     document
+    //       .querySelector(".time-cover__option")
+    //       .classList.toggle("display");
+    //   });
 
-    document.querySelector(".drop-down-1").addEventListener("click", () => {
-      document.querySelector(".time-cover__option").classList.toggle("display");
-    });
+    // document.querySelector(".drop-down-1").addEventListener("click", () => {
+    //   document.querySelector(".time-cover__option").classList.toggle("display");
+    // });
 
-    document
-      .querySelector(".year-cover .year")
-      .addEventListener("click", () => {
-        document
-          .querySelector(".year-cover__option")
-          .classList.toggle("display");
-      });
+    // document
+    //   .querySelector(".year-cover .year")
+    //   .addEventListener("click", () => {
+    //     document
+    //       .querySelector(".year-cover__option")
+    //       .classList.toggle("display");
+    //   });
 
-    document.querySelector(".drop-down-2").addEventListener("click", () => {
-      document.querySelector(".year-cover__option").classList.toggle("display");
-    });
+    // document.querySelector(".drop-down-2").addEventListener("click", () => {
+    //   document.querySelector(".year-cover__option").classList.toggle("display");
+    // });
 
-    document
-      .querySelector(".month-cover .month")
-      .addEventListener("click", () => {
-        document
-          .querySelector(".month-cover__option")
-          .classList.toggle("display");
-      });
+    // document
+    //   .querySelector(".month-cover .month")
+    //   .addEventListener("click", () => {
+    //     document
+    //       .querySelector(".month-cover__option")
+    //       .classList.toggle("display");
+    //   });
 
-    document.querySelector(".drop-down-3").addEventListener("click", () => {
-      document
-        .querySelector(".month-cover__option")
-        .classList.toggle("display");
-    });
+    // document.querySelector(".drop-down-3").addEventListener("click", () => {
+    //   document
+    //     .querySelector(".month-cover__option")
+    //     .classList.toggle("display");
+    // });
 
 
   }, []);
@@ -73,34 +73,36 @@ const FilterAndActivitiesCard = () => {
       >
         <div className="cover-filter">
           <div className="filter ">
-            <div className="popular-cover">
-              <span className="popular">Phổ biến</span>
+            <div className={`${sortNew === 2 ? ' ' : 'newest__un-active--container'} `} onClick={() => setSortNew(2)}>
+              <span className={`${sortNew === 2 ? 'newest max-sm:flex max-sm:h-full max-sm:items-center' : 'newest__un-active'} `} >Phổ biến</span>
             </div>
             <div className={`${sortNew === 1 ? ' ' : 'newest__un-active--container'}`}>
-              <span className={`${sortNew === 1 ? 'newest' : 'newest__un-active'}`} onClick={() => setSortNew(1)}>Mới nhất</span>
+              <span className={`${sortNew === 1 ? 'newest max-sm:flex max-sm:h-full max-sm:items-center' : 'newest__un-active'}`} onClick={() => setSortNew(1)}>Mới nhất</span>
+            </div>
+            <div className={`${sortNew === 3 ? ' ' : 'newest__un-active--container'}`}>
+              <span className={`${sortNew === 3 ? 'newest max-sm:flex max-sm:h-full max-sm:items-center' : 'newest__un-active'}`} >Thời gian</span>
             </div>
 
-
-            <div className="time-cover">
+            {/* <div className="time-cover">
               <span className="time-cover__time">Thời gian</span>
               <i className="drop-down-1 fa-solid fa-angle-down" />
-              {/*-------- Table chọn tháng năm ------*/}
+           
               <div className="time-cover__option">
                 <div className="time-cover__option-time d-flex">
                   <div className="year-cover">
                     <span className="year">Năm</span>
                     <i className="drop-down-2 fa-solid fa-angle-down" />
-                    {/*--- year table ---*/}
+             
                     <div className="year-cover__option">
                       <div>2022</div>
                       <div>2021</div>
                     </div>
-                    {/*--- end ---*/}
+          
                   </div>
                   <div className="month-cover">
                     <span className="month">Tháng</span>
                     <i className="drop-down-3 fa-solid fa-angle-down" />
-                    {/*--- month table ---*/}
+                 
                     <div className="month-cover__option">
                       <div>1</div>
                       <div>2</div>
@@ -115,24 +117,24 @@ const FilterAndActivitiesCard = () => {
                       <div>11</div>
                       <div>12</div>
                     </div>
-                    {/*--- end ---*/}
+                  
                   </div>
                 </div>
                 <div className="time-cover__option-apply">Áp dụng</div>
               </div>
-              {/*--------------- end --------------*/}
-            </div>
-            <span className="clear" onClick={() => setSortNew(undefined)}>Xóa lọc</span>
+             
+            </div> */}
+            <span className="clear max-sm:items-center max-sm:flex" onClick={() => setSortNew(undefined)}>Xóa lọc</span>
           </div>
           <div className="col-lg-1" />
         </div>
-        <div className="body-3">
-          <div className="cover-card flex flex-wrap items-center justify-start gap-5">
+        <div className="body-3 max-sm:flex-col">
+          <div className="cover-card flex flex-wrap items-center justify-between md:justify-center md:gap-10">
             {data?.data && data?.data?.map((item, index) => {
               return <Link key={index} to={`/tech-corner/ban-tin-ET/${item?.id}`} className="card card-1">
                 <img
                   className="card-image"
-                  src={`https://et-api-2023.onrender.com/public/images/news/${item?.image}`}
+                  src={`http://127.0.0.1:1111/public/images/news/${item?.image}`}
                   alt="Image"
                 />
                 <span className="card-time">

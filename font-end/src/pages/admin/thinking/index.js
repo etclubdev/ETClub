@@ -41,6 +41,7 @@ const HomePageAdmin = () => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    setDataDetail(undefined);
     setImageURL("");
   };
   const fetchFeeling = async () => {
@@ -57,7 +58,7 @@ const HomePageAdmin = () => {
   };
   const fileOnChange = (event) => {
     const file = event.target.files[0];
-    console.log(file);
+
     objectURL = URL.createObjectURL(file);
     setImageURL(objectURL);
     if (file) {
@@ -67,11 +68,24 @@ const HomePageAdmin = () => {
       alert("Please select a file.");
     }
   };
-  console.log(data);
+
   React.useEffect(() => {
     fetchFeeling();
     setLoading(false);
   }, []);
+  React.useEffect(() => {
+    form.setFieldsValue({
+      quote: dataDetail?.quote,
+      author: dataDetail?.author,
+      department: dataDetail?.department
+    });
+  }, [dataDetail]);
+
+  React.useEffect(() => {
+    if (!isModalOpen) {
+      setDataDetail(undefined)
+    }
+  }, [isModalOpen])
   return (
     <Row justify='center'>
       <Col
@@ -80,7 +94,7 @@ const HomePageAdmin = () => {
         }}
         span={20}
       >
-        <h1>Quản lý danh sách Cảm nghĩ</h1>
+        <h1 className='text-2xl font-bold'>Quản lý danh sách Cảm nghĩ</h1>
         <Row
           style={{
             display: "flex",
@@ -89,7 +103,7 @@ const HomePageAdmin = () => {
           }}
         >
           <Button
-            type='primary'
+            className='min-w-[200px] bg-green-400 text-white font-bold'
             onClick={() => navigate("/admin/feeling/edit")}
           >
             Tạo mới{" "}
@@ -101,6 +115,7 @@ const HomePageAdmin = () => {
           onOk={handleOk}
           width={800}
           onCancel={handleCancel}
+          okButtonProps={{ style: { background: 'green', minWidth: '150px' } }}
           okText={"Lưu"}
         >
           {dataDetail ? (
@@ -138,7 +153,7 @@ const HomePageAdmin = () => {
                     src={
                       imageURL.length > 0
                         ? imageURL
-                        : `https://et-api-2023.onrender.com/public/images/feeling/${dataDetail.avatar}`
+                        : `http://127.0.0.1:1111/public/images/feeling/${dataDetail.avatar}`
                     }
                     alt=''
                   />
@@ -155,6 +170,7 @@ const HomePageAdmin = () => {
         <Table
           columns={columns(handleDelete, showModal)}
           loading={loading}
+          rootClassName='table-admin'
           dataSource={data}
         />
       </Col>

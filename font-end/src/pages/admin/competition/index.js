@@ -3,23 +3,25 @@ import { Button, Table, Row, Col, Form, Input, Modal } from "antd";
 import competitionApi from "../../../api/competitionApi";
 import { columns, data } from "./render";
 import { useNavigate } from "react-router-dom";
+import EditorComponent from '../../../components/Editor';
 const CompetitionAdmin = () => {
   const navigate = useNavigate();
   const [data, setData] = React.useState([]);
   const [dataDetail, setDataDetail] = React.useState();
+  const [valueContent, setValueContent] = React.useState();
+  const [valueRecap, setValueRecap] = React.useState();
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [imageLanscape, setImageLanscape] = React.useState();
   const [imagePortrait, setImagePortrait] = React.useState();
-  const [imageLookback, setImageLookback] = React.useState();
   const [imageURLLanscape, setImageURLLanscape] = React.useState("");
   const [imageURLPortrait, setImageURLPortrait] = React.useState("");
-  const [imageURLLookback, setImageURLLookback] = React.useState("");
   let objectURLLanscapePoster = "";
   let objectURLPortraitPoster = "";
-  let objectURLLookback = "";
+
   const showModal = async (id) => {
+
     setIsModalOpen(true);
     const dataApiDetail = await competitionApi.getByCompetitionId(id);
 
@@ -43,15 +45,12 @@ const CompetitionAdmin = () => {
         "portrait_poster",
         imageURLPortrait.length > 0 ? imagePortrait : dataDetail.portrait_poster
       );
-      formData.append(
-        "lookback_img",
-        imageURLLookback.length > 0 ? imageLookback : dataDetail.lookback_img
-      );
+
       formData.append("status", values.status);
-      formData.append("lookback_script", values.lookback_script);
-      console.log("check data", formData);
+      formData.append("lookback_script", valueRecap);
+      formData.append("content", valueContent)
       const check = competitionApi.updateCompetition(formData);
-      console.log("check", check);
+
       if (check) {
         alert("ADD SUCCESS!");
         fetchCompetitions();
@@ -61,9 +60,10 @@ const CompetitionAdmin = () => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    setDataDetail(undefined)
     setImageURLLanscape("");
     setImageURLPortrait("");
-    setImageURLLookback("");
+
   };
   const fetchCompetitions = async () => {
     try {
@@ -102,23 +102,23 @@ const CompetitionAdmin = () => {
       alert("Please select a file.");
     }
   };
-  const fileOnChangeLookback = (event) => {
-    const file = event.target.files[0];
 
-    objectURLLookback = URL.createObjectURL(file);
-    setImageURLLookback(objectURLLookback);
-    if (file) {
-      setImageLookback(file);
-    } else {
-      setImageLookback(null);
-      alert("Please select a file.");
-    }
-  };
 
   React.useEffect(() => {
     fetchCompetitions();
     setLoading(false);
   }, []);
+  React.useEffect(() => {
+    form.setFieldsValue({
+      name: dataDetail?.name,
+      status: dataDetail?.status
+    });
+  }, [dataDetail]);
+  React.useEffect(() => {
+    if (!isModalOpen) {
+      setDataDetail(undefined)
+    }
+  }, [isModalOpen])
   return (
     <Row justify='center'>
       <Col
@@ -127,7 +127,7 @@ const CompetitionAdmin = () => {
         }}
         span={20}
       >
-        <h1>Quản lý danh sách cuộc thi</h1>
+        <h1 className='text-2xl font-bold'>Quản lý danh sách cuộc thi</h1>
         <Row
           style={{
             display: "flex",
@@ -136,7 +136,7 @@ const CompetitionAdmin = () => {
           }}
         >
           <Button
-            type='primary'
+            className='min-w-[200px] bg-green-500 text-white font-bold'
             onClick={() => navigate("/admin/competition/edit")}
           >
             Tạo mới{" "}
@@ -146,34 +146,50 @@ const CompetitionAdmin = () => {
           title='Chỉnh sửa cuộc thi'
           open={isModalOpen}
           onOk={handleOk}
-          width={800}
+          width={1120}
+          okButtonProps={{ style: { background: 'green', minWidth: '150px' } }}
+          centered
           onCancel={handleCancel}
           okText={"Lưu"}
         >
-          {dataDetail ? (
+          {isModalOpen && dataDetail ? (
             <Form form={form}>
               <Form.Item
                 name='name'
-                initialValue={dataDetail.name}
-                label='Mô tả'
+
+                label='Tên cuộc thi'
               >
-                <Input />
+                <Input defaultValue={dataDetail?.name} />
               </Form.Item>
               <Form.Item
                 name='status'
-                initialValue={dataDetail.status}
+
                 label='Trạng thái'
               >
-                <Input />
+                <Input defaultValue={dataDetail?.status} />
               </Form.Item>
-              <Form.Item
+              {/* <Form.Item
                 name='lookback_script'
                 initialValue={dataDetail.lookback_script}
                 label='Recap'
               >
                 <Input />
-              </Form.Item>
-              <Form.Item name='landscape_poster' label='Hình ảnh cảnh quan'>
+              </Form.Item> */}
+              <div>Mô tả</div>
+              <div className=' w-full'>
+                <div className='' >
+                  <EditorComponent initialValue={dataDetail?.content || ''} setValue={setValueContent} />
+                </div>
+
+              </div>
+              <div>Recap</div>
+              <div className=' w-full'>
+                <div className='' >
+                  <EditorComponent initialValue={dataDetail?.lookback_script || ''} setValue={setValueRecap} />
+                </div>
+
+              </div>
+              <Form.Item name='landscape_poster' label='Ảnh ngang'>
                 <div>
                   <img
                     style={{
@@ -184,7 +200,7 @@ const CompetitionAdmin = () => {
                     src={
                       imageURLLanscape.length > 0
                         ? imageURLLanscape
-                        : `https://et-api-2023.onrender.com/public/images/competition/${dataDetail.landscape_poster}`
+                        : `http://127.0.0.1:1111/public/images/competition/${dataDetail.landscape_poster}`
                     }
                     alt=''
                   />
@@ -193,7 +209,7 @@ const CompetitionAdmin = () => {
                   <input type='file' onChange={fileOnChangeLandscapePoster} />
                 </div>
               </Form.Item>
-              <Form.Item name='portrait_poster' label='Hình ảnh chân dung'>
+              <Form.Item name='portrait_poster' label='Ảnh dọc'>
                 <div>
                   <img
                     style={{
@@ -204,7 +220,7 @@ const CompetitionAdmin = () => {
                     src={
                       imageURLPortrait.length > 0
                         ? imageURLPortrait
-                        : `https://et-api-2023.onrender.com/public/images/competition/${dataDetail.portrait_poster}`
+                        : `http://127.0.0.1:1111/public/images/competition/${dataDetail.portrait_poster}`
                     }
                     alt=''
                   />
@@ -213,7 +229,7 @@ const CompetitionAdmin = () => {
                   <input type='file' onChange={fileOnChangePotraitPoster} />
                 </div>
               </Form.Item>
-              <Form.Item name='lookback_img' label='Hình ảnh Recap'>
+              {/* <Form.Item name='lookback_img' label='Hình ảnh Recap'>
                 <div>
                   <img
                     style={{
@@ -224,7 +240,7 @@ const CompetitionAdmin = () => {
                     src={
                       imageURLLookback.length > 0
                         ? imageURLLookback
-                        : `https://et-api-2023.onrender.com/public/images/competition/${dataDetail.lookback_img}`
+                        : `http://127.0.0.1:1111/public/images/competition/${dataDetail.lookback_img}`
                     }
                     alt=''
                   />
@@ -232,7 +248,7 @@ const CompetitionAdmin = () => {
                 <div>
                   <input type='file' onChange={fileOnChangeLookback} />
                 </div>
-              </Form.Item>
+              </Form.Item> */}
             </Form>
           ) : (
             <span>Loading ...</span>
@@ -241,8 +257,9 @@ const CompetitionAdmin = () => {
         <Table
           columns={columns(handleDelete, showModal)}
           loading={loading}
-          scroll={{ y: 240 }}
-          dataSource={data}
+          rootClassName='table-admin'
+          scroll={{ x: 240 }}
+          dataSource={data?.data}
         />
       </Col>
     </Row>

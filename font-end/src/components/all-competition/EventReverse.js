@@ -3,7 +3,7 @@ import React from "react";
 import "./eventReverse.scss";
 const EventReverse = () => {
   return (
-    <div className="competition">
+    <div className="competition max-sm:hidden">
       <div className="left">
         <div className="competition_image">
           <img src="/img/AllCompetitionPage/poster 1.png" alt />

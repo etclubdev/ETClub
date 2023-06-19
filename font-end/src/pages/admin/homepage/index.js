@@ -40,6 +40,7 @@ const HomePageAdmin = () => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    setDataDetail(undefined);
     setImageURL("");
   };
   const fetchBanners = async () => {
@@ -71,6 +72,12 @@ const HomePageAdmin = () => {
     fetchBanners();
     setLoading(false);
   }, []);
+  React.useEffect(() => {
+    form.setFieldsValue({
+      description: dataDetail?.description,
+      link: dataDetail?.link
+    });
+  }, [dataDetail]);
   return (
     <Row justify='center'>
       <Col
@@ -79,7 +86,7 @@ const HomePageAdmin = () => {
         }}
         span={20}
       >
-        <h1>Quản lý danh sách Banner</h1>
+        <h1 className='text-2xl font-bold'>Quản lý danh sách Banner</h1>
         <Row
           style={{
             display: "flex",
@@ -87,7 +94,7 @@ const HomePageAdmin = () => {
             marginBottom: "10px",
           }}
         >
-          <Button type='primary' onClick={() => navigate("/admin/edit")}>
+          <Button className='min-w-[200px] bg-green-500 text-white font-bold' onClick={() => navigate("/admin/edit")}>
             Tạo mới{" "}
           </Button>
         </Row>
@@ -127,7 +134,7 @@ const HomePageAdmin = () => {
                     src={
                       imageURL.length > 0
                         ? imageURL
-                        : `https://et-api-2023.onrender.com/public/images/banners/${dataDetail.img}`
+                        : `http://127.0.0.1:1111/public/images/banners/${dataDetail.img}`
                     }
                     alt=''
                   />
@@ -144,6 +151,7 @@ const HomePageAdmin = () => {
         <Table
           columns={columns(handleDelete, showModal)}
           loading={loading}
+          rootClassName='table-admin'
           dataSource={data}
         />
       </Col>

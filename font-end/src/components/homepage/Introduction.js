@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import "./introduction.scss";
+import { Link } from 'react-router-dom';
 const Introduction = () => {
   return (
     <div>
@@ -22,10 +23,10 @@ const Introduction = () => {
               phần giúp Câu lạc bộ ngày càng phát triển hơn.
             </p>
             <div className="introduction-content__learn-more p-0">
-              <a href="#">
+              <Link to='/introduce/about-clb'>
                 Xem thêm &nbsp;
                 <i className="fas fa-long-arrow-right" />
-              </a>
+              </Link>
             </div>
           </div>
           <div className="col-lg-1" />

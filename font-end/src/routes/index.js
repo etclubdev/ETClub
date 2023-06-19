@@ -27,10 +27,20 @@ import CompetitionAdmin from "../pages/admin/competition";
 import EditCompetition from "../pages/admin/competition/Edit";
 import DetailDepartment from '../pages/detail-department';
 import DetailNews from '../pages/detail-news';
+import PageNotFound from '../pages/404';
+import DetailBoardMem from '../pages/detailBoardMem';
+import ResultCompetitionAdmin from '../pages/admin/result-competition';
+import EditCompetitionResults from '../pages/admin/result-competition/Edit';
+import MileStoneAdmin from '../pages/admin/timeline-competition';
+import EditMileStone from '../pages/admin/timeline-competition/Edit';
 
 const AppRoutes = () => {
   const location = useLocation();
-  const shouldShowHeaderAndFooter = !location.pathname.startsWith("/admin");
+
+  const id = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);
+  const excludedPaths = ['/', '/introduce/about-clb', '/introduce/cocaunhansu', '/tech-corner', '/tech-corner/ban-tin-ET', '/tech-corner/chuoi-hoat-dong', '/tech-corner/cuoc-thi-cong-nghe', `/cuoc-thi/${id}`, `/introduce/cocaunhansu/${id}`, `/tech-corner/ban-tin-ET/${id}`, '/cuoc-thi/tat-ca-cuoc-thi', '/tuyen-ctv'];
+  const shouldShowHeaderAndFooter = excludedPaths.includes(location.pathname);
+
   return (
     <Fragment>
       {shouldShowHeaderAndFooter && <Header></Header>}
@@ -73,12 +83,16 @@ const AppRoutes = () => {
           element={<CompetitionCompilationPage></CompetitionCompilationPage>}
         ></Route>
         <Route
-          path='/cuoc-thi/techconomy'
+          path='/cuoc-thi/:id'
           element={<InfoContestPage></InfoContestPage>}
         ></Route>
         <Route
           path='/introduce/cocaunhansu/:department'
           element={<DetailDepartment></DetailDepartment>}
+        ></Route>
+        <Route
+          path='/introduce/cocaunhansu/ban-chu-nhiem'
+          element={<DetailBoardMem></DetailBoardMem>}
         ></Route>
         <Route
           path='/tech-corner/ban-tin-ET/:id'
@@ -88,14 +102,14 @@ const AppRoutes = () => {
           path='/cuoc-thi/tat-ca-cuoc-thi'
           element={<AllCompetitionPage></AllCompetitionPage>}
         ></Route>
-        <Route
+        {/* <Route
           path='/tuyen-ctv'
           element={
             <>
               <p>Tuyển ctv</p>
             </>
           }
-        ></Route>
+        ></Route> */}
         <Route path='/admin' element={<LayoutAdmin />}>
           <Route index element={<HomePageAdmin />}></Route>
           <Route path='/admin/edit' element={<EditBanner />}></Route>
@@ -115,6 +129,26 @@ const AppRoutes = () => {
             path='/admin/competition'
             element={<CompetitionAdmin />}
           ></Route>
+
+          <Route
+            path='/admin/competition-results'
+            element={<ResultCompetitionAdmin />}
+          ></Route>
+          <Route
+            path='/admin/competition-results/Edit'
+            element={<EditCompetitionResults />}
+          ></Route>
+          <Route
+            path='/admin/milestone'
+            element={<MileStoneAdmin />}
+          ></Route>
+          <Route
+            path='/admin/milestone/edit'
+            element={<EditMileStone />}
+          ></Route>
+        </Route>
+        <Route path='*' element={<PageNotFound></PageNotFound>}>
+
         </Route>
       </Routes>
       {shouldShowHeaderAndFooter && <Footer></Footer>}

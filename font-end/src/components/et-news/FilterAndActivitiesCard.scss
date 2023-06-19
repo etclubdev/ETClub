@@ -405,7 +405,7 @@
 }
 
 .cover-card {
-  flex-direction: column;
+  // flex-direction: column;
   margin: 0 !important;
 
   @media only screen and (min-width: 992px) {
@@ -426,7 +426,7 @@
     @media (max-width: 385px) {
       width: 169px;
     }
-    width: 182px;
+    width: 46.6%;
     @media only screen and (min-width: 992px) {
       width: 370px;
       margin-top: 0;
@@ -634,7 +634,12 @@
   }
 }
 .newest__un-active {
+  @media (max-width: 576px) {
+    font-size: 14px;
+    font-weight: 500;
+  }
   font-size: 20px;
+
   font-weight: 700;
   background: linear-gradient(90deg, #7496ff 0%, #5dd7d0 99.81%);
   -webkit-background-clip: text;
@@ -653,6 +658,9 @@
   background-size: 100% 1px;
   background-image: linear-gradient(to right, #7496ff 0%, #5dd7d0 99.81%),
     linear-gradient(to right, #7496ff 0%, #5dd7d0 99.81%);
+  @media (max-width: 576px) {
+    padding: 9px 10px;
+  }
   padding: 9px 25px;
   cursor: pointer;
   &:hover {

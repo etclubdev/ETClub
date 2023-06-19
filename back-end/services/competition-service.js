@@ -15,10 +15,11 @@ export default {
     landscape_poster,
     portrait_poster,
     lookback_script,
-    lookback_img
+    content,
+
   ) => {
     const result = await db.raw(
-      `INSERT INTO competition (name,status,landscape_poster,portrait_poster,lookback_script,lookback_img) VALUES ('${name}', '${status}', '${landscape_poster}', '${portrait_poster}', '${lookback_script}', '${lookback_img}')`
+      `INSERT INTO competition (name,status,landscape_poster,portrait_poster,lookback_script,content) VALUES ('${name}', '${status}', '${landscape_poster}', '${portrait_poster}', '${lookback_script}', '${content}')`
     );
     return result[0];
   },
@@ -29,11 +30,30 @@ export default {
     landscape_poster,
     portrait_poster,
     lookback_script,
-    lookback_img
+    content
   ) => {
-    await db.raw(
-      `UPDATE competition SET name = '${name}',status= '${status}',landscape_poster='${landscape_poster}', portrait_poster = '${portrait_poster}',lookback_script= '${lookback_script}',lookback_img='${lookback_img}' where id =${id}`
-    );
+
+    if (lookback_script != 'undefined' && content != 'undefined') {
+      await db.raw(
+        `UPDATE competition SET name = '${name}',status= '${status}',landscape_poster='${landscape_poster}', portrait_poster = '${portrait_poster}',lookback_script= '${lookback_script}', content = '${content}' where id =${id}`
+      );
+    }
+    else if (lookback_script != 'undefined' && !(content != 'undefined')) {
+      await db.raw(
+        `UPDATE competition SET name = '${name}',status= '${status}',landscape_poster='${landscape_poster}', portrait_poster = '${portrait_poster}',lookback_script= '${lookback_script}' where id =${id}`
+      );
+    }
+    else if (!(lookback_script != 'undefined') && content != 'undefined') {
+      await db.raw(
+        `UPDATE competition SET name = '${name}',status= '${status}',landscape_poster='${landscape_poster}', portrait_poster = '${portrait_poster}',content= '${content}' where id =${id}`
+      );
+    }
+    else {
+      await db.raw(
+        `UPDATE competition SET name = '${name}',status= '${status}',landscape_poster='${landscape_poster}', portrait_poster = '${portrait_poster}' where id =${id}`
+      );
+    }
+
   },
   removeCompiton: async (id) => {
     const result = await db.raw(`DELETE FROM competition WHERE id= ${id}`);

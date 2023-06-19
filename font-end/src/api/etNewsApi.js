@@ -8,6 +8,10 @@ const etNewsApi = {
         const url = `/news/${id}`;
         return axiosClient.get(url)
     },
+    getDetailByAdmin(id) {
+        const url = `/news/getDetailByAdmin/${id}`;
+        return axiosClient.get(url)
+    },
     getNewest() {
         const url = '/news/newest';
         return axiosClient.get(url)
@@ -17,12 +21,13 @@ const etNewsApi = {
         return axiosClient.post(url, data)
     },
     update(data) {
-        const url = `/news?id=${data.id}`;
-        return axiosClient.patch(url, data)
+        const url = `/news/update-etnews`;
+        return axiosClient.post(url, data)
     },
     remove(id) {
-        const url = `/news?id=${id}`;
-        return axiosClient.delete(url)
+
+        const url = `/news/delete`;
+        return axiosClient.post(url, id)
     },
 
 }

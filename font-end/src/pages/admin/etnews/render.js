@@ -1,18 +1,19 @@
 import React from "react";
 import { Space } from "antd";
 
-export const columns = () => {
+export const columns = (showModal, handleDelete) => {
   return [
     {
       title: "STT",
       dataIndex: "stt",
       key: "stt",
-      render: (_, record) => <span>{record.stt}</span>,
+      render: (_, record) => <span>{record.id}</span>,
     },
     {
       title: "Tiêu đề",
       dataIndex: "name",
       key: "name",
+      render: (_, record) => <span className='line-clamp-2'>{record.name}</span>,
     },
     {
       title: "Ảnh bìa",
@@ -23,7 +24,9 @@ export const columns = () => {
       title: "Mô tả ngắn",
       dataIndex: "tiny_desc",
       key: "tiny_desc",
+      render: (_, record) => <span className='line-clamp-2'>{record.tiny_desc}</span>,
     },
+
 
     {
       title: "Link chuyển tiếp",
@@ -40,8 +43,16 @@ export const columns = () => {
       key: "action",
       render: (_, record) => (
         <Space size='middle'>
-          <button >Edit</button>
-          <button >Delete</button>
+          <button onClick={() => showModal(record.id)} >Edit</button>
+          <button onClick={() => {
+            const yes = prompt("Bạn có chắc chắn muốn xóa bản tin ETNews này không??. Vui lòng gõ chữ y để đồng ý")
+            if (['Y', 'y'].includes(yes)) {
+              handleDelete(record.id)
+            } else {
+              alert('Bạn không nhập đúng chữ nên không xóa :)')
+            }
+
+          }} >Delete</button>
         </Space>
       ),
     },

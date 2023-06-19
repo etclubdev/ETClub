@@ -6,7 +6,7 @@ const Donor = () => {
   const fetchSponsors = async () => {
     try {
       const dataApi = await sponsorApi.getAllsponsor();
-      setData(dataApi);
+      setData(dataApi?.data);
     } catch (error) {
       console.log(error);
     }
@@ -20,14 +20,14 @@ const Donor = () => {
     <div className='donor'>
       <h1 className='donor-title'>ĐỐI TÁC ĐỒNG HÀNH</h1>
       <div className='donor-logo'>
-        {data?.map((item, index) => (
+        {/* {data?.map((item, index) => (
           <img
             key={item.id}
             className={`donor-logo_${index + 1}`}
-            src={`https://et-api-2023.onrender.com/public/images/sponsor/${item.logo}`}
+            src={`http://127.0.0.1:1111/public/images/sponsor/${item.logo}`}
             alt={item.name}
           />
-        ))}
+        ))} */}
         <img
           className='donor-logo_1'
           src='/img/Donor/nashtech.png'

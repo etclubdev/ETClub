@@ -24,7 +24,7 @@ const NewestNew = () => {
         </div>
         <Link to={`/tech-corner/ban-tin-ET/${data?.id}`} className="body">
           <div href="#" className="body-image">
-            <img src={`https://et-api-2023.onrender.com/public/images/news/${data?.image}`} alt="image" />
+            <img src={`http://127.0.0.1:1111/public/images/news/${data?.image}`} alt="image" />
           </div>
           <div className="col-1" />
           <div className="body-info col-lg-5">

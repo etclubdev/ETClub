@@ -46,7 +46,21 @@ const EditBanner = () => {
           <Button
             onClick={() => {
               form.validateFields().then((values) => {
-                console.log(values);
+                if (!values.author) {
+                  alert('Vui lòng điền tên tác giả')
+                  return null;
+
+                }
+                if (!values.quote) {
+                  alert('Vui lòng điền quote')
+                  return null;
+
+                }
+                if (!image) {
+                  alert('Vui lòng chọn ảnh')
+                  return null;
+
+                }
                 const data = new FormData();
                 data.append("quote", values.quote);
                 data.append("author", values.author);
@@ -56,6 +70,8 @@ const EditBanner = () => {
                 const check = feelingApi.addFeeling(data);
                 if (check) {
                   alert("ADD SUCCESS!");
+                  form.resetFields();
+                  setImage(undefined)
                 }
               });
             }}

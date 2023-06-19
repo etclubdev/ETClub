@@ -3,7 +3,7 @@ import React from "react";
 import "./upcomming.scss";
 const Upcomming = () => {
   return (
-    <div className="competition">
+    <div className="competition max-sm:hidden">
       <div className="left">
         <div className="competition_desc">
           <div className="competition_status">Sắp diễn ra</div>

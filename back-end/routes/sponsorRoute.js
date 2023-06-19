@@ -4,10 +4,37 @@ import multer from "multer";
 import fs from "fs";
 const Router = express.Router();
 
+// enum kind of sponsor
+// 0 = All
+// 1 = diamond_sponsors
+// 2 = gold_sponsors
+// 3 = sliver_sponsors
+// 4 = brozen_sponsors
+// 5 = media_sponsors
+// 6 = marketing_sponsors
 Router.get("/", async (req, res, next) => {
-  const newsList = await sponsorService.getAllsponsor();
-  res.json(newsList);
+  const pageSize = parseInt(req.query.pageSize) || 10;
+  const page = parseInt(req.query.page) || 1;
+
+  const skip = (page - 1) * pageSize;
+  try {
+    let result = await sponsorService.getAllsponsor();
+    const total = result.length;
+    result = result.slice(skip, skip + pageSize);
+    if (req.query.competition_id) {
+      result = result.filter((item) => {
+        return item.competition_id == req.query.competition_id;
+      });
+
+    }
+    res.json({ data: result, total: total });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Lỗi server');
+  }
+
 });
+
 Router.use("/public/images/sponsor", express.static("public/images/sponsor/"));
 
 // const upload = multer({ dest: "./public/images/sponsor" });

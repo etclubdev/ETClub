@@ -28,23 +28,31 @@ export const columns = (handleDelete, showModal) => {
       key: "portrait_poster",
       dataIndex: "portrait_poster",
     },
-    {
-      title: "Nội dung recap",
-      key: "lookback_script",
-      dataIndex: "lookback_script",
-    },
-    {
-      title: "Ảnh recap",
-      key: "lookback_img",
-      dataIndex: "lookback_img",
-    },
+    // {
+    //   title: "Nội dung recap",
+    //   key: "lookback_script",
+    //   dataIndex: "lookback_script",
+    // },
+    // {
+    //   title: "Ảnh recap",
+    //   key: "lookback_img",
+    //   dataIndex: "lookback_img",
+    // },
     {
       title: "Action",
       key: "action",
       render: (_, record) => (
         <Space size='middle'>
           <button onClick={() => showModal(record.id)}>Edit</button>
-          <button onClick={() => handleDelete(record.id)}>Delete</button>
+          <button onClick={() => {
+            const yes = prompt("Bạn có chắc chắn muốn xóa cuộc thi này không??. Vui lòng gõ chữ y để đồng ý")
+            if (['Y', 'y'].includes(yes)) {
+              handleDelete(record.id)
+            } else {
+              alert('Bạn không nhập đúng chữ nên không xóa :)')
+            }
+
+          }} >Delete</button>
         </Space>
       ),
     },
