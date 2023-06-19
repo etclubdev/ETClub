@@ -149,7 +149,7 @@ const DetailNews = () => {
                         {otherNews?.filter((item) => item.id != id).map((item, index) => (
                             <div className='item md:w-[384px]' key={index}>
                                 <img
-                                    src={`http://127.0.0.1:1111/public/images/news/${item?.image}`}
+                                    src={`https://et-api-2023.onrender.com/public/images/news/${item?.image}`}
                                     alt="Image"
                                     className=' h-[300px] object-cover'
 

@@ -200,7 +200,7 @@ const CompetitionAdmin = () => {
                     src={
                       imageURLLanscape.length > 0
                         ? imageURLLanscape
-                        : `http://127.0.0.1:1111/public/images/competition/${dataDetail.landscape_poster}`
+                        : `https://et-api-2023.onrender.com/public/images/competition/${dataDetail.landscape_poster}`
                     }
                     alt=''
                   />
@@ -220,7 +220,7 @@ const CompetitionAdmin = () => {
                     src={
                       imageURLPortrait.length > 0
                         ? imageURLPortrait
-                        : `http://127.0.0.1:1111/public/images/competition/${dataDetail.portrait_poster}`
+                        : `https://et-api-2023.onrender.com/public/images/competition/${dataDetail.portrait_poster}`
                     }
                     alt=''
                   />
@@ -240,7 +240,7 @@ const CompetitionAdmin = () => {
                     src={
                       imageURLLookback.length > 0
                         ? imageURLLookback
-                        : `http://127.0.0.1:1111/public/images/competition/${dataDetail.lookback_img}`
+                        : `https://et-api-2023.onrender.com/public/images/competition/${dataDetail.lookback_img}`
                     }
                     alt=''
                   />

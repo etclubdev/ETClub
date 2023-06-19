@@ -134,7 +134,7 @@ const FilterAndActivitiesCard = () => {
               return <Link key={index} to={`/tech-corner/ban-tin-ET/${item?.id}`} className="card card-1">
                 <img
                   className="card-image"
-                  src={`http://127.0.0.1:1111/public/images/news/${item?.image}`}
+                  src={`https://et-api-2023.onrender.com/public/images/news/${item?.image}`}
                   alt="Image"
                 />
                 <span className="card-time">

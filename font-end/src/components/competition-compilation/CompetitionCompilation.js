@@ -50,7 +50,7 @@ const CompetitionCompilation = () => {
           {data?.data?.map((item, index) => {
             return <Link to={`/cuoc-thi/${item.id}`} key={index} className="competition-poster gx-1 col-12  col-sm-6  col-xl-4 ">
 
-              <img src={`http://127.0.0.1:1111/public/images/competition/${item.portrait_poster}`} alt />
+              <img src={`https://et-api-2023.onrender.com/public/images/competition/${item.portrait_poster}`} alt />
               <div className="competition-status">
                 <button>{item.status}</button>
               </div>

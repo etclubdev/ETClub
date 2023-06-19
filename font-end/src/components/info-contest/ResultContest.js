@@ -46,7 +46,7 @@ const ResultContest = () => {
             <div className='relative max-sm:w-[110px] max-sm:h-[100px] sm:w-[180px] sm:h-[170px] md:w-[236px] md:h-[230px] max-sm:mb-[20px] sm:mb-[30px] md:mb-[40px]' style={{ backgroundImage: 'url(/img/Ellipse-187.png)', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover' }}>
 
               <div className='absolute border-[3px] border-[#F5A623] top-[8%] p-[8px] left-[8%] max-sm:w-[90px] max-sm:h-[90px] sm:w-[150px] sm:h-[150px] md:w-[200px] md:h-[200px] rounded-full'>
-                <img className='max-sm:w-[70px] max-sm:h-[70px] sm:w-[130px] sm:h-[130px] md:w-[180px] md:h-[180px] rounded-full object-cover' src={`http://127.0.0.1:1111/public/images/competition-results/${item?.avt}`} alt={`${item.name}-${index}`} />
+                <img className='max-sm:w-[70px] max-sm:h-[70px] sm:w-[130px] sm:h-[130px] md:w-[180px] md:h-[180px] rounded-full object-cover' src={`https://et-api-2023.onrender.com/public/images/competition-results/${item?.avt}`} alt={`${item.name}-${index}`} />
               </div>
 
 
@@ -75,7 +75,7 @@ const ResultContest = () => {
                 <div className="prize-title mb-[70px]">{item?.rank === 1 ? 'GIẢI NHẤT' : item?.rank === 2 ? 'GIẢI NHÌ' : 'GIẢI BA'}</div>
                 <div className='relative max-sm:w-[110px] max-sm:h-[100px] sm:w-[180px] sm:h-[170px] md:w-[236px] md:h-[230px] max-sm:mb-[20px] sm:mb-[30px] md:mb-[40px]' style={{ backgroundImage: 'url(/img/Ellipse-187.png)', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover' }}>
                   <div className='absolute border-[3px] border-[#F5A623] top-[8%] p-[8px] left-[8%] max-sm:w-[90px] max-sm:h-[90px] sm:w-[150px] sm:h-[150px] md:w-[200px] md:h-[200px] rounded-full'>
-                    <img className='max-sm:w-[70px] max-sm:h-[70px] sm:w-[130px] sm:h-[130px] md:w-[180px] md:h-[180px] rounded-full object-cover' src={`http://127.0.0.1:1111/public/images/competition-results/${item?.logo_team}`} alt={`${item.name}-${index}`} />
+                    <img className='max-sm:w-[70px] max-sm:h-[70px] sm:w-[130px] sm:h-[130px] md:w-[180px] md:h-[180px] rounded-full object-cover' src={`https://et-api-2023.onrender.com/public/images/competition-results/${item?.logo_team}`} alt={`${item.name}-${index}`} />
                   </div>
                 </div>
                 <Popover placement="bottom" title={null} arrow={false} content={handleGetInfoTeam(item.rank)} trigger="click">
@@ -101,7 +101,7 @@ const ResultContest = () => {
                 <div className='relative max-sm:w-[110px] max-sm:h-[100px] sm:w-[180px] sm:h-[170px] md:w-[236px] md:h-[230px] mb-[20px] md:mb-[40px] mt-[10px] md:mt-[30px]' >
 
                   <div className='absolute border-[3px] border-[#F5A623] top-[8%] p-[8px] left-[8%] max-sm:w-[90px] max-sm:h-[90px] sm:w-[150px] sm:h-[150px] md:w-[200px] md:h-[200px] rounded-full'>
-                    <img className='max-sm:w-[70px] max-sm:h-[70px]  sm:w-[130px] sm:h-[130px] md:w-[180px] md:h-[180px] rounded-full object-cover' src={`http://127.0.0.1:1111/public/images/competition-results/${item?.type == 1 ? item?.avt : item?.logo_team}`} alt={`${item.name}-${index}`} />
+                    <img className='max-sm:w-[70px] max-sm:h-[70px]  sm:w-[130px] sm:h-[130px] md:w-[180px] md:h-[180px] rounded-full object-cover' src={`https://et-api-2023.onrender.com/public/images/competition-results/${item?.type == 1 ? item?.avt : item?.logo_team}`} alt={`${item.name}-${index}`} />
                   </div>
 
 

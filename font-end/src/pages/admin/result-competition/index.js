@@ -250,7 +250,7 @@ const ResultCompetitionAdmin = () => {
                       src={
                         imageURLAvatar.length > 0
                           ? imageURLAvatar
-                          : `http://127.0.0.1:1111/public/images/competition-results/${dataDetail.avt}`
+                          : `https://et-api-2023.onrender.com/public/images/competition-results/${dataDetail.avt}`
                       }
                       alt=''
                     />
@@ -273,7 +273,7 @@ const ResultCompetitionAdmin = () => {
                       src={
                         imageURLLogoTeam.length > 0
                           ? imageURLLogoTeam
-                          : `http://127.0.0.1:1111/public/images/competition-results/${dataDetail.logo_team}`
+                          : `https://et-api-2023.onrender.com/public/images/competition-results/${dataDetail.logo_team}`
                       }
                       alt=''
                     />

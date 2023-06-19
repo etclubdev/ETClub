@@ -56,7 +56,7 @@ export default function Banner() {
           {data?.map((item, index) => (
             <a href={item.link} target='_blank' rel="noreferrer" className='item' key={index}>
               <img
-                src={`http://127.0.0.1:1111/public/images/banners/${item.img}`}
+                src={`https://et-api-2023.onrender.com/public/images/banners/${item.img}`}
                 className='md:h-[600px] object-cover'
                 alt={`Banner ${index + 1}`}
               />

@@ -69,7 +69,7 @@ const Competition = () => {
           {data?.map((item) => (
             <Link to={`/cuoc-thi/${item.id}`} key={item.id} className='item'>
               <img
-                src={`http://127.0.0.1:1111/public/images/competition/${item.landscape_poster}`}
+                src={`https://et-api-2023.onrender.com/public/images/competition/${item.landscape_poster}`}
               />
             </Link>
           ))}

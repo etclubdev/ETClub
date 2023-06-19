@@ -24,7 +24,7 @@ const Donor = () => {
           <img
             key={item.id}
             className={`donor-logo_${index + 1}`}
-            src={`http://127.0.0.1:1111/public/images/sponsor/${item.logo}`}
+            src={`https://et-api-2023.onrender.com/public/images/sponsor/${item.logo}`}
             alt={item.name}
           />
         ))} */}
