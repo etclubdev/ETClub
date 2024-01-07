@@ -49,6 +49,12 @@ const DetailNews = () => {
             }
             fetchData()
         }
+        const scrollToTop = () => {
+            window.scrollTo(0, 0);
+        };
+
+        scrollToTop();
+
     }, [id])
     React.useEffect(() => {
         const fetchData = async () => {
@@ -69,7 +75,16 @@ const DetailNews = () => {
         }
 
     }, [dataDetail])
+    React.useEffect(() => {
 
+        const scrollToTop = () => {
+            window.scrollTo(0, 0);
+        };
+
+        scrollToTop();
+
+
+    }, []);
     return (
         <div className='md:mt-[30px]'>
             <div className='mx-auto w-full xxl:w-[1300px] xxl:px-[30px]'>
