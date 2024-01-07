@@ -39,6 +39,7 @@
 .container-navbar {
   // width: calc(100% - 10px);
   margin: 40 auto !important;
+  padding: 0;
   @media (min-width: 576px) {
     // width: calc(100% - 90px) !important;
     display: flex;
@@ -123,6 +124,8 @@
 }
 
 .container-allcompetion {
+  width: calc(100% - 10px);
+  align-items: center;
   @media (min-width: 1200px) {
     width: 1217px;
     margin: 0 auto !important;
@@ -146,7 +149,6 @@
     background-clip: padding-box;
 
     img {
-      object-fit: cover;
       border-radius: 10px;
       width: 310px;
       height: 450px;

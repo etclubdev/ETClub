@@ -1,12 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import "./eventReverse.scss";
-const EventReverse = () => {
+import dayjs from 'dayjs';
+const EventReverse = ({ data }) => {
+
   return (
     <div className="competition max-sm:hidden">
       <div className="left">
         <div className="competition_image">
-          <img src="/img/AllCompetitionPage/poster 1.png" alt />
+          <img src={`${data?.portrait_poster}`} alt />
         </div>
       </div>
       <div className="midle">
@@ -18,17 +20,15 @@ const EventReverse = () => {
       </div>
       <div className="right">
         <div className="event-reverse_desc">
-          <div className="event-reverse_name">
+          <div className="event-reverse_name max-w-[400px]">
             <p>
-              ecommerce
-              <br />
-              exploring in the time of covid-19{" "}
+              {data?.name}
             </p>
             <p></p>
           </div>
           <div className="event-reverse_time">
-            <div>15/09/2021</div>
-            <div>- 15/10/2021</div>
+            <div>{dayjs(data?.date).format("DD/MM/YYYY")}</div>
+            <div>- {dayjs(data?.end_date).format("DD/MM/YYYY")}</div>
           </div>
         </div>
       </div>

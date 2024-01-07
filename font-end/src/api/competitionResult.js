@@ -10,16 +10,16 @@ const competitionResult = {
         return axiosClient.post(url, data);
     },
     getById(id) {
-        const url = `/competition-result/getById/${id}`;
+        const url = `/competition-result/${id}`;
         return axiosClient.get(url);
     },
     update(data) {
-        const url = `/competition-result/update`;
-        return axiosClient.post(url, data);
+        const url = `/competition-result/${data.id}`;
+        return axiosClient.patch(url, data.data);
     },
     delCompetitionResult(id) {
-        const url = `/competition-result/delete`;
-        return axiosClient.post(url, id);
+        const url = `/competition-result/${id}`;
+        return axiosClient.delete(url, id);
     },
 };
 

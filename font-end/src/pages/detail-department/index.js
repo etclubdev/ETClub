@@ -4,12 +4,16 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import './index.scss'
 import { Link, useParams } from 'react-router-dom';
-import { ToDepartment } from '../../utils';
+import { ToDepartment, ToDepartmentData, ToDepartmentName } from '../../utils';
 import { useWindowDimensions } from '../../hook/useWindowDimension';
 import { Breadcrumb } from 'antd';
+import memberApi from '../../api/memberApi';
 const DetailDepartment = () => {
     const { department } = useParams();
-    const data = ToDepartment(department)
+
+    const id = ToDepartment(department)
+    const [data, setData] = React.useState(undefined)
+    const [dataDepartment, setDataDepartment] = React.useState(undefined)
     const { isMobile } = useWindowDimensions();
 
     const options = {
@@ -52,6 +56,22 @@ const DetailDepartment = () => {
             },
         },
     };
+    React.useEffect(() => {
+        if (id) {
+            const fetchData = async () => {
+                try {
+                    const result = await memberApi.getAll({ department: id })
+                    setData(result?.result)
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+            fetchData()
+            setDataDepartment(ToDepartmentData(id))
+        }
+    }, [id])
+
+
     return (
         <div className='w-full max-w-[1300px] mx-auto flex flex-col justify-center'>
             <div className='mx-auto w-full xxl:w-[1300px] xxl:px-[30px] mt-[30px]'>
@@ -81,56 +101,63 @@ const DetailDepartment = () => {
                         },
                         {
                             path: '/introduce/cocaunhansu/ban-chu-nhiem',
-                            breadcrumbName: `${data?.name}`,
+                            breadcrumbName: `${id && ToDepartmentName(id)}`,
                         },
 
                     ]}
                 />
             </div>
-            <h1 className='flex justify-center text-[30px] md:text-[45px] leading-[80px] mt-[20px] font-extrabold'>{data?.name ?? '-'}</h1>
+            <h1 className='flex justify-center text-[30px] md:text-[45px] leading-[80px] mt-[20px] font-extrabold'>{id ? ToDepartmentName(id) : '-'}</h1>
             <div className='px-[15px] mt-[20px] md:px-[115px] md:mt-[70px]'>
                 {isMobile ? <div >
-                    <div className='flex '>
-                        <div className='w-[100px] flex-shrink-0 h-[100px] p-[8px] rounded-full border-[3px] border-[#F5A623]'>
-                            <img className='w-[80px] h-[80px] rounded-full' src="/img/Circle - L.png" />
-                        </div>
-                        <div className='flex flex-col items-center justify-center flex-1 text-[18px] md:text-[21px] leading-[29px] font-bold'>
-                            <h2 className='text-center'>Trưởng ban</h2>
-                            <h2>{data?.lead ?? '-'}</h2>
-                        </div>
-                    </div>
-                </div> : <div className='flex justify-end mb-[60px]'>
-                    <div className='w-[60%] flex '>
-                        <div className='relative w-[236px] h-[230px]' style={{ backgroundImage: 'url(/img/Ellipse-187.png)', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover' }}>
 
-                            <div className='absolute border-[3px] border-[#F5A623] top-[8%] p-[8px] left-[8%] w-[200px] h-[200px] rounded-full'>
-                                <img className=' w-[180px] h-[180px] rounded-full object-cover' src="/img/Circle - L.png" alt="" />
+                    {data?.length > 0 && data?.filter(item => item.type.includes(0))?.map((lead, index) => {
+                        return <div className='flex ' key={index}>
+                            <div className='w-[100px] flex-shrink-0 h-[100px] p-[8px] rounded-full border-[3px] border-[#F5A623]'>
+                                <img className='w-[80px] h-[80px] rounded-full' src={`${lead?.image}`} />
                             </div>
-
-
-                        </div>
-                        <div className='flex items-center '>
-                            <img className='-translate-y-[33%]' src="/img/Arrow-3.png" alt="" />
-                        </div>
-                        <div className='flex items-center'>
-                            <div className='flex flex-col text-[27px] leading-[36px] font-bold -translate-y-[33%]'>
+                            <div className='flex flex-col items-center justify-center flex-1 text-[18px] md:text-[21px] leading-[29px] font-bold'>
                                 <h2 className='text-center'>Trưởng ban</h2>
-                                <h2 className='text-center'>{data?.lead ?? '-'}</h2>
+                                <h2>{lead?.name ?? '-'}</h2>
                             </div>
                         </div>
-                    </div>
+                    })}
+                </div> : <div className='flex justify-end mb-[60px]'>
+                    {data?.length > 0 && data?.filter(item => item.type.includes(0))?.map((lead, index) => {
+                        return <div className='w-[60%] flex ' key={index}>
+                            <div className='relative w-[236px] h-[230px]' style={{ backgroundImage: 'url(/img/Ellipse-187.png)', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundSize: 'cover' }}>
+
+                                <div className='absolute border-[3px] border-[#F5A623] top-[8%] p-[8px] left-[8%] w-[200px] h-[200px] rounded-full'>
+                                    <img className=' w-[180px] h-[180px] rounded-full object-cover' src={`${lead?.image}`} alt="" />
+                                </div>
+
+
+                            </div>
+                            <div className='flex items-center '>
+                                <img className='-translate-y-[33%]' src="/img/Arrow-3.png" alt="" />
+                            </div>
+                            <div className='flex items-center'>
+                                <div className='flex flex-col text-[27px] leading-[36px] font-bold -translate-y-[33%]'>
+                                    <h2 className='text-center'>Trưởng ban</h2>
+                                    <h2 className='text-center'>{lead?.name ?? '-'}</h2>
+                                </div>
+                            </div>
+
+                        </div>
+                    })}
+
 
                 </div>}
 
                 <div className='flex flex-wrap items-center justify-center gap-[50px] max-sm:mt-[20px] mb-[50px] md:mb-[90px]'>
-                    {data?.members?.map((item, index) => {
+                    {data?.length > 0 && data?.filter(item => item.type.includes(1) || item.type.includes(2))?.map((item, index) => {
                         return <div key={index} className='flex max-sm:w-[330px] md:flex-col items-center'>
                             <div className='max-sm:flex-shrink-0 max-sm:mr-2 w-[100px] md:w-[184px] h-[100px] md:h-[184px] p-[8px] rounded-full border-[3px] border-[#F5A623]'>
-                                <img className='w-[80px] h-[80px] md:w-[164px] md:h-[164px] rounded-full' alt='' src={item.image} />
+                                <img className='w-[80px] h-[80px] md:w-[164px] md:h-[164px] rounded-full' alt='' src={item?.image} />
                             </div>
                             <div className='flex max-sm:flex-1 flex-col text-[18px] md:text-[21px] leading-[29px] font-bold'>
-                                <h2 className='text-center'>Thành viên</h2>
-                                <h2 className='max-sm:text-center'>{item.name}</h2>
+                                <h2 className='text-center'>{item?.type.includes(1) ? 'Phó ban' : 'Thành viên'}</h2>
+                                <h2 className='max-sm:text-center'>{item?.name}</h2>
                             </div>
                         </div>
                     })}
@@ -141,7 +168,7 @@ const DetailDepartment = () => {
             </div>
             <div className='flex flex-col max-sm:px-[15px] justify-center items-center'>
                 <h1 className='text-[30px] leading-[50px] md:text-[40px] md:leading-[70px] font-bold text-[#F5A623]'>Giới thiệu cơ bản về ban</h1>
-                <p className='text-base text-justify md:text-xl font-normal'>{data?.introduce ?? '-'}</p>
+                <p className='text-base text-justify md:text-xl font-normal'>{dataDepartment?.introduce ?? '-'}</p>
             </div>
             <div className='flex flex-col max-sm:px-[15px] md:flex-row md:gap-x-[66px] items-baseline mt-[25px] md:mt-[45px]'>
                 <div className='relative w-full h-[210px] md:w-[510px] md:h-[352px]'>
@@ -153,7 +180,7 @@ const DetailDepartment = () => {
                             <h1 className='text-[26px] md:text-[32px] leading-[30px] md:leading-[38px] font-bold text-[#F5A623]'>Công việc trong CLB</h1>
                             <div className='px-[20px] mt-[10px] md:mt-[25px]'>
                                 <ul className='list-disc text-sm md:text-lg font-normal'>
-                                    {data?.job?.map((item, i) => {
+                                    {dataDepartment?.job?.map((item, i) => {
                                         return <li key={i}>{item}</li>
                                     })}
                                 </ul>
@@ -170,7 +197,7 @@ const DetailDepartment = () => {
                             <h1 className='text-[26px] md:text-[32px] leading-[30px] md:leading-[38px] font-bold text-[#F5A623]'>Yêu cầu vị trí</h1>
                             <div className='px-[20px] mt-[10px] md:mt-[25px]'>
                                 <ul className='list-disc text-sm md:text-lg font-normal'>
-                                    {data?.requirement?.map((item, i) => {
+                                    {dataDepartment?.requirement?.map((item, i) => {
                                         return <li key={i}>{item}</li>
                                     })}
                                 </ul>
@@ -184,7 +211,7 @@ const DetailDepartment = () => {
                         <h1 className='text-[26px] md:text-[32px] leading-[30px] md:leading-[38px] font-bold text-[#F5A623]'>Yêu cầu vị trí</h1>
                         <div className='px-[20px] mt-[10px] md:mt-[25px]'>
                             <ul className='list-disc text-sm md:text-lg font-normal'>
-                                {data?.requirement?.map((item, i) => {
+                                {dataDepartment?.requirement?.map((item, i) => {
                                     return <li key={i}>{item}</li>
                                 })}
                             </ul>
@@ -255,7 +282,7 @@ const DetailDepartment = () => {
             <div className='w-full flex flex-col justify-center items-center md:mt-[70px]'>
                 <div className='mb-[40px] flex flex-col items-center'>
                     <h1 className='text-[30px] md:text-[45px] leading-[50px] md:leading-[80px] font-extrabold '>TÍNH ĐẾN NAY,</h1>
-                    <h1 className='text-[30px] md:text-[45px] leading-[50px] md:leading-[80px] font-extrabold '> {data?.name ?? '-'} CÓ</h1>
+                    <h1 className='text-[30px] md:text-[45px] leading-[50px] md:leading-[80px] font-extrabold '> {id ? ToDepartmentName(id).toUpperCase() : '-'} CÓ</h1>
                 </div>
                 <div className='flex flex-row justify-between w-full px-[15px] md:px-[50px]'>
                     <div className='flex flex-col items-center text-gradient'>

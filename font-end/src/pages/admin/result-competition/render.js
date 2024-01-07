@@ -16,17 +16,13 @@ const toType = (type) => {
 export const columns = (handleDelete, showModal, dataCompetition) => {
 
   return [
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-    },
+
 
     {
-      title: "ID cuộc thi",
+      title: "Cuộc thi",
       dataIndex: "competition_id",
       key: "competition_id",
-      render: (_, record) => <span>{dataCompetition?.find((item) => item.id == record.competition_id)?.name}</span>,
+      render: (_, record) => <span>{dataCompetition?.find((item) => item._id == record.competition_id)?.name}</span>,
     },
     {
       title: "Tên",
@@ -70,11 +66,11 @@ export const columns = (handleDelete, showModal, dataCompetition) => {
       key: "action",
       render: (_, record) => (
         <Space size='middle'>
-          <button onClick={() => showModal(record.id)}>Edit</button>
+          <button onClick={() => showModal(record._id)}>Edit</button>
           <button onClick={() => {
             const yes = prompt("Bạn có chắc chắn muốn xóa kết quả cuộc thi này không??. Vui lòng gõ chữ y để đồng ý")
             if (['Y', 'y'].includes(yes)) {
-              handleDelete(record.id)
+              handleDelete(record._id)
             } else {
               alert('Bạn không nhập đúng chữ nên không xóa :)')
             }

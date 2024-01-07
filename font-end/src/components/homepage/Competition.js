@@ -46,7 +46,8 @@ const Competition = () => {
   const fetchCompetitions = async () => {
     try {
       const dataApi = await competitionApi.getAllCompetition();
-      setData(dataApi.data);
+
+      setData(dataApi?.result?.competitions);
     } catch (error) {
       console.log(error);
     }
@@ -67,9 +68,9 @@ const Competition = () => {
           {...options}
         >
           {data?.map((item) => (
-            <Link to={`/cuoc-thi/${item.id}`} key={item.id} className='item'>
+            <Link to={`/tech-corner/cuoc-thi/${item?._id}`} key={item?._id} className='item'>
               <img
-                src={`https://et-api-2023.onrender.com/public/images/competition/${item.landscape_poster}`}
+                src={`${item?.landscape_poster}`}
               />
             </Link>
           ))}

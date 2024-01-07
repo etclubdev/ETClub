@@ -1,19 +1,18 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import "./event.scss";
-const Event = () => {
+import dayjs from 'dayjs';
+const Event = ({ data }) => {
   return (
     <div className="competition">
       <div className="left">
         <div className="event_desc">
           <div className="event_name">
-            <p>global talents</p>
-            <p></p>
-            <p>Chuyển đổi số cho tương lai </p>
+            <p>{data?.name}</p>
           </div>
           <div className="event_time">
-            <div>10/02/2020</div>
-            <div>- 24/05/2020</div>
+            <div>{dayjs(data?.date).format("DD/MM/YYYY")}</div>
+            <div>- {dayjs(data?.end_date).format("DD/MM/YYYY")}</div>
           </div>
         </div>
       </div>
@@ -26,7 +25,7 @@ const Event = () => {
       </div>
       <div className="right">
         <div className="competition_image">
-          <img src="/img/AllCompetitionPage/global 2.png" alt />
+          <img src={`${data?.portrait_poster}`} alt />
         </div>
       </div>
     </div>

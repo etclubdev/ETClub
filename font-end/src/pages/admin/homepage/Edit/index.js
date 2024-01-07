@@ -1,15 +1,24 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Modal, Upload } from "antd";
+import { Button, Form, Input, Modal, Upload, notification } from "antd";
 import React from "react";
 import bannerApi from "../../../../api/bannerApi";
 import FilesUploadComponent from "../../../../components/files-upload-component";
-
+import uploadApi from '../../../../api/basicInfoApi';
+import { openNotification } from '../../../../utils';
+import { useNavigate } from 'react-router-dom'
 const EditBanner = () => {
   const [image, setImage] = React.useState();
   const [form] = Form.useForm();
+  const [imageURL, setImageURL] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+  const navigate = useNavigate()
+  let objectURL = ""
 
   const fileOnChange = (event) => {
     const file = event.target.files[0];
+
+    objectURL = URL.createObjectURL(file);
+    setImageURL(objectURL);
     if (file) {
       setImage(file);
     } else {
@@ -17,7 +26,18 @@ const EditBanner = () => {
       alert("Please select a file.");
     }
   };
-  //fafa
+  React.useEffect(() => {
+
+    if (!loading) {
+
+      notification.destroy('createNotfication');
+
+    }
+    return () => {
+      notification.destroy('createNotification');
+    };
+
+  }, [loading]);
   return (
     <>
       <Form
@@ -33,6 +53,19 @@ const EditBanner = () => {
           <Input></Input>
         </Form.Item>
         <Form.Item name='picture' label='Hình ảnh'>
+          {imageURL.length > 0 && <div>
+            <img
+              style={{
+                width: "100%",
+                height: "150px",
+                objectFit: "contain",
+              }}
+              src={
+                imageURL
+              }
+              alt=''
+            />
+          </div>}
           <div>
             <input type='file' onChange={fileOnChange} />
           </div>
@@ -43,28 +76,52 @@ const EditBanner = () => {
 
         <Form.Item>
           <Button
+            disabled={loading}
+            loading={loading}
             onClick={() => {
-              form.validateFields().then((values) => {
-                if (!image) {
-                  alert('Vui lòng chọn ảnh banner')
-                  return null;
-                }
-                if (!values.link) {
-                  alert('Vui lòng điền link liên kết')
-                  return null;
-                }
-                const data = new FormData();
-                data.append("description", values.description);
-                data.append("img", image);
-                data.append("link", values.link);
-                const check = bannerApi.addBanner(data);
+              try {
+                setLoading(true)
 
-                if (check) {
-                  alert("ADD SUCCESS!");
-                  form.resetFields();
-                  setImage(undefined)
-                }
-              });
+                openNotification({ key: 'createNotfication', message: 'Đang tạo ....', type: 'info' });
+                form.validateFields().then(async (values) => {
+                  if (!image) {
+                    alert('Vui lòng chọn ảnh banner')
+                    return null;
+                  }
+                  if (!values.link) {
+                    alert('Vui lòng điền link liên kết')
+                    return null;
+                  }
+
+                  let imageData = ""
+                  const dataUpload = new FormData();
+                  dataUpload.append("images", image)
+                  const cloudImage = await uploadApi.uploadImages(dataUpload);
+
+                  if (cloudImage) {
+                    openNotification({ key: 'uploadNotfication', message: 'Upload ảnh thành công!', duration: 2.5, type: 'success' });
+                  }
+                  imageData = cloudImage?.data[0]?.url
+
+                  const check = await bannerApi.addBanner({
+                    link: values.link,
+                    description: values.description,
+                    img: imageData,
+                  });
+                  if (check.result) {
+                    setLoading(false)
+                    openNotification({ key: 'successNotfication', message: 'Thêm banner thành công', duration: 2.5, type: 'success' });
+                    form.resetFields();
+                    setImage(undefined)
+                    setImageURL("")
+                    navigate("/admin")
+                  }
+
+                });
+              } catch (error) {
+                setLoading(false)
+                openNotification({ key: 'failNotfication', message: 'Thêm banner thất bại: ' + error.message, duration: 2.5, type: 'error' });
+              }
             }}
           >
             Tạo

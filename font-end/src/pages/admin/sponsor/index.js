@@ -1,9 +1,11 @@
 import React from "react";
-import { Button, Col, Form, Input, Modal, Row, Table } from "antd";
+import { Button, Col, Form, Input, Modal, Row, Table, Select, notification } from "antd";
 import { columns } from "./render";
 import { useNavigate } from "react-router-dom";
 import sponsorApi from "../../../api/sponsorApi";
 import competitionApi from '../../../api/competitionApi';
+import uploadApi from '../../../api/basicInfoApi';
+import { openNotification } from '../../../utils';
 const SponsorAdmin = () => {
   const navigate = useNavigate();
   const [data, setData] = React.useState([]);
@@ -12,32 +14,56 @@ const SponsorAdmin = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
   const [image, setImage] = React.useState();
   const [imageURL, setImageURL] = React.useState("");
+
   let objectURL = "";
   const showModal = async (id) => {
     setIsModalOpen(true);
     const dataApiDetail = await sponsorApi.getBySponsorId(id);
 
-    setDataDetail(dataApiDetail[0]);
+    setDataDetail(dataApiDetail?.result);
   };
 
   const handleOk = () => {
-    setIsModalOpen(false);
+    setLoading(true)
 
-    form.validateFields().then((values) => {
-      const data = new FormData();
-      data.append("kind", values.kind);
-      data.append("logo", imageURL.length > 0 ? image : dataDetail.logo);
-      data.append("id", dataDetail.id);
-      data.append("name", values.name);
-      const check = sponsorApi.updateSponsor(data);
-      if (check) {
-        alert("ADD SUCCESS!");
-        fetchSponsor();
-      }
-    });
+    openNotification({ key: 'createNotfication', message: 'Đang tạo ....', type: 'info' });
+
+    try {
+      form.validateFields().then(async (values) => {
+        let dataImage = "";
+        if (imageURL.length > 0) {
+          const dataUpload = new FormData();
+          dataUpload.append("images", image)
+          const cloudImage = await uploadApi.uploadImages(dataUpload);
+          console.log(cloudImage)
+
+          dataImage = cloudImage?.data[0]?.url
+
+        }
+        const dataUpdated = await sponsorApi.updateSponsor({
+          id: dataDetail?._id,
+          data: {
+            kind: values.kind,
+            logo: imageURL.length > 0 ? dataImage : dataDetail.logo,
+            competition_id: dataDetail?.competition_id,
+            name: values.name
+          }
+        })
+        if (dataUpdated.result) {
+          setLoading(false)
+          openNotification({ key: 'successNotfication', message: 'Cập nhật nhà tài trợ thành công', duration: 2.5, type: 'success' });
+          fetchSponsor();
+          setIsModalOpen(false);
+        }
+
+      });
+    } catch (error) {
+      setLoading(false)
+      openNotification({ key: 'failNotfication', message: 'Cập nhật nhà tài trợ thất bại: ' + error.message, duration: 2.5, type: 'error' });
+    }
   };
 
   const handleCancel = () => {
@@ -47,7 +73,8 @@ const SponsorAdmin = () => {
   const fetchSponsor = async () => {
     try {
       const dataApi = await sponsorApi.getAllsponsor({ page: currentPage });
-      setData(dataApi);
+
+      setData(dataApi?.result);
     } catch (error) {
       console.log(error);
     }
@@ -77,7 +104,8 @@ const SponsorAdmin = () => {
 
     const fetchData = async () => {
       const data = await competitionApi.getAllCompetition({ pageSize: 500 });
-      setDataCompetion(data.data)
+
+      setDataCompetion(data?.result?.competitions)
     }
     fetchData()
 
@@ -96,6 +124,18 @@ const SponsorAdmin = () => {
       setDataDetail(undefined)
     }
   }, [isModalOpen])
+  React.useEffect(() => {
+
+    if (!loading) {
+
+      notification.destroy('createNotfication');
+
+    }
+    return () => {
+      notification.destroy('createNotification');
+    };
+
+  }, [loading]);
   return (
     <Row justify='center'>
       <Col
@@ -122,6 +162,7 @@ const SponsorAdmin = () => {
         <Modal
           title='Chỉnh sửa nhà tài trợ'
           open={isModalOpen}
+          confirmLoading={loading}
           onOk={handleOk}
           okButtonProps={{ style: { background: 'green', minWidth: '150px' } }}
           width={800}
@@ -138,12 +179,36 @@ const SponsorAdmin = () => {
                 <Input />
               </Form.Item>
 
-              <Form.Item
-                name='kind'
-                initialValue={dataDetail.kind}
-                label='Thể loại'
-              >
-                <Input></Input>
+              <Form.Item name='kind' label='Thể loại' initialValue={dataDetail?.kind}>
+                <Select
+
+                  options={[
+                    {
+                      value: 1,
+                      label: 'Nhà tài trợ kim cương'
+                    },
+                    {
+                      value: 2,
+                      label: 'Nhà tài trợ vàng'
+                    },
+                    {
+                      value: 3,
+                      label: 'Nhà tài trợ bạc'
+                    },
+                    {
+                      value: 4,
+                      label: 'Nhà tài trợ đồng'
+                    },
+                    {
+                      value: 5,
+                      label: 'Bảo trợ truyền thông'
+                    },
+                    {
+                      value: 6,
+                      label: 'Đối tác Marketing'
+                    },
+                  ]}
+                />
               </Form.Item>
               <Form.Item name='logo' label='Logo'>
                 <div>
@@ -156,14 +221,15 @@ const SponsorAdmin = () => {
                     src={
                       imageURL.length > 0
                         ? imageURL
-                        : `https://et-api-2023.onrender.com/public/images/sponsor/${dataDetail.logo}`
+                        : `${dataDetail.logo}`
                     }
                     alt=''
                   />
+                  <div>
+                    <input type='file' onChange={fileOnChange} />
+                  </div>
                 </div>
-                <div>
-                  <input type='file' onChange={fileOnChange} />
-                </div>
+
               </Form.Item>
             </Form>
           ) : (
@@ -171,11 +237,11 @@ const SponsorAdmin = () => {
           )}
         </Modal>
         <Table
-          columns={columns(handleDelete, showModal, dataCompetition)}
+          columns={columns(handleDelete, showModal, dataCompetition.length > 0 ? dataCompetition : [])}
           loading={loading}
           pagination={{ current: currentPage, defaultCurrent: 1, pageSize: 10, total: data?.total || 0, onChange: (number) => setCurrentPage(number) }}
           rootClassName='table-admin'
-          dataSource={data?.data || []}
+          dataSource={data?.length > 0 ? data : []}
         />
       </Col>
     </Row>

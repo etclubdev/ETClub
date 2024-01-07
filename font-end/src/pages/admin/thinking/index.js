@@ -1,42 +1,67 @@
 import React from "react";
-import { Button, Col, Form, Input, Modal, Row, Table } from "antd";
+import { Button, Col, Form, Input, Modal, Row, Table, Select, notification } from "antd";
 import { columns } from "./render";
 import { useNavigate } from "react-router-dom";
 import feelingApi from "../../../api/feelingApi";
+import uploadApi from '../../../api/basicInfoApi';
+import { openNotification } from '../../../utils';
 const HomePageAdmin = () => {
   const navigate = useNavigate();
   const [data, setData] = React.useState([]);
   const [dataDetail, setDataDetail] = React.useState();
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
   const [image, setImage] = React.useState();
   const [imageURL, setImageURL] = React.useState("");
+  const [selectedDepartment, setSelectedDepartment] = React.useState(undefined)
   let objectURL = "";
   const showModal = async (stt) => {
     setIsModalOpen(true);
     const dataApiDetail = await feelingApi.getById(stt);
-
-    setDataDetail(dataApiDetail[0]);
+    setDataDetail(dataApiDetail?.result);
   };
 
   const handleOk = () => {
-    setIsModalOpen(false);
 
-    form.validateFields().then((values) => {
-      const data = new FormData();
-      data.append("id", dataDetail.id);
-      data.append("quote", values.quote);
-      data.append("author", values.author);
-      data.append("department", values.department);
-      data.append("avatar", imageURL.length > 0 ? image : dataDetail.avatar);
+    setLoading(true)
 
-      const check = feelingApi.updateFeeling(data);
-      if (check) {
-        alert("ADD SUCCESS!");
-        fetchFeeling();
-      }
-    });
+    openNotification({ key: 'createNotfication', message: 'Đang tạo ....', type: 'info' });
+    try {
+      form.validateFields().then(async (values) => {
+
+        let dataImage = "";
+        if (imageURL.length > 0) {
+          const dataUpload = new FormData();
+          dataUpload.append("images", image)
+          const cloudImage = await uploadApi.uploadImages(dataUpload);
+          console.log(cloudImage)
+          if (cloudImage) {
+            alert('upload success')
+          }
+          dataImage = cloudImage?.data[0]?.url
+
+        }
+        const dataUpdated = await feelingApi.updateFeeling({
+          id: dataDetail?._id,
+          data: {
+            quote: values.quote,
+            author: values.author,
+            avatar: imageURL.length > 0 ? dataImage : dataDetail?.avatar,
+            department: selectedDepartment !== undefined ? selectedDepartment : values.department
+          }
+        })
+        if (dataUpdated.result) {
+          setLoading(false)
+          openNotification({ key: 'successNotfication', message: 'Cập nhật cảm nghĩ thành công', duration: 2.5, type: 'success' });
+          fetchFeeling();
+          setIsModalOpen(false);
+        }
+      });
+    } catch (error) {
+      setLoading(false)
+      openNotification({ key: 'failNotfication', message: 'Cập nhật cảm nghĩ thất bại: ' + error.message, duration: 2.5, type: 'error' });
+    }
   };
 
   const handleCancel = () => {
@@ -47,7 +72,8 @@ const HomePageAdmin = () => {
   const fetchFeeling = async () => {
     try {
       const dataApi = await feelingApi.getAll();
-      setData(dataApi);
+
+      setData(dataApi?.result);
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +97,7 @@ const HomePageAdmin = () => {
 
   React.useEffect(() => {
     fetchFeeling();
-    setLoading(false);
+
   }, []);
   React.useEffect(() => {
     form.setFieldsValue({
@@ -84,8 +110,21 @@ const HomePageAdmin = () => {
   React.useEffect(() => {
     if (!isModalOpen) {
       setDataDetail(undefined)
+      setImageURL("");
     }
   }, [isModalOpen])
+  React.useEffect(() => {
+
+    if (!loading) {
+
+      notification.destroy('createNotfication');
+
+    }
+    return () => {
+      notification.destroy('createNotification');
+    };
+
+  }, [loading]);
   return (
     <Row justify='center'>
       <Col
@@ -112,6 +151,7 @@ const HomePageAdmin = () => {
         <Modal
           title='Chỉnh sửa cảm nghĩ'
           open={isModalOpen}
+          confirmLoading={loading}
           onOk={handleOk}
           width={800}
           onCancel={handleCancel}
@@ -140,7 +180,18 @@ const HomePageAdmin = () => {
                 initialValue={dataDetail.department}
                 label='Ban'
               >
-                <Input></Input>
+                <Select
+                  value={selectedDepartment}
+                  showSearch
+                  onChange={(e) => setSelectedDepartment(e)}
+                  options={[
+                    { value: 'Ban Tech', label: 'Ban Tech' },
+                    { value: 'Ban HR', label: 'Ban HR' },
+                    { value: 'Ban F-ER', label: 'Ban F-ER' },
+                    { value: 'Ban EC-PR', label: 'Ban EC-PR' },
+                    { value: 'Ban Event', label: 'Ban Event' }
+                  ]}
+                />
               </Form.Item>
               <Form.Item name='avatar' label='Ảnh đại diện'>
                 <div>
@@ -153,7 +204,7 @@ const HomePageAdmin = () => {
                     src={
                       imageURL.length > 0
                         ? imageURL
-                        : `https://et-api-2023.onrender.com/public/images/feeling/${dataDetail.avatar}`
+                        : `${dataDetail.avatar}`
                     }
                     alt=''
                   />
@@ -171,7 +222,7 @@ const HomePageAdmin = () => {
           columns={columns(handleDelete, showModal)}
           loading={loading}
           rootClassName='table-admin'
-          dataSource={data}
+          dataSource={data.length > 0 ? data : []}
         />
       </Col>
     </Row>

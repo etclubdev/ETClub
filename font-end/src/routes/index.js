@@ -33,14 +33,39 @@ import ResultCompetitionAdmin from '../pages/admin/result-competition';
 import EditCompetitionResults from '../pages/admin/result-competition/Edit';
 import MileStoneAdmin from '../pages/admin/timeline-competition';
 import EditMileStone from '../pages/admin/timeline-competition/Edit';
+import { Navigate, Outlet, useRoutes } from 'react-router-dom'
+import MemberAdmin from '../pages/admin/member'
+import EditMember from '../pages/admin/member/Edit';
+import LoginPage from '../pages/login';
 
 const AppRoutes = () => {
   const location = useLocation();
 
   const id = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);
-  const excludedPaths = ['/', '/introduce/about-clb', '/introduce/cocaunhansu', '/tech-corner', '/tech-corner/ban-tin-ET', '/tech-corner/chuoi-hoat-dong', '/tech-corner/cuoc-thi-cong-nghe', `/cuoc-thi/${id}`, `/introduce/cocaunhansu/${id}`, `/tech-corner/ban-tin-ET/${id}`, '/cuoc-thi/tat-ca-cuoc-thi', '/tuyen-ctv'];
+  const excludedPaths = ['/', '/introduce/about-clb', '/introduce/cocaunhansu', '/tech-corner', '/tech-corner/ban-tin-ET', '/tech-corner/chuoi-hoat-dong', '/tech-corner/cuoc-thi-cong-nghe', `/cuoc-thi/${id}`, `/introduce/cocaunhansu/${id}`, `/tech-corner/ban-tin-ET/${id}`, '/cuoc-thi/tat-ca-cuoc-thi', '/tuyen-ctv', `/tech-corner/cuoc-thi/${id}`];
   const shouldShowHeaderAndFooter = excludedPaths.includes(location.pathname);
 
+  const ProtectedRoute = ({ element }) => {
+    const access_token = localStorage.getItem('access_token');
+
+    // Nếu đã xác thực, hiển thị element, ngược lại chuyển hướng đến trang login
+    return access_token ? (
+      element
+    ) : (
+      <Navigate to="/login" replace={true} state={{ from: '/admin' }} />
+    );
+  };
+
+  const RejectedRoute = ({ element }) => {
+    const access_token = localStorage.getItem('access_token');
+
+    // Nếu đã xác thực, hiển thị element, ngược lại chuyển hướng đến trang login
+    return !access_token ? (
+      element
+    ) : (
+      <Navigate to="/admin" replace={true} state={{ from: '/login' }} />
+    );
+  };
   return (
     <Fragment>
       {shouldShowHeaderAndFooter && <Header></Header>}
@@ -83,7 +108,7 @@ const AppRoutes = () => {
           element={<CompetitionCompilationPage></CompetitionCompilationPage>}
         ></Route>
         <Route
-          path='/cuoc-thi/:id'
+          path='/tech-corner/cuoc-thi/:id'
           element={<InfoContestPage></InfoContestPage>}
         ></Route>
         <Route
@@ -110,13 +135,21 @@ const AppRoutes = () => {
             </>
           }
         ></Route> */}
-        <Route path='/admin' element={<LayoutAdmin />}>
+        <Route path='/login' element={<RejectedRoute element={<LoginPage />} />}>
+
+        </Route>
+        <Route
+          path="/admin/"
+          element={<ProtectedRoute element={<LayoutAdmin />} />}
+        >
           <Route index element={<HomePageAdmin />}></Route>
           <Route path='/admin/edit' element={<EditBanner />}></Route>
           <Route path='/admin/partner' element={<Partner />}></Route>
           <Route path='/admin/partner/edit' element={<EditPartner />}></Route>
           <Route path='/admin/feeling' element={<ThinkingAdmin />}></Route>
           <Route path='/admin/feeling/edit' element={<EditThinking />}></Route>
+          <Route path='/admin/member' element={<MemberAdmin />}></Route>
+          <Route path='/admin/member/edit' element={<EditMember />}></Route>
           <Route path='/admin/etnews' element={<ETNewsAdmin />}></Route>
           <Route path='/admin/etnews/edit' element={<EditETNews />}></Route>
           <Route path='/admin/sponsor' element={<SponsorAdmin />}></Route>

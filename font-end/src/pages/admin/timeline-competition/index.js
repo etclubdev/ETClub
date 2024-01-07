@@ -1,12 +1,15 @@
 import React from "react";
-import { Button, Col, Form, Input, Modal, Row, Table } from "antd";
+import { Button, Col, Form, Input, Modal, Row, Table, DatePicker, notification } from "antd";
 import { columns } from "./render";
 import { useNavigate } from "react-router-dom";
 
 import mileStoneApi from '../../../api/milestone';
 import competitionApi from '../../../api/competitionApi';
+import dayjs from 'dayjs';
+import { openNotification } from '../../../utils';
 
 const MileStoneAdmin = () => {
+
   const navigate = useNavigate();
   const [data, setData] = React.useState([]);
   const [dataDetail, setDataDetail] = React.useState();
@@ -14,32 +17,49 @@ const MileStoneAdmin = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
 
 
   const showModal = async (id) => {
     setIsModalOpen(true);
-    const dataApiDetail = await mileStoneApi.getById(id);
+    const dataApiDetail = await mileStoneApi.getByMilestoneId(id);
 
-    setDataDetail(dataApiDetail[0]);
+    setDataDetail(dataApiDetail?.result);
   };
 
   const handleOk = () => {
-    setIsModalOpen(false);
+    setLoading(true)
 
-    form.validateFields().then((values) => {
+    openNotification({ key: 'createNotfication', message: 'Đang tạo ....', type: 'info' });
 
-      const check = mileStoneApi.update({
-        id: dataDetail?.id,
-        name: values.name,
-        start_date: values.start_date,
-        end_date: values.end_date
+    try {
+      form.validateFields().then(async (values) => {
+        if (!values.start_date) {
+          alert("Ngày bắt đầu không được để trống")
+          return;
+        }
+
+        const dataUpdated = await mileStoneApi.updateMilestone({
+          id: dataDetail?._id,
+          data: {
+            name: values.name,
+            start_date: dayjs(values.start_date, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+            end_date: values.end_date !== null ? dayjs(values.end_date, 'DD/MM/YYYY').format('YYYY-MM-DD') : null,
+            competition_id: dataDetail?.competition_id
+          }
+        })
+        if (dataUpdated.result) {
+          setLoading(false)
+          openNotification({ key: 'successNotfication', message: 'Cập nhật timeline thành công', duration: 2.5, type: 'success' });
+
+          fetchTimeline();
+          setIsModalOpen(false);
+        }
       });
-      if (check) {
-        alert("ADD SUCCESS!");
-        fetchTimeline();
-      }
-    });
+    } catch (error) {
+      setLoading(false)
+      openNotification({ key: 'failNotfication', message: 'Cập nhật timeline thất bại: ' + error.message, duration: 2.5, type: 'error' });
+    }
   };
 
   const handleCancel = () => {
@@ -50,7 +70,8 @@ const MileStoneAdmin = () => {
   const fetchTimeline = async () => {
     try {
       const dataApi = await mileStoneApi.getAllMilestone({ page: currentPage });
-      setData(dataApi);
+
+      setData(dataApi?.result);
     } catch (error) {
       console.log(error);
     }
@@ -64,20 +85,21 @@ const MileStoneAdmin = () => {
 
     const fetchData = async () => {
       const data = await competitionApi.getAllCompetition({ pageSize: 500 });
-      setDataCompetion(data.data)
+
+      setDataCompetion(data?.result?.competitions)
     }
     fetchData()
   }, []);
   React.useEffect(() => {
     fetchTimeline();
-    setLoading(false);
+
   }, [currentPage]);
 
   React.useEffect(() => {
     form.setFieldsValue({
       name: dataDetail?.name,
-      start_date: dataDetail?.start_date,
-      end_date: dataDetail?.end_date
+      start_date: dayjs(dataDetail?.start_date),
+      end_date: dataDetail?.end_date !== null ? dayjs(dataDetail?.end_date) : dayjs()
     });
   }, [dataDetail]);
 
@@ -86,6 +108,7 @@ const MileStoneAdmin = () => {
       setDataDetail(undefined)
     }
   }, [isModalOpen])
+
   return (
     <Row justify='center'>
       <Col
@@ -130,17 +153,13 @@ const MileStoneAdmin = () => {
 
               <Form.Item
                 name='start_date'
-                initialValue={dataDetail.start_date}
                 label='Ngày bắt đầu'
+
               >
-                <Input />
+                <DatePicker format={"DD/MM/YYYY"} />
               </Form.Item>
-              <Form.Item
-                name='end_date'
-                initialValue={dataDetail.end_date}
-                label='Ngày kết thúc'
-              >
-                <Input />
+              <Form.Item name='end_date' label='Ngày kết thúc'>
+                <DatePicker format={"DD/MM/YYYY"} />
               </Form.Item>
 
             </Form>
@@ -153,7 +172,7 @@ const MileStoneAdmin = () => {
           loading={loading}
           pagination={{ current: currentPage, defaultCurrent: 1, pageSize: 10, total: data?.total || 0, onChange: (number) => setCurrentPage(number) }}
           rootClassName='table-admin'
-          dataSource={data?.data || []}
+          dataSource={data?.length > 0 ? data : []}
         />
       </Col>
     </Row>

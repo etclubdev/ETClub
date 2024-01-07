@@ -4,10 +4,7 @@ import competitionService from "../services/competition-service.js";
 import multer from "multer";
 const Router = express.Router();
 Router.get("/", async (req, res, next) => {
-  //enum status competition 
-  //  1: Sắp diễn ra 
-  //  2: Đang diễn ra 
-  //  3: Đã diễn ra
+  
   let newsList = await competitionService.getAllCompetition();
   const status = req.query.status;
   const pageSize = parseInt(req.query.pageSize) || 9;

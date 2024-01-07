@@ -4,9 +4,10 @@ import {
   SettingOutlined,
   AppstoreOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, Row } from "antd";
+import { Layout, Menu, Row, Button } from "antd";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import authApi from '../../api/authApi';
 function getItem(label, key, icon, link, children, type) {
   return {
     key,
@@ -20,48 +21,46 @@ function getItem(label, key, icon, link, children, type) {
 
 const items = [
 
-  getItem("Banner", "sub2", <AppstoreOutlined />),
-  getItem("Cuộc thi", "sub3", <SettingOutlined />),
-  getItem("Cảm nghĩ", "sub4", <SettingOutlined />),
+  getItem("Banner", "sub2", <AppstoreOutlined />, "/admin"),
+  getItem("Cuộc thi", "sub3", <SettingOutlined />, "/admin/competition"),
+  getItem("Cảm nghĩ", "sub4", <SettingOutlined />, "/admin/feeling"),
 
-  getItem("Kết quả Cuộc thi", "sub6", <SettingOutlined />),
+  getItem("Kết quả Cuộc thi", "sub6", <SettingOutlined />, "/admin/competition-results"),
 
-  getItem("Bản tin ET", "sub8", <SettingOutlined />),
-  getItem("Timeline cuộc thi", "sub9", <SettingOutlined />),
+  getItem("Bản tin ET", "sub8", <SettingOutlined />, "/admin/etnews"),
+  getItem("Timeline cuộc thi", "sub9", <SettingOutlined />, "/admin/milestone"),
+  getItem("Thành viên", "sub10", <SettingOutlined />, "/admin/member"),
+  // getItem("Hình ảnh hoạt động các ban", "sub11", <SettingOutlined />, "/admin/hoat-dong"),
 
-  getItem("Hình ảnh hoạt động các ban", "sub11", <SettingOutlined />),
-
-  getItem("Quản lý nhà tài trợ", "sub13", <SettingOutlined />),
+  getItem("Quản lý nhà tài trợ", "sub13", <SettingOutlined />, "/admin/sponsor"),
+  getItem("Đăng xuất", "sub14")
 ];
 const LeftMenu = () => {
+  const location = useLocation();
   const navigate = useNavigate();
-  const onClick = (e) => {
-    console.log("click ", e);
-    if (e.key === "sub5") {
-      navigate("/admin/partner");
-    }
-    if (e.key === "sub3") {
-      navigate("/admin/competition");
-    }
-    if (e.key === "sub6") {
-      navigate("/admin/competition-results");
-    }
-    if (e.key === "sub4") {
-      navigate("/admin/feeling");
-    }
-    if (e.key === "sub2") {
-      navigate("/admin");
-    }
-    if (e.key === "sub8") {
-      navigate("/admin/etnews");
-    }
-    if (e.key === "sub9") {
-      navigate("/admin/milestone");
-    }
-    if (e.key === "sub13") {
-      navigate("/admin/sponsor");
+
+  const onClick = async (e) => {
+
+    // ... (xử lý các sự kiện khác)
+
+    if (e.key === "sub14") {
+      try {
+        const result = await authApi.logout({ refresh_token: localStorage.getItem('refresh_token') });
+        if (result?.message) {
+          alert('Đăng xuất thành công')
+          navigate('/login')
+        }
+      } catch (err) {
+        console.log(err)
+      }
+
+    } else {
+      navigate(items.find((item) => item.key === e.key)?.link || "/"); // Chuyển hướng đến đường dẫn liên kết của mục menu
     }
   };
+
+  // Tìm key tương ứng với đường dẫn URL hiện tại
+  const currentKey = items.find((item) => item.link === location.pathname)?.key;
   return (
     <Layout.Sider width='100%' style={{ zIndex: 9999, background: "#fff" }}>
       <Row justify='center'>
@@ -76,12 +75,21 @@ const LeftMenu = () => {
         onClick={onClick}
         defaultSelectedKeys={["1"]}
         defaultOpenKeys={["sub1"]}
+        selectedKeys={[currentKey]}
         mode='inline'
         style={{
           height: "100vh",
         }}
-        items={items}
-      />
+
+
+      >
+        {items.map((item) => (
+          <Menu.Item key={item.key} icon={item.icon} style={item.key === 'sub14' ? { background: 'green', textAlign: 'center', color: 'white' } : {}}>
+            {item.label}
+          </Menu.Item>
+        ))}
+      </Menu>
+
     </Layout.Sider>
   );
 };

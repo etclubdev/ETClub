@@ -28,7 +28,8 @@ const Thinking = () => {
   const fetchFeelings = async () => {
     try {
       const dataApi = await feelingApi.getAll();
-      setData(dataApi);
+      console.log(dataApi)
+      setData(dataApi.result);
     } catch (error) {
       console.log(error);
     }
@@ -40,20 +41,20 @@ const Thinking = () => {
     <div>
       <div className='thingking container'>
         <div className='thingking-name'>CẢM NGHĨ</div>
-        {data.length > 0 ? (
+        {data?.length > 0 ? (
           <OwlCarousel className='owl-theme thingking-list' {...options}>
             {data?.map((item) => (
               <div key={item.id} className='thingking-item item'>
                 <div className='thingking-quote'>
                   <img src='/img/Rectangle 2640.png' alt='' />
                 </div>
-                <div className='thingking-desc'>
+                <div className='thingking-desc text-justify'>
                   <p>{item.quote}</p>
                 </div>
                 <div className='thingking-detail'>
                   <div className='thingking-avatar'>
                     <img
-                      src={`https://et-api-2023.onrender.com/public/images/feeling/${item.avatar}`}
+                      src={`${item.avatar}`}
                       alt=''
                     />
                   </div>

@@ -1,10 +1,12 @@
 
-import { Button, Form, Input, Modal, Select, Upload } from "antd";
+import { Button, Form, Input, Modal, Select, Upload, notification } from "antd";
 import React, { useState } from "react";
 
 import EditorComponent from '../../../../components/Editor';
 import etNewsApi from '../../../../api/etNewsApi';
-
+import uploadApi from '../../../../api/basicInfoApi';
+import { useNavigate } from "react-router-dom";
+import { openNotification } from '../../../../utils';
 const options = [
   {
     value: 0,
@@ -30,10 +32,15 @@ const options = [
 const EditETNews = () => {
   const [image, setImage] = React.useState();
   const [value, setValue] = useState('');
+  const [imageURL, setImageURL] = useState("")
   const [form] = Form.useForm();
+  const [loading, setLoading] = React.useState(false);
+
+  const navigate = useNavigate();
 
   const fileOnChange = (event) => {
     const file = event.target.files[0];
+    setImageURL(URL.createObjectURL(file))
     if (file) {
       setImage(file);
     } else {
@@ -42,6 +49,61 @@ const EditETNews = () => {
     }
   };
 
+  const handleCreate = async () => {
+    try {
+      setLoading(true)
+
+      openNotification({ key: 'createNotfication', message: 'Đang tạo ....', type: 'info' });
+
+      form.validateFields().then(async (values) => {
+        let imageData = "";
+        const dataUpload = new FormData();
+        dataUpload.append("images", image);
+        const cloudImage = await uploadApi.uploadImages(dataUpload);
+
+        if (cloudImage) {
+          openNotification({ key: 'uploadNotfication', message: 'Upload ảnh thành công!', duration: 2.5, type: 'success' });
+        }
+        imageData = cloudImage?.data[0]?.url;
+
+        const check = await etNewsApi.add({
+          name: values.name,
+          image: imageData,
+          link: values.link,
+          tiny_desc: values.tiny_desc,
+          full_news: value,
+          category: values.category,
+        });
+
+        if (check.result) {
+
+          setLoading(false)
+          openNotification({ key: 'successNotfication', message: 'Thêm tin thành công', duration: 2.5, type: 'success' });
+          form.resetFields();
+          setImage(undefined);
+          setImageURL("");
+          setValue("");
+          navigate("/admin/etnews");
+        }
+
+      });
+    } catch (error) {
+      setLoading(false)
+      openNotification({ key: 'failNotfication', message: 'Thêm tin thất bại: ' + error.message, duration: 2.5, type: 'error' });
+    }
+  };
+  React.useEffect(() => {
+
+    if (!loading) {
+
+      notification.destroy('createNotfication');
+
+    }
+    return () => {
+      notification.destroy('createNotification');
+    };
+
+  }, [loading]);
   return (
     <>
       <Form
@@ -56,23 +118,7 @@ const EditETNews = () => {
           <h3>Tạo ETNews</h3>
           <Button
             className='min-w-[150px] bg-blue-600 text-white font-bold hover:bg-gray-700 '
-            onClick={() => {
-              form.validateFields().then((values) => {
-
-                const data = new FormData();
-                data.append("name", values.name);
-                data.append("image", image);
-                data.append("link", values.link);
-                data.append("tiny_desc", values.tiny_desc)
-                data.append("full_news", value)
-                data.append("category", values.category)
-                const check = etNewsApi.add(data);
-
-                if (check) {
-                  alert("ADD SUCCESS!");
-                }
-              });
-            }}
+            onClick={handleCreate}
           >
             Tạo
           </Button>
@@ -85,7 +131,22 @@ const EditETNews = () => {
         </Form.Item>
         <Form.Item name='image' label='Ảnh bìa'>
           <div>
-            <input type='file' onChange={fileOnChange} />
+            {imageURL.length > 0 && <div>
+              <img
+                style={{
+                  width: "100%",
+                  height: "150px",
+                  objectFit: "contain",
+                }}
+                src={
+                  imageURL
+                }
+                alt=''
+              />
+            </div>}
+            <div>
+              <input type='file' onChange={fileOnChange} />
+            </div>
           </div>
         </Form.Item>
         <Form.Item name='link' label='Link chuyển tiếp'>
@@ -105,10 +166,10 @@ const EditETNews = () => {
           </div>
 
         </div>
-
+        {/* 
         <div className=' py-[12px] px-[15px] text-[13px]' dangerouslySetInnerHTML={{ __html: value }}>
 
-        </div>
+        </div> */}
 
       </Form>
 

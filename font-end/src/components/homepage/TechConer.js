@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import "./techconer.scss";
+import { Link } from 'react-router-dom';
 const TechConer = () => {
   return (
     <div id="tech-corner" className="techCorner">
@@ -17,7 +18,7 @@ const TechConer = () => {
                 Mỗi tháng ET Group cập nhật 1 bản tin về kiến thức về tin tức
                 công nghệ mới
               </div>
-              <div className="card_btn">Đọc ngay</div>
+              <Link to="/tech-corner/ban-tin-ET" className="card_btn block">Đọc ngay</Link>
             </div>
             <div className="techCorner__card">
               <div className="card__image">
@@ -27,7 +28,7 @@ const TechConer = () => {
                 Chuỗi hoạt động nâng cao năng lực công nghệ cho SV
               </div>
               <div className="card__desc">Học cùng ET qua từng video</div>
-              <div className="card_btn">Xem chi tiết</div>
+              <Link to="/tech-corner/chuoi-hoat-dong" className="card_btn block">Xem chi tiết</Link>
             </div>
             <div className="techCorner__card">
               <div className="card__image">
@@ -37,7 +38,7 @@ const TechConer = () => {
               <div className="card__desc">
                 Nơi tỏa sáng tri thức những tài năng công nghệ
               </div>
-              <div className="card_btn">Xem chi tiết</div>
+              <Link to="/tech-corner/cuoc-thi-cong-nghe" className="card_btn block">Xem chi tiết</Link>
             </div>
           </div>
         </div>

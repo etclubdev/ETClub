@@ -11,7 +11,7 @@ const Name = () => {
     if (id) {
       const fetchData = async () => {
         const result = await competitionApi.getByCompetitionId(id)
-        setData(result[0])
+        setData(result?.result)
       }
       fetchData()
     }

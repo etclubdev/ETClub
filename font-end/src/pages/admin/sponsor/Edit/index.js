@@ -1,17 +1,24 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Modal, Select, Upload } from "antd";
+import { Button, Form, Input, Modal, Select, Upload, notification } from "antd";
 import React from "react";
 import competitionApi from "../../../../api/competitionApi";
 import sponsorApi from "../../../../api/sponsorApi";
+import uploadApi from '../../../../api/basicInfoApi';
+import { useNavigate } from 'react-router-dom'
+import { openNotification } from '../../../../utils';
 
 const EditSponsor = () => {
   const [image, setImage] = React.useState();
   const [competitionIdSelected, setCompetitionSelected] = React.useState(undefined);
   const [kindSelected, setKindSelected] = React.useState(undefined);
   const [dataCompetition, setDataCompetition] = React.useState();
+  const [imageURL, setImageURL] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   const [form] = Form.useForm();
+  const navigate = useNavigate()
   const fileOnChange = (event) => {
     const file = event.target.files[0];
+    setImageURL(URL.createObjectURL(file))
     if (file) {
       setImage(file);
     } else {
@@ -22,7 +29,7 @@ const EditSponsor = () => {
   const fetchCompetitions = async () => {
     try {
       const dataApi = await competitionApi.getAllCompetition();
-      setDataCompetition(dataApi?.data);
+      setDataCompetition(dataApi?.result?.competitions);
     } catch (error) {
       console.log(error);
     }
@@ -30,6 +37,18 @@ const EditSponsor = () => {
   React.useEffect(() => {
     fetchCompetitions();
   }, []);
+  React.useEffect(() => {
+
+    if (!loading) {
+
+      notification.destroy('createNotfication');
+
+    }
+    return () => {
+      notification.destroy('createNotification');
+    };
+
+  }, [loading]);
   return (
     <>
       {dataCompetition ? (
@@ -85,7 +104,7 @@ const EditSponsor = () => {
               options={[
                 ...dataCompetition.map((item) => {
                   return {
-                    value: item.id,
+                    value: item._id,
                     label: item.name,
                   };
                 }),
@@ -94,41 +113,78 @@ const EditSponsor = () => {
           </Form.Item>
           <Form.Item name='logo' label='Logo'>
             <div>
-              <input type='file' onChange={fileOnChange} />
+              {imageURL.length > 0 && <div>
+                <img
+                  style={{
+                    width: "100%",
+                    height: "150px",
+                    objectFit: "contain",
+                  }}
+                  src={
+                    imageURL
+                  }
+                  alt=''
+                />
+              </div>}
+              <div>
+                <input type='file' onChange={fileOnChange} />
+              </div>
             </div>
           </Form.Item>
 
           <Form.Item>
             <Button
               className='min-w-[150px] bg-blue-400'
-
+              disabled={loading}
+              loading={loading}
               onClick={() => {
-                form.validateFields().then((values) => {
-                  if (!competitionIdSelected) {
-                    alert('Vui lòng chọn ID cuộc thi')
-                    return null
-                  }
-                  if (!kindSelected) {
-                    alert('Vui lòng chọn loại nhà tài trợ')
-                    return null
-                  }
-                  if (!image) {
-                    alert('Vui lòng chọn logo')
-                    return null
-                  }
-                  const data = new FormData();
-                  data.append("name", values.name);
-                  data.append("logo", image);
-                  data.append("kind", kindSelected);
-                  data.append("competition_id", competitionIdSelected);
-                  const check = sponsorApi.addSponsor(data);
-                  if (check) {
-                    alert("ADD SUCCESS!");
-                    form.resetFields();
-                    setCompetitionSelected(undefined)
-                    setKindSelected(undefined)
-                  }
-                });
+                setLoading(true)
+
+                openNotification({ key: 'createNotfication', message: 'Đang tạo ....', type: 'info' });
+                try {
+                  form.validateFields().then(async (values) => {
+                    if (!competitionIdSelected) {
+                      alert('Vui lòng chọn ID cuộc thi')
+                      return null
+                    }
+                    if (!kindSelected) {
+                      alert('Vui lòng chọn loại nhà tài trợ')
+                      return null
+                    }
+                    if (!image) {
+                      alert('Vui lòng chọn logo')
+                      return null
+                    }
+                    let imageData = ""
+                    const dataUpload = new FormData();
+                    dataUpload.append("images", image)
+                    const cloudImage = await uploadApi.uploadImages(dataUpload);
+
+
+                    imageData = cloudImage?.data[0]?.url
+
+                    const check = await sponsorApi.addSponsor({
+                      name: values.name,
+                      kind: kindSelected,
+                      competition_id: competitionIdSelected,
+                      logo: imageData
+                    });
+                    if (check.result) {
+                      setLoading(false)
+                      openNotification({ key: 'successNotfication', message: 'Thêm nhà tài trợ thành công', duration: 2.5, type: 'success' });
+                      form.resetFields();
+                      setImage(undefined)
+                      setImageURL("")
+                      setCompetitionSelected(undefined)
+                      setKindSelected(undefined)
+                      navigate('/admin/sponsor')
+                    }
+
+                  });
+                } catch (error) {
+                  setLoading(false)
+                  openNotification({ key: 'failNotfication', message: 'Thêm nhà tài trợ thất bại: ' + error.message, duration: 2.5, type: 'error' });
+                }
               }}
             >
               Tạo

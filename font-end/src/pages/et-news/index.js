@@ -1,4 +1,4 @@
-import { Fragment, lazy, Suspense } from "react";
+import React, { Fragment, lazy, Suspense } from "react";
 
 import { Breadcrumb } from 'antd';
 
@@ -11,6 +11,16 @@ const FilterAndActivitiesCard = lazy(() =>
   import("../../components/et-news/FilterAndActivitiesCard")
 );
 const EtNews = () => {
+  React.useEffect(() => {
+
+    const scrollToTop = () => {
+      window.scrollTo(0, 0);
+    };
+
+    scrollToTop();
+
+
+  }, []);
   return (
     <Fragment>
       <Suspense>

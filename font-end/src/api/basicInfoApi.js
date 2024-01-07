@@ -16,10 +16,10 @@
 // }
 // export default productApi
 import axiosClient from "./axiosClient";
-const basicInfoApi = {
-    getAll(params){
-        const url = '/basicInfomation';
-        return axiosClient.get(url,{params})
+const uploadApi = {
+    uploadImages(data) {
+        const url = '/upload-images';
+        return axiosClient.post(url, data)
     },
 }
-export default basicInfoApi
+export default uploadApi

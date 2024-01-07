@@ -1,41 +1,62 @@
 import React from "react";
-import { Button, Col, Form, Input, Modal, Row, Table } from "antd";
+import { Button, Col, Form, Input, Modal, Row, Table, notification } from "antd";
 import { columns } from "./render";
 import { useNavigate } from "react-router-dom";
 import bannerApi from "../../../api/bannerApi";
+import uploadApi from '../../../api/basicInfoApi';
+import { openNotification } from '../../../utils';
 const HomePageAdmin = () => {
   const navigate = useNavigate();
   const [data, setData] = React.useState([]);
   const [dataDetail, setDataDetail] = React.useState();
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
   const [image, setImage] = React.useState();
   const [imageURL, setImageURL] = React.useState("");
   let objectURL = "";
-  const showModal = async (stt) => {
+  const showModal = async (id) => {
     setIsModalOpen(true);
-    const dataApiDetail = await bannerApi.getById(stt);
+    const dataApiDetail = await bannerApi.getById(id);
 
-    setDataDetail(dataApiDetail[0]);
+    setDataDetail(dataApiDetail.result);
   };
 
   const handleOk = () => {
-    setIsModalOpen(false);
 
-    form.validateFields().then((values) => {
-      const data = new FormData();
-      data.append("description", values.description);
-      data.append("img", imageURL.length > 0 ? image : dataDetail.img);
-      data.append("stt", dataDetail.stt);
-      data.append("link", values.link);
+    try {
+      setLoading(true)
 
-      const check = bannerApi.updateBanner(data);
-      if (check) {
-        alert("ADD SUCCESS!");
-        fetchBanners();
-      }
-    });
+      openNotification({ key: 'createNotfication', message: 'Đang cập nhật ....', type: 'info' });
+      form.validateFields().then(async (values) => {
+        let dataImage = "";
+        if (imageURL.length > 0) {
+          const dataUpload = new FormData();
+          dataUpload.append("images", image)
+          const cloudImage = await uploadApi.uploadImages(dataUpload);
+          dataImage = cloudImage?.data[0]?.url
+
+        }
+        const dataUpdated = await bannerApi.updateBanner({
+          id: dataDetail?._id,
+          data: {
+            description: values.description,
+            img: imageURL.length > 0 ? dataImage : dataDetail?.img,
+            link: values.link
+          }
+        })
+        if (dataUpdated.result) {
+          setLoading(false)
+          openNotification({ key: 'successNotfication', message: 'Chỉnh sửa banner thành công', duration: 2.5, type: 'success' });
+          fetchBanners()
+          setIsModalOpen(false);
+        }
+      });
+    } catch (error) {
+      setLoading(false)
+      openNotification({ key: 'failNotfication', message: 'Chỉnh sửa banner thất bại: ' + error.message, duration: 2.5, type: 'error' });
+    }
+
   };
 
   const handleCancel = () => {
@@ -46,7 +67,7 @@ const HomePageAdmin = () => {
   const fetchBanners = async () => {
     try {
       const dataApi = await bannerApi.getAll();
-      setData(dataApi);
+      setData(dataApi.result);
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +78,6 @@ const HomePageAdmin = () => {
   };
   const fileOnChange = (event) => {
     const file = event.target.files[0];
-    console.log(file);
     objectURL = URL.createObjectURL(file);
     setImageURL(objectURL);
     if (file) {
@@ -70,14 +90,33 @@ const HomePageAdmin = () => {
 
   React.useEffect(() => {
     fetchBanners();
-    setLoading(false);
   }, []);
+  React.useEffect(() => {
+    if (!isModalOpen) {
+      setDataDetail(undefined);
+      setImageURL("");
+    }
+  }, [isModalOpen])
   React.useEffect(() => {
     form.setFieldsValue({
       description: dataDetail?.description,
       link: dataDetail?.link
     });
   }, [dataDetail]);
+  React.useEffect(() => {
+
+    if (!loading) {
+
+      notification.destroy('createNotfication');
+
+    }
+    return () => {
+      notification.destroy('createNotification');
+    };
+
+  }, [loading]);
+
+
   return (
     <Row justify='center'>
       <Col
@@ -100,9 +139,12 @@ const HomePageAdmin = () => {
         </Row>
         <Modal
           title='Chỉnh sửa banner'
+          centered={true}
           open={isModalOpen}
           onOk={handleOk}
           width={800}
+
+          confirmLoading={loading}
           onCancel={handleCancel}
           okText={"Lưu"}
         >
@@ -128,13 +170,13 @@ const HomePageAdmin = () => {
                   <img
                     style={{
                       width: "100%",
-                      height: "150px",
-                      objectFit: "contain",
+
+                      objectFit: "cover",
                     }}
                     src={
                       imageURL.length > 0
                         ? imageURL
-                        : `https://et-api-2023.onrender.com/public/images/banners/${dataDetail.img}`
+                        : `${dataDetail.img}`
                     }
                     alt=''
                   />

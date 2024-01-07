@@ -11,12 +11,34 @@ const CompetitionCompilation = () => {
   const onChangePage = page => setCurrentPage(page)
   React.useEffect(() => {
     const fetchData = async () => {
-      const result = await competitionApi.getAllCompetition({ status: status, page: currentPage })
-      setData(result)
+      const data = await competitionApi.getAllCompetition({ status: status, page: currentPage })
+
+      setData(data?.result?.competitions)
     }
     fetchData()
   }, [status, currentPage])
+  React.useEffect(() => {
 
+    const scrollToTop = () => {
+      window.scrollTo(0, 0);
+    };
+
+    scrollToTop();
+
+
+  }, []);
+  const convertNameStatus = (status) => {
+    switch (status) {
+      case 0:
+        return 'Sắp diễn ra'
+      case 1:
+        return 'Đang diễn ra'
+      case 2:
+        return 'Đã diễn ra'
+      default:
+        break;
+    }
+  }
   return (
     <>
       <div>
@@ -26,33 +48,33 @@ const CompetitionCompilation = () => {
             <br /> CÁC CUỘC THI CÔNG NGHỆ
           </h1>
         </div>
-        <div className="container-allcompetion row md:flex md:gap-x-[110px]">
-          <div className="container-navbar ">
+        <div className="container-allcompetion row md:flex max-sm:mt-[30px] max-sm:pl-[35px] md:gap-x-[110px]">
+          <div className="container-navbar">
             {/* <div class="empty"></div> */}
-            <div className="cc-navbar">
+            <div className="cc-navbar max-sm:mb-[30px]">
+              <button onClick={() => {
+                setStatus(0)
+              }} className={`cc-navbar__item ${status === 0 ? 'active' : ''}`}>
+                <h6>Sắp diễn ra</h6>
+              </button>
               <button onClick={() => {
                 setStatus(1)
               }} className={`cc-navbar__item ${status === 1 ? 'active' : ''}`}>
-                <h6>Sắp diễn ra</h6>
+                <h6>Đang diễn ra</h6>
               </button>
               <button onClick={() => {
                 setStatus(2)
               }} className={`cc-navbar__item ${status === 2 ? 'active' : ''}`}>
-                <h6>Đang diễn ra</h6>
-              </button>
-              <button onClick={() => {
-                setStatus(3)
-              }} className={`cc-navbar__item ${status === 3 ? 'active' : ''}`}>
                 <h6>Đã diễn ra</h6>
               </button>
             </div>
           </div>
-          {data?.data?.map((item, index) => {
-            return <Link to={`/cuoc-thi/${item.id}`} key={index} className="competition-poster gx-1 col-12  col-sm-6  col-xl-4 ">
+          {data?.map((item, index) => {
+            return <Link to={`/tech-corner/cuoc-thi/${item?._id}`} key={index} className="competition-poster gx-1 col-12  col-sm-6  col-xl-4 ">
 
-              <img src={`https://et-api-2023.onrender.com/public/images/competition/${item.portrait_poster}`} alt />
+              <img className='object-fill md:object-cover' src={`${item?.portrait_poster}`} alt />
               <div className="competition-status">
-                <button>{item.status}</button>
+                <button>{convertNameStatus(item?.status)}</button>
               </div>
             </Link>
           })}

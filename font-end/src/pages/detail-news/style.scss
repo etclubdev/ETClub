@@ -13,6 +13,11 @@
       }
     }
   }
+  .owl-stage-outer {
+    .owl-stage {
+      display: flex;
+    }
+  }
   .owl-nav {
     display: flex;
     position: absolute;

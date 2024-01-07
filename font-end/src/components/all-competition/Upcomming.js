@@ -1,14 +1,16 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import "./upcomming.scss";
-const Upcomming = () => {
+import dayjs from 'dayjs';
+const Upcomming = ({ data }) => {
+
   return (
     <div className="competition max-sm:hidden">
       <div className="left">
-        <div className="competition_desc">
+        <div className="competition_desc max-w-[400px]">
           <div className="competition_status">Sắp diễn ra</div>
-          <div className="competition_name">techconomy</div>
-          <div className="competition_time">25/07/2022</div>
+          <div className="competition_name text-center">{data?.name}</div>
+          <div className="competition_time">{dayjs(data?.date).format("DD/MM/YYYY")}</div>
         </div>
       </div>
       <div className="midle">
@@ -20,7 +22,8 @@ const Upcomming = () => {
       </div>
       <div className="right">
         <div className="competition_image">
-          <img src="/img/AllCompetitionPage/global 2.png" alt />
+          {/* <img src="/img/AllCompetitionPage/global 2.png" alt /> */}
+          <img className='' src={`${data?.portrait_poster}`} alt />
         </div>
       </div>
     </div>

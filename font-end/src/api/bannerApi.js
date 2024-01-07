@@ -9,18 +9,18 @@ const bannerApi = {
 
     return axiosClient.post(url, data);
   },
-  delBanner(stt) {
-    const url = `/banner/delete-banner`;
-    return axiosClient.post(url, stt);
+  delBanner(id) {
+    const url = `/banner/${id}`;
+    return axiosClient.delete(url);
   },
-  getById(stt) {
-    const url = `/banner/get-banner-by-id/${stt}`;
+  getById(id) {
+    const url = `/banner/${id}`;
     return axiosClient.get(url);
   },
   updateBanner(data) {
-    const url = `/banner/update-banner`;
+    const url = `/banner/${data.id}`;
 
-    return axiosClient.post(url, data);
+    return axiosClient.patch(url, data.data);
   },
 };
 export default bannerApi;

@@ -99,7 +99,8 @@ const Header = () => {
                   className={` ${pathname === "/tech-corner/ban-tin-ET" ||
                     pathname === `/tech-corner/ban-tin-ET/${id}` ||
                     pathname === "/tech-corner/chuoi-hoat-dong" ||
-                    pathname === "/tech-corner/cuoc-thi-cong-nghe"
+                    pathname === "/tech-corner/cuoc-thi-cong-nghe" ||
+                    pathname === `/tech-corner/cuoc-thi/${id}`
                     ? " active"
                     : ""
                     }`}
@@ -208,11 +209,12 @@ const Header = () => {
                 <ul
                   className={`intro-show ${showIntro ? "show1 visible" : ""}`}
                 >
-                  <i
+                  {/* <i
                     id="previous-1"
                     onClick={handleBackMenu}
                     className="fas fa-angle-down"
-                  />
+                  /> */}
+                  <CloseCircle onClick={handleBackMenu} />
                   <Link to="/introduce/about-clb" onClick={handleClickBtn}>
                     <li>
                       Về CLB
@@ -234,11 +236,12 @@ const Header = () => {
                 </a>
                 <hr className="divider-3" />
                 <ul className={`tech-show ${showTech ? "show2 visible" : ""}`}>
-                  <i
+                  {/* <i
                     id="previous-2"
                     onClick={handleBackMenu}
                     className="fas fa-angle-down"
-                  />
+                  /> */}
+                  <CloseCircle onClick={handleBackMenu} />
                   <Link to="/tech-corner/ban-tin-ET" onClick={handleClickBtn}>
                     <li>
                       Bản tin ET
@@ -283,11 +286,12 @@ const Header = () => {
                   className={`competition-show ${showCompetition ? "show3 visible" : ""
                     }`}
                 >
-                  <i
+                  {/* <i
                     id="previous-3"
                     onClick={handleBackMenu}
                     className="fas fa-angle-down"
-                  />
+                  /> */}
+                  <CloseCircle onClick={handleBackMenu} />
                   {/* <Link
                     to="/cuoc-thi/techconomy"
                     onClick={handleClickBtn}

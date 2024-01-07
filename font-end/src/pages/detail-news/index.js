@@ -10,7 +10,7 @@ import etNewsApi from '../../api/etNewsApi';
 import { Link, useParams } from 'react-router-dom';
 import { Breadcrumb } from 'antd';
 const DetailNews = () => {
-    const [dataDetail, setDataDetail] = React.useState()
+    const [dataDetail, setDataDetail] = React.useState(undefined)
     const [topNews, setTopNews] = React.useState()
     const [otherNews, setOtherNews] = React.useState()
     const options = {
@@ -45,7 +45,7 @@ const DetailNews = () => {
             const fetchData = async () => {
                 const result = await etNewsApi.get(id)
 
-                setDataDetail(result[0])
+                setDataDetail(result?.result)
             }
             fetchData()
         }
@@ -53,16 +53,21 @@ const DetailNews = () => {
     React.useEffect(() => {
         const fetchData = async () => {
             const result = await etNewsApi.getAll({ sort: 2 })
-            setTopNews(result.data)
+
+            setTopNews(result.result)
         }
         fetchData()
     }, [])
     React.useEffect(() => {
-        const fetchData = async () => {
-            const result = await etNewsApi.getAll({ category: dataDetail?.category })
-            setOtherNews(result.data)
+        if (dataDetail) {
+            const fetchData = async () => {
+                const result = await etNewsApi.getAll({ category: dataDetail?.category })
+                setOtherNews(result.result)
+            }
+
+            fetchData()
         }
-        fetchData()
+
     }, [dataDetail])
 
     return (
@@ -110,16 +115,16 @@ const DetailNews = () => {
 
                     </div>
                 </div>
-                {topNews?.length > 0 && (
+                {topNews?.data?.length > 0 && (
                     <div className="p-8 sticky max-lg:hidden h-fit border-[0.5px] border-[#D3D2D2] rounded-xl flex flex-col ">
                         <h2 className="text-4xl mb-[34px] text-[22px] font-semibold text-[#ffffff]">
                             Bản tin được xem nhiều nhất
                         </h2>
                         <div className="flex flex-col gap-y-9">
-                            {topNews?.filter((item) => item.id != id).slice(0, 5)?.map((item, index) => {
+                            {topNews?.data?.filter((item) => item._id != id).slice(0, 5)?.map((item, index) => {
                                 return (
                                     <Link
-                                        to={`/tech-corner/ban-tin-ET/${item?.id}`}
+                                        to={`/tech-corner/ban-tin-ET/${item?._id}`}
                                         key={index}
                                         className="flex gap-3 items-center justify-between">
                                         <div
@@ -145,18 +150,20 @@ const DetailNews = () => {
             <div className='max-w-[1192px] max-xl:px-[15px] mx-auto mt-[30px] xl:mt-[50px]'>
                 <h1 className='text-4xl font-bold mb-8'>Các bản tin liên quan</h1>
                 <div className=''>
-                    {otherNews?.length > 0 && <OwlCarousel className='owl-theme owl-carousel-news' {...options}>
-                        {otherNews?.filter((item) => item.id != id).map((item, index) => (
-                            <div className='item md:w-[384px]' key={index}>
+                    {otherNews?.data?.length > 0 && <OwlCarousel className='owl-theme owl-carousel-news ' {...options}>
+                        {otherNews?.data?.filter((item) => item._id != id).map((item, index) => (
+                            <div style={{ background: 'rgba(255, 255, 255, 0.1)' }} className='item md:w-[384px] flex flex-col h-[100%] rounded-lg overflow-hidden' key={index}>
                                 <img
-                                    src={`https://et-api-2023.onrender.com/public/images/news/${item?.image}`}
+                                    src={`${item?.image}`}
                                     alt="Image"
-                                    className=' h-[300px] object-cover'
+                                    className=' h-[300px] object-cover rounded-lg'
 
                                 />
-                                <h2 className='text-[#FFFFFF] mt-[5px] text-2xl font-semibold line-clamp-2'>
-                                    {item.name}
-                                </h2>
+                                <div className='py-4 px-2'>
+                                    <h2 className='text-[#FFFFFF] mt-[5px] text-2xl font-semibold line-clamp-2'>
+                                        {item.name}
+                                    </h2>
+                                </div>
                                 <p></p>
                             </div>
                         ))}

@@ -10,17 +10,17 @@ const feelingApi = {
     return axiosClient.post(url, data);
   },
   delFeeling(id) {
-    const url = `/feeling/delete-feeling`;
-    return axiosClient.post(url, id);
+    const url = `/feeling/${id}`;
+    return axiosClient.delete(url, id);
   },
   getById(id) {
-    const url = `/feeling/get-feeling-by-id/${id}`;
+    const url = `/feeling/${id}`;
     return axiosClient.get(url);
   },
   updateFeeling(data) {
-    const url = `/feeling/update-feeling`;
+    const url = `/feeling/${data.id}`;
 
-    return axiosClient.post(url, data);
+    return axiosClient.patch(url, data.data);
   },
 };
 export default feelingApi;

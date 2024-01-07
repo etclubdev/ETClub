@@ -1,34 +1,5 @@
 export const PRDepartment = {
-    name: 'BAN TRUYỀN THÔNG - THƯƠNG MẠI ĐIỆN TỬ',
-    lead: 'Ngô Kim Ngân',
-    members: [{
-        name: 'Phạm Thị Thu Phương',
-        image: '/img/Circle-M.png'
-    }, {
-        name: 'Lưu Nguyễn Minh Thư',
-        image: '/img/Circle-M.png'
-    }, {
-        name: 'Lê Thị Thu Hoa',
-        image: '/img/Circle-M.png'
-    }, {
-        name: 'Trần Thị Hải Yến',
-        image: '/img/Circle-M.png'
-    }, {
-        name: 'Lê Hoàng Uyên Thy',
-        image: '/img/Circle-M.png'
-    }, {
-        name: 'Trần Văn Nam',
-        image: '/img/Circle-M.png'
-    }, {
-        name: 'Vương Thị Như Quỳnh',
-        image: '/img/Circle-M.png'
-    }, {
-        name: 'Võ Quang Khải',
-        image: '/img/Circle-M.png'
-    }, {
-        name: 'Lê Thị Kim Trang',
-        image: '/img/Circle-M.png'
-    }],
+
     introduce: 'Ban Nhân sự - Tổ chức đảm nhận các công việc liên quan đến việc quản lý nhân sự nội bộ, nhằm tạo nên sự kết nối giữa các tất cả cộng tác viên và thành viên của câu lạc bộ. Bên cạnh đó, công việc trong mảng tổ chức hỗ trợ cho các công tác hành chính nội bộ cũng do ban Nhân sự - Tổ chức nắm chính.',
     job: ['Quản trị nhân sự, phân chia tổ chức', 'Phát triển và gắn kết nhân sự', 'Công tác hành chính (giấy tờ, kế hoạch, ...)', 'Xây dựng và tổ chức các chương trình nội bộ', 'Quản lý tài chính'],
     requirement: ['Chủ động, hoạt ngôn, thân thiện, có khả năng hoạt náo và làm chủ bầu không khí.', 'Có khả năng gắn kết các thành viên.', 'Chỉn chu, cẩn thận.', 'Cầu tiến, ham học hỏi, không ngại tiếp thu', 'Có kỹ năng sử dụng cơ bản một số công cụ Google để hỗ trợ công việc.', 'Khả năng tổ chức, quản lý và sắp xếp nhân sự.', 'Khả năng quản lý thời gian.'],

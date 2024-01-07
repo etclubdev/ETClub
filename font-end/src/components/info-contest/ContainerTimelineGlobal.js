@@ -5,11 +5,13 @@ import competitionApi from '../../api/competitionApi';
 const ContainerTimelineGlobal = () => {
   const [data, setData] = React.useState()
   const { id } = useParams()
+
   React.useEffect(() => {
     if (id) {
       const fetchData = async () => {
         const result = await competitionApi.getByCompetitionId(id)
-        setData(result[0])
+        
+        setData(result?.result)
       }
       fetchData()
     }

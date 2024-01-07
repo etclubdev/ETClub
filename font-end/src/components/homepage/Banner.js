@@ -39,7 +39,8 @@ export default function Banner() {
   const fetchBanners = async () => {
     try {
       const dataApi = await bannerApi.getAll();
-      setData(dataApi);
+
+      setData(dataApi?.result);
     } catch (error) {
       console.log(error);
     }
@@ -51,12 +52,12 @@ export default function Banner() {
 
   return (
     <>
-      {data.length > 0 ? (
+      {data?.length > 0 ? (
         <OwlCarousel className='owl-theme owl-carousel-banner' {...options}>
           {data?.map((item, index) => (
             <a href={item.link} target='_blank' rel="noreferrer" className='item' key={index}>
               <img
-                src={`https://et-api-2023.onrender.com/public/images/banners/${item.img}`}
+                src={`${item?.img}`}
                 className='h-[240px] md:h-[600px] object-fill'
                 alt={`Banner ${index + 1}`}
               />

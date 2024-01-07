@@ -1,9 +1,11 @@
 import React from "react";
-import { Button, Table, Row, Col, Form, Input, Modal, Select } from "antd";
+import { Button, Table, Row, Col, Form, Input, Modal, Select, notification } from "antd";
 import competitionApi from "../../../api/competitionApi";
 import { columns, data } from "./render";
 import { useNavigate } from "react-router-dom";
 import competitionResult from '../../../api/competitionResult';
+import uploadApi from '../../../api/basicInfoApi';
+import { openNotification } from '../../../utils';
 const ResultCompetitionAdmin = () => {
   const navigate = useNavigate();
   const [data, setData] = React.useState([]);
@@ -12,7 +14,7 @@ const ResultCompetitionAdmin = () => {
   const [form] = Form.useForm();
   const [currentPage, setCurrentPage] = React.useState(1);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
 
   //file  upload
   const [imageAvatar, setImageAvatar] = React.useState();
@@ -29,41 +31,62 @@ const ResultCompetitionAdmin = () => {
     setIsModalOpen(true);
     const dataApiDetail = await competitionResult.getById(id);
 
-    setDataDetail(dataApiDetail[0]);
+    setDataDetail(dataApiDetail?.result);
   };
   //bấm lưu thông tin chỉnh sửa
   const handleOk = () => {
-    setIsModalOpen(false);
+    setLoading(true)
 
-    form.validateFields().then((values) => {
-      const formData = new FormData();
-      formData.append("id", dataDetail.id);
-      formData.append("name", values.name);
-      formData.append("major", values.major);
-      formData.append("academic_year", values.academic_year);
-      formData.append("team", values.team);
-      formData.append("rank", values.rank);
-      formData.append("school", values.school);
+    openNotification({ key: 'createNotfication', message: 'Đang tạo ....', type: 'info' });
+    try {
+      form.validateFields().then(async (values) => {
+        let dataAvatarImage = "";
+        if (imageURLAvatar.length > 0) {
+          const dataUpload = new FormData();
+          dataUpload.append("images", imageAvatar)
+          const cloudImage = await uploadApi.uploadImages(dataUpload);
+          console.log(cloudImage)
 
-      formData.append(
-        "logo_team",
-        dataDetail?.type === 2 ? imageURLLogoTeam.length > 0 ? imageLogoTeam : dataDetail.logo_team : null
-      );
-      formData.append(
-        "avt",
-        dataDetail?.type === 1 ? imageURLAvatar.length > 0
-          ? imageAvatar
-          : dataDetail.avt : null
-      );
+          dataAvatarImage = cloudImage?.data[0]?.url
 
+        }
+        let dataTeamImage = "";
+        if (imageURLLogoTeam.length > 0) {
+          const dataUpload = new FormData();
+          dataUpload.append("images", imageLogoTeam)
+          const cloudImage = await uploadApi.uploadImages(dataUpload);
+          console.log(cloudImage)
 
-      const check = competitionResult.update(formData);
+          dataTeamImage = cloudImage?.data[0]?.url
 
-      if (check) {
-        alert("ADD SUCCESS!");
-        fetchCompetitionResults();
-      }
-    });
+        }
+        const dataUpdated = await competitionResult.update({
+          id: dataDetail?._id,
+          data: {
+            name: values.name,
+            major: values.major,
+            academic_year: values.academic_year,
+            team: values.team,
+            rank: values.rank,
+            school: values.school,
+            logo_team: dataDetail?.type === 2 && imageURLLogoTeam.length > 0 ? dataTeamImage : dataDetail?.logo_team,
+            avt: dataDetail?.type === 1 && imageURLAvatar.length > 0 ? dataAvatarImage : dataDetail?.avt,
+            competititon_id: dataDetail?.competition_id
+          }
+        })
+        if (dataUpdated.result) {
+          setLoading(false)
+          openNotification({ key: 'successNotfication', message: 'Cập nhật kết quả thành công', duration: 2.5, type: 'success' });
+          fetchCompetitionResults();
+          setIsModalOpen(false);
+        }
+
+      });
+    }
+    catch (error) {
+      setLoading(false)
+      openNotification({ key: 'failNotfication', message: 'Cập nhật kết quả thất bại: ' + error.message, duration: 2.5, type: 'error' });
+    }
   };
 
   // tắt modal
@@ -78,7 +101,8 @@ const ResultCompetitionAdmin = () => {
   const fetchCompetitionResults = async () => {
     try {
       const dataApi = await competitionResult.getAllCompetitionResult();
-      setData(dataApi);
+
+      setData(dataApi?.result);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -123,10 +147,10 @@ const ResultCompetitionAdmin = () => {
     fetchCompetitionResults();
     const fetchData = async () => {
       const data = await competitionApi.getAllCompetition({ pageSize: 500 });
-      setDataCompetion(data.data)
+      setDataCompetion(data?.result?.competitions)
     }
     fetchData()
-    setLoading(false);
+
   }, []);
 
 
@@ -142,6 +166,18 @@ const ResultCompetitionAdmin = () => {
     });
 
   }, [dataDetail]);
+  React.useEffect(() => {
+
+    if (!loading) {
+
+      notification.destroy('createNotfication');
+
+    }
+    return () => {
+      notification.destroy('createNotification');
+    };
+
+  }, [loading]);
 
 
   React.useEffect(() => {
@@ -178,6 +214,7 @@ const ResultCompetitionAdmin = () => {
           title='Chỉnh sửa kết quả cuộc thi'
           open={isModalOpen}
           onOk={handleOk}
+          confirmLoading={loading}
           okButtonProps={{ style: { background: 'green', minWidth: '150px' } }}
           width={800}
           onCancel={handleCancel}
@@ -250,7 +287,7 @@ const ResultCompetitionAdmin = () => {
                       src={
                         imageURLAvatar.length > 0
                           ? imageURLAvatar
-                          : `https://et-api-2023.onrender.com/public/images/competition-results/${dataDetail.avt}`
+                          : `${dataDetail.avt}`
                       }
                       alt=''
                     />
@@ -273,7 +310,7 @@ const ResultCompetitionAdmin = () => {
                       src={
                         imageURLLogoTeam.length > 0
                           ? imageURLLogoTeam
-                          : `https://et-api-2023.onrender.com/public/images/competition-results/${dataDetail.logo_team}`
+                          : `${dataDetail.logo_team}`
                       }
                       alt=''
                     />
@@ -293,12 +330,12 @@ const ResultCompetitionAdmin = () => {
 
         {/* table liệt kê kết quả từng cuộc thi */}
         <Table
-          columns={columns(handleDelete, showModal, dataCompetition)}
+          columns={columns(handleDelete, showModal, dataCompetition?.length > 0 ? dataCompetition : [])}
           loading={loading}
           rootClassName='table-admin'
           pagination={{ current: currentPage, defaultCurrent: 1, pageSize: 10, total: data?.total || 0, onChange: (number) => setCurrentPage(number) }}
           scroll={{ x: 240 }}
-          dataSource={data?.data}
+          dataSource={data?.length > 0 ? data : []}
         />
       </Col>
     </Row>

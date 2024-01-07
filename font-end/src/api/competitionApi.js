@@ -6,7 +6,7 @@ const competitionApi = {
     return axiosClient.get(url, { params });
   },
   getByCompetitionId(id) {
-    const url = `/competition/get-competition-by-id/${id}`;
+    const url = `/competition/${id}`;
     return axiosClient.get(url);
   },
   addCompetition(data) {
@@ -14,12 +14,12 @@ const competitionApi = {
     return axiosClient.post(url, data);
   },
   delCompetition(id) {
-    const url = `/competition/delete-competition`;
-    return axiosClient.post(url, id);
+    const url = `/competition/${id}`;
+    return axiosClient.delete(url);
   },
   updateCompetition(data) {
-    const url = `/competition/update-competition`;
-    return axiosClient.post(url, data);
+    const url = `/competition/${data.id}`;
+    return axiosClient.patch(url, data.data);
   },
 };
 

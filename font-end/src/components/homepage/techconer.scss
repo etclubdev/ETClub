@@ -149,7 +149,7 @@ $mobile_b1: 14px;
     font-family: "K2D";
     font-size: $mobile_b1;
     font-weight: 700;
-    color: $on_button;
+    color: $on_button !important;
     line-height: 25px;
     text-align: center;
     background-color: $heading2;

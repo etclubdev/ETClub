@@ -20,12 +20,8 @@ const toTypeSponsor = (type) => {
 }
 export const columns = (handleDelete, showModal, dataCompetition) => {
   return [
-    {
-      title: "Id",
-      dataIndex: "id",
-      key: "id",
-      // render: (_, record) => <span>{record.id}</span>,
-    },
+
+
     {
       title: "Tên đối tác",
       dataIndex: "name",
@@ -35,6 +31,13 @@ export const columns = (handleDelete, showModal, dataCompetition) => {
       title: "Logo",
       dataIndex: "logo",
       key: "logo",
+      render: (_, record) => (
+        <>
+          <Space className='items-center w-full block'>
+            <img className='w-[80px] h-[80px] object-fill' src={record.logo} alt={record.logo} />
+          </Space>
+        </>
+      ),
     },
     {
       title: "Thể loại",
@@ -43,10 +46,10 @@ export const columns = (handleDelete, showModal, dataCompetition) => {
       render: (_, record) => <span>{toTypeSponsor(record.kind)}</span>,
     },
     {
-      title: "ID cuộc thi",
+      title: "Cuộc thi",
       dataIndex: "competition_id",
       key: "competition_id",
-      render: (_, record) => <span>{dataCompetition?.find((item) => item.id == record.competition_id)?.name}</span>,
+      render: (_, record) => <span>{dataCompetition?.find((item) => item._id == record.competition_id)?.name}</span>,
     },
     // {
     //   title: "Link chuyển tiếp",
@@ -63,11 +66,11 @@ export const columns = (handleDelete, showModal, dataCompetition) => {
       key: "action",
       render: (_, record) => (
         <Space size='middle'>
-          <button onClick={() => showModal(record.id)}>Edit</button>
+          <button onClick={() => showModal(record._id)}>Edit</button>
           <button onClick={() => {
             const yes = prompt("Bạn có chắc chắn muốn xóa nhà tài trợ này không??. Vui lòng gõ chữ y để đồng ý")
             if (['Y', 'y'].includes(yes)) {
-              handleDelete(record.id)
+              handleDelete(record._id)
             } else {
               alert('Bạn không nhập đúng chữ nên không xóa :)')
             }

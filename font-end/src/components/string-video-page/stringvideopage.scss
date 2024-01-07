@@ -68,7 +68,7 @@
       align-items: center;
       @media only screen and (min-width: 1025px) {
         flex-direction: row;
-        align-items: center;
+        align-items: stretch;
         justify-content: space-between;
       }
     }
@@ -193,7 +193,7 @@
           font-family: "K2D";
           border: none;
           border-radius: 10px;
-          background-color: #f5a623;
+          // background-color: #f5a623;
           font-size: 14px;
           font-weight: 500;
           padding: 6px 16px;
@@ -211,6 +211,8 @@
         }
         .new {
           margin-right: 23px;
+          border: 1px solid #f5a623;
+          color: #f5a623;
           @media only screen and (min-width: 1025px) {
             margin-right: 5px;
           }

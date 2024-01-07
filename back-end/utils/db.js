@@ -1,47 +1,62 @@
-import knex from "knex";
+import { MongoClient, Db, Collection } from 'mongodb'
 
-/* -------------------------------------------------- */
-const database = knex({
-  client: "mysql",
-  connection: {
-    host: "sql615.main-hosting.eu",
-    port: 3306,
-    user: "u123045693_O6Yyd",
-    password: "123456Et.",
-    database: "u123045693_rExF4",
-  },
-});
 
-try {
-  await database.raw("select 1+1 as result");
-} catch (err) {
-  console.log(err.stack);
-  process.exit(-1);
+const uri = `mongodb+srv://etclubdev:duy23082003@et.zrkqtv1.mongodb.net/?retryWrites=true&w=majority
+
+`
+
+class DatabaseService {
+  client
+  db
+  constructor() {
+    this.client = new MongoClient(uri)
+    this.db = this.client.db("et_db")
+  }
+  async connect() {
+    try {
+      // Send a ping to confirm a successful connection
+      await this.db.command({ ping: 1 })
+      console.log('Pinged your deployment. You successfully connected to MongoDB!')
+    } catch (err) {
+
+      console.log('error', err)
+      throw err
+    } 
+  }
+  get banners() {
+    return this.db.collection("banners")
+  }
+  get competitions() {
+    return this.db.collection("competitions")
+  }
+  get etNews() {
+    return this.db.collection("et_news")
+  }
+  get feelings() {
+    return this.db.collection("feelings")
+  }
+  get competition_results() {
+    return this.db.collection("competition_results")
+  }
+  get sponsors() {
+    return this.db.collection("sponsors")
+  }
+  get milestones() {
+    return this.db.collection("milestones")
+  }
+  get members() {
+    return this.db.collection("members")
+  }
+  get terms() {
+    return this.db.collection("terms")
+  }
+  get refreshTokens() {
+    return this.db.collection("refresh_tokens")
+  }
+  get users() {
+    return this.db.collection("users")
+  }
 }
-
-export default database;
-
-// /*TEST HOSTING DATABASE */ //trên Filess.io
-// const database = knex({
-// 	client: 'mysql',
-// 	connection: {
-// 		host: 'qa1.h.filess.io',
-// 		port: 3306,
-// 		user: 'udemall_grouppage',
-// 		password: '795b2d3b0c07fa28aa71704e4710ebc37329466f',
-// 		database: 'udemall_grouppage',
-// 	},
-// 	pool: {
-// 		min: 0,
-// 		max: 10,
-// 	},
-// });
-
-// try {
-// 	await database.raw('select 1+1 as result');
-// } catch (err) {
-// 	console.log(err.stack);
-// 	process.exit(-1);
-// }
-
-// export default database;
+//tạo object từ DatabaseService
+const databaseService = new DatabaseService()
+export default databaseService

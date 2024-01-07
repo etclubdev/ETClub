@@ -5,7 +5,7 @@ const sponsorApi = {
     return axiosClient.get(url, { params });
   },
   getBySponsorId(id) {
-    const url = `/sponsor/get-sponsor-by-id/${id}`;
+    const url = `/sponsor/${id}`;
     return axiosClient.get(url);
   },
   addSponsor(data) {
@@ -13,12 +13,12 @@ const sponsorApi = {
     return axiosClient.post(url, data);
   },
   delSponsor(id) {
-    const url = `/sponsor/delete-sponsor`;
-    return axiosClient.post(url, id);
+    const url = `/sponsor/${id}`;
+    return axiosClient.delete(url);
   },
   updateSponsor(data) {
-    const url = `/sponsor/update-sponsor`;
-    return axiosClient.post(url, data);
+    const url = `/sponsor/${data.id}`;
+    return axiosClient.patch(url, data.data);
   },
 };
 export default sponsorApi;

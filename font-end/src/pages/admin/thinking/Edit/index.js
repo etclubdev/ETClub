@@ -1,13 +1,20 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Select, notification } from "antd";
 import React from "react";
 import feelingApi from "../../../../api/feelingApi";
+import uploadApi from '../../../../api/basicInfoApi';
+import { openNotification } from '../../../../utils';
 
 const EditBanner = () => {
   const [image, setImage] = React.useState();
+  const [imageURL, setImageURL] = React.useState('');
   const [form] = Form.useForm();
-
+  const [selectedDepartment, setSelectedDepartment] = React.useState(undefined);
+  const [loading, setLoading] = React.useState(false);
+  let objectURL = "";
   const fileOnChange = (event) => {
     const file = event.target.files[0];
+    objectURL = URL.createObjectURL(file);
+    setImageURL(objectURL);
     if (file) {
       setImage(file);
     } else {
@@ -15,7 +22,19 @@ const EditBanner = () => {
       alert("Please select a file.");
     }
   };
-  //fafa
+
+  React.useEffect(() => {
+
+    if (!loading) {
+
+      notification.destroy('createNotfication');
+
+    }
+    return () => {
+      notification.destroy('createNotification');
+    };
+
+  }, [loading]);
   return (
     <>
       <Form
@@ -35,45 +54,98 @@ const EditBanner = () => {
           <Input></Input>
         </Form.Item>
         <Form.Item name='department' label='Ban'>
-          <Input></Input>
+          <Select
+            value={selectedDepartment}
+            showSearch
+            onChange={(e) => setSelectedDepartment(e)}
+            options={[
+              { value: 'Ban Tech', label: 'Ban Tech' },
+              { value: 'Ban HR', label: 'Ban HR' },
+              { value: 'Ban F-ER', label: 'Ban F-ER' },
+              { value: 'Ban EC-PR', label: 'Ban EC-PR' },
+              { value: 'Ban Event', label: 'Ban Event' }
+            ]}
+          />
+
         </Form.Item>
         <Form.Item name='avatar' label='Ảnh đại diện'>
           <div>
-            <input type='file' onChange={fileOnChange} />
+            {imageURL.length > 0 && <div>
+              <img
+                style={{
+                  width: "100%",
+                  height: "150px",
+                  objectFit: "contain",
+                }}
+                src={
+                  imageURL
+                }
+                alt=''
+              />
+            </div>}
+            <div>
+              <input type='file' onChange={fileOnChange} />
+            </div>
           </div>
         </Form.Item>
         <Form.Item>
           <Button
+            disabled={loading}
+            loading={loading}
             onClick={() => {
-              form.validateFields().then((values) => {
-                if (!values.author) {
-                  alert('Vui lòng điền tên tác giả')
-                  return null;
+              setLoading(true)
 
-                }
-                if (!values.quote) {
-                  alert('Vui lòng điền quote')
-                  return null;
+              openNotification({ key: 'createNotfication', message: 'Đang tạo ....', type: 'info' });
+              try {
+                form.validateFields().then(async (values) => {
+                  if (!values.author) {
+                    alert('Vui lòng điền tên tác giả')
+                    return null;
 
-                }
-                if (!image) {
-                  alert('Vui lòng chọn ảnh')
-                  return null;
+                  }
+                  if (!values.quote) {
+                    alert('Vui lòng điền quote')
+                    return null;
 
-                }
-                const data = new FormData();
-                data.append("quote", values.quote);
-                data.append("author", values.author);
-                data.append("department", values.department);
-                data.append("avatar", image);
+                  }
+                  if (!selectedDepartment) {
+                    alert('Vui lòng chọn ban')
+                    return null;
+                  }
+                  if (!image) {
+                    alert('Vui lòng chọn ảnh')
+                    return null;
 
-                const check = feelingApi.addFeeling(data);
-                if (check) {
-                  alert("ADD SUCCESS!");
-                  form.resetFields();
-                  setImage(undefined)
-                }
-              });
+                  }
+
+                  let imageData = ""
+                  const dataUpload = new FormData();
+                  dataUpload.append("images", image)
+                  const cloudImage = await uploadApi.uploadImages(dataUpload);
+
+                  if (cloudImage) {
+                    alert('upload success')
+                  }
+                  imageData = cloudImage?.data[0]?.url
+
+                  const check = await feelingApi.addFeeling({
+                    quote: values.quote,
+                    author: values.author,
+                    department: selectedDepartment,
+                    avatar: imageData
+                  });
+                  if (check.result) {
+                    setLoading(false)
+                    openNotification({ key: 'successNotfication', message: 'Thêm cảm nghĩ thành công', duration: 2.5, type: 'success' });
+                    form.resetFields();
+                    setImage(undefined)
+                    setImageURL("")
+                  }
+                });
+              } catch (error) {
+                setLoading(false)
+                openNotification({ key: 'failNotfication', message: 'Thêm cảm nghĩ thất bại: ' + error.message, duration: 2.5, type: 'error' });
+              }
             }}
           >
             Tạo

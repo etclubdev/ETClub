@@ -1,20 +1,24 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Modal, Select, Upload } from "antd";
+import { Button, Form, Input, Modal, Select, Upload, DatePicker, notification } from "antd";
 import React from "react";
 import competitionApi from "../../../../api/competitionApi";
 import sponsorApi from "../../../../api/sponsorApi";
 import mileStoneApi from '../../../../api/milestone';
+import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom'
+import { openNotification } from '../../../../utils';
 
 const EditMileStone = () => {
 
   const [competitionIdSelected, setCompetitionSelected] = React.useState(undefined);
   const [dataCompetition, setDataCompetition] = React.useState();
+  const [loading, setLoading] = React.useState(false);
   const [form] = Form.useForm();
-
+  const navigate = useNavigate()
   const fetchCompetitions = async () => {
     try {
       const dataApi = await competitionApi.getAllCompetition();
-      setDataCompetition(dataApi?.data);
+      setDataCompetition(dataApi?.result?.competitions);
     } catch (error) {
       console.log(error);
     }
@@ -22,6 +26,18 @@ const EditMileStone = () => {
   React.useEffect(() => {
     fetchCompetitions();
   }, []);
+  React.useEffect(() => {
+
+    if (!loading) {
+
+      notification.destroy('createNotfication');
+
+    }
+    return () => {
+      notification.destroy('createNotification');
+    };
+
+  }, [loading]);
   return (
     <>
       {dataCompetition ? (
@@ -40,23 +56,19 @@ const EditMileStone = () => {
           ]} name='name' label='Tên vòng thi'>
             <Input></Input>
           </Form.Item>
-          <div className='mb-[10px]'>
+          {/* <div className='mb-[10px]'>
             <span className='text-red-600'>Lưu ý:</span>
             <span className='text-teal-400'>Vui lòng nhập ngày bắt đầu và ngày kết thúc đúng định dạng DD/MM/YYYY</span>
-          </div>
-          <Form.Item rules={[
-            { required: true, message: 'Trường này không được để trống' }
-          ]} name='start_date' label='Ngày bắt đầu'>
-            <Input></Input>
+          </div> */}
+          <Form.Item name='start_date' label='Ngày bắt đầu'>
+            <DatePicker format={"DD/MM/YYYY"} />
           </Form.Item>
-          <div className='mb-[10px]'>
+          {/* <div className='mb-[10px]'>
 
             <span className='text-teal-400'>Ví dụ: 12/09/2021</span>
-          </div>
-          <Form.Item rules={[
-            { required: true, message: 'Trường này không được để trống' }
-          ]} name='end_date' label='Ngày kết thúc'>
-            <Input></Input>
+          </div> */}
+          <Form.Item name='end_date' label='Ngày kết thúc'>
+            <DatePicker format={"DD/MM/YYYY"} />
           </Form.Item>
 
           <Form.Item rules={[
@@ -68,7 +80,7 @@ const EditMileStone = () => {
               options={[
                 ...dataCompetition.map((item) => {
                   return {
-                    value: item.id,
+                    value: item._id,
                     label: item.name,
                   };
                 }),
@@ -80,42 +92,38 @@ const EditMileStone = () => {
           <Form.Item>
             <Button
               className='min-w-[150px] bg-blue-400'
-
+              disabled={loading}
+              loading={loading}
               onClick={() => {
-                form.validateFields().then((values) => {
-                  if (!competitionIdSelected) {
-                    alert('Vui lòng chọn ID cuộc thi')
-                    return null
-                  }
+                setLoading(true)
 
-                  if (!values.end_date.includes("/")) {
-                    alert('Vui lòng nhập ngày kết thúc đúng định dạng')
-                    return null
-                  }
-                  if (!values.start_date.includes("/")) {
-                    alert('Vui lòng nhập ngày kết thúc đúng định dạng')
-                    return null
-                  }
+                openNotification({ key: 'createNotfication', message: 'Đang tạo ....', type: 'info' });
+                try {
+                  form.validateFields().then((values) => {
+                    if (!competitionIdSelected) {
+                      alert('Vui lòng chọn ID cuộc thi')
+                      return null
+                    }
 
-                  // const data = new FormData();
-                  // data.append("name", values.name);
-                  // data.append("start_date", values.start_date);
-                  // data.append("end_date", values.end_date);
 
-                  // data.append("competition_id", competitionIdSelected);
-                  const check = mileStoneApi.addMileStone({
-                    name: values.name,
-                    start_date: values.start_date,
-                    end_date: values.end_date,
-                    competition_id: competitionIdSelected
+                    const check = mileStoneApi.addMilestone({
+                      name: values.name,
+                      start_date: dayjs(values.start_date, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+                      end_date: values.end_date != null ? dayjs(values.end_date, 'DD/MM/YYYY').format('YYYY-MM-DD') : null,
+                      competition_id: competitionIdSelected
+                    });
+                    if (check) {
+                      setLoading(false)
+                      openNotification({ key: 'successNotfication', message: 'Thêm timeline thành công', duration: 2.5, type: 'success' });
+                      form.resetFields();
+                      setCompetitionSelected(undefined)
+                      navigate('/admin/milestone')
+                    }
                   });
-                  if (check) {
-                    alert("ADD SUCCESS!");
-                    form.resetFields();
-                    setCompetitionSelected(undefined)
-
-                  }
-                });
+                } catch (error) {
+                  setLoading(false)
+                  openNotification({ key: 'failNotfication', message: 'Thêm timeline thất bại: ' + error.message, duration: 2.5, type: 'error' });
+                }
               }}
             >
               Tạo

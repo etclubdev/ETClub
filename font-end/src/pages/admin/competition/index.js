@@ -1,9 +1,12 @@
 import React from "react";
-import { Button, Table, Row, Col, Form, Input, Modal } from "antd";
+import { Button, Table, Row, Col, Form, Input, Modal, DatePicker, notification } from "antd";
 import competitionApi from "../../../api/competitionApi";
 import { columns, data } from "./render";
 import { useNavigate } from "react-router-dom";
 import EditorComponent from '../../../components/Editor';
+import uploadApi from '../../../api/basicInfoApi';
+import dayjs from 'dayjs';
+import { openNotification } from '../../../utils';
 const CompetitionAdmin = () => {
   const navigate = useNavigate();
   const [data, setData] = React.useState([]);
@@ -12,7 +15,7 @@ const CompetitionAdmin = () => {
   const [valueRecap, setValueRecap] = React.useState();
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
   const [imageLanscape, setImageLanscape] = React.useState();
   const [imagePortrait, setImagePortrait] = React.useState();
   const [imageURLLanscape, setImageURLLanscape] = React.useState("");
@@ -25,37 +28,64 @@ const CompetitionAdmin = () => {
     setIsModalOpen(true);
     const dataApiDetail = await competitionApi.getByCompetitionId(id);
 
-    setDataDetail(dataApiDetail[0]);
+    setDataDetail(dataApiDetail.result);
   };
 
   const handleOk = () => {
-    setIsModalOpen(false);
+    setLoading(true)
 
-    form.validateFields().then((values) => {
-      const formData = new FormData();
-      formData.append("id", dataDetail.id);
-      formData.append("name", values.name);
-      formData.append(
-        "landscape_poster",
-        imageURLLanscape.length > 0
-          ? imageLanscape
-          : dataDetail.landscape_poster
-      );
-      formData.append(
-        "portrait_poster",
-        imageURLPortrait.length > 0 ? imagePortrait : dataDetail.portrait_poster
-      );
+    openNotification({ key: 'createNotfication', message: 'Đang cập nhật ....', type: 'info' });
 
-      formData.append("status", values.status);
-      formData.append("lookback_script", valueRecap);
-      formData.append("content", valueContent)
-      const check = competitionApi.updateCompetition(formData);
+    try {
+      form.validateFields().then(async (values) => {
+        let dataImageLandscape = "";
+        let dataImagePortrait = "";
+        if (imageURLLanscape.length > 0) {
+          const dataUpload = new FormData();
+          dataUpload.append("images", imageLanscape)
 
-      if (check) {
-        alert("ADD SUCCESS!");
-        fetchCompetitions();
-      }
-    });
+          const cloudImage = await uploadApi.uploadImages(dataUpload);
+
+          if (cloudImage) {
+            alert('upload success')
+          }
+          dataImageLandscape = cloudImage?.data[0]?.url
+        }
+        if (imageURLPortrait.length > 0) {
+          const dataUpload = new FormData();
+          dataUpload.append("images", imagePortrait)
+          const cloudImage = await uploadApi.uploadImages(dataUpload);
+
+          if (cloudImage) {
+            alert('upload success')
+          }
+          dataImagePortrait = cloudImage?.data[0]?.url
+        }
+        const dataUpdated = await competitionApi.updateCompetition({
+          id: dataDetail?._id,
+          data: {
+            name: values.name,
+            status: parseInt(values.status),
+            landscape_poster: imageURLLanscape.length > 0 ? dataImageLandscape : dataDetail?.landscape_poster,
+            portrait_poster: imageURLPortrait.length > 0 ? dataImagePortrait : dataDetail?.portrait_poster,
+            lookback_script: valueRecap,
+            content: valueContent,
+            date: dayjs(values.date, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+            end_date: values.end_date !== null ? dayjs(values.end_date, 'DD/MM/YYYY').format('YYYY-MM-DD') : null,
+          }
+        })
+        if (dataUpdated.result) {
+          setLoading(false)
+          openNotification({ key: 'successNotfication', message: 'Chỉnh sửa cuộc thi thành công', duration: 2.5, type: 'success' });
+          fetchCompetitions()
+          setIsModalOpen(false);
+        }
+
+      });
+    } catch (error) {
+      setLoading(false)
+      openNotification({ key: 'failNotfication', message: 'Chỉnh sửa cuộc thi thất bại: ' + error.message, duration: 2.5, type: 'error' });
+    }
   };
 
   const handleCancel = () => {
@@ -68,7 +98,8 @@ const CompetitionAdmin = () => {
   const fetchCompetitions = async () => {
     try {
       const dataApi = await competitionApi.getAllCompetition();
-      setData(dataApi);
+
+      setData(dataApi.result.competitions);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -106,12 +137,14 @@ const CompetitionAdmin = () => {
 
   React.useEffect(() => {
     fetchCompetitions();
-    setLoading(false);
+
   }, []);
   React.useEffect(() => {
     form.setFieldsValue({
       name: dataDetail?.name,
-      status: dataDetail?.status
+      status: dataDetail?.status,
+      date: dayjs(dataDetail?.date),
+      end_date: dataDetail?.end_date !== null ? dayjs(dataDetail?.end_date) : dayjs()
     });
   }, [dataDetail]);
   React.useEffect(() => {
@@ -119,6 +152,18 @@ const CompetitionAdmin = () => {
       setDataDetail(undefined)
     }
   }, [isModalOpen])
+  React.useEffect(() => {
+
+    if (!loading) {
+
+      notification.destroy('createNotfication');
+
+    }
+    return () => {
+      notification.destroy('createNotification');
+    };
+
+  }, [loading]);
   return (
     <Row justify='center'>
       <Col
@@ -147,6 +192,7 @@ const CompetitionAdmin = () => {
           open={isModalOpen}
           onOk={handleOk}
           width={1120}
+          confirmLoading={loading}
           okButtonProps={{ style: { background: 'green', minWidth: '150px' } }}
           centered
           onCancel={handleCancel}
@@ -168,13 +214,12 @@ const CompetitionAdmin = () => {
               >
                 <Input defaultValue={dataDetail?.status} />
               </Form.Item>
-              {/* <Form.Item
-                name='lookback_script'
-                initialValue={dataDetail.lookback_script}
-                label='Recap'
-              >
-                <Input />
-              </Form.Item> */}
+              <Form.Item name='date' label='Ngày bắt đầu'>
+                <DatePicker format={"DD/MM/YYYY"} />
+              </Form.Item>
+              <Form.Item name='end_date' label='Ngày kết thúc'>
+                <DatePicker format={"DD/MM/YYYY"} />
+              </Form.Item>
               <div>Mô tả</div>
               <div className=' w-full'>
                 <div className='' >
@@ -200,7 +245,7 @@ const CompetitionAdmin = () => {
                     src={
                       imageURLLanscape.length > 0
                         ? imageURLLanscape
-                        : `https://et-api-2023.onrender.com/public/images/competition/${dataDetail.landscape_poster}`
+                        : `${dataDetail.landscape_poster}`
                     }
                     alt=''
                   />
@@ -220,7 +265,7 @@ const CompetitionAdmin = () => {
                     src={
                       imageURLPortrait.length > 0
                         ? imageURLPortrait
-                        : `https://et-api-2023.onrender.com/public/images/competition/${dataDetail.portrait_poster}`
+                        : `${dataDetail.portrait_poster}`
                     }
                     alt=''
                   />
@@ -229,26 +274,6 @@ const CompetitionAdmin = () => {
                   <input type='file' onChange={fileOnChangePotraitPoster} />
                 </div>
               </Form.Item>
-              {/* <Form.Item name='lookback_img' label='Hình ảnh Recap'>
-                <div>
-                  <img
-                    style={{
-                      width: "100%",
-                      height: "150px",
-                      objectFit: "contain",
-                    }}
-                    src={
-                      imageURLLookback.length > 0
-                        ? imageURLLookback
-                        : `https://et-api-2023.onrender.com/public/images/competition/${dataDetail.lookback_img}`
-                    }
-                    alt=''
-                  />
-                </div>
-                <div>
-                  <input type='file' onChange={fileOnChangeLookback} />
-                </div>
-              </Form.Item> */}
             </Form>
           ) : (
             <span>Loading ...</span>
@@ -259,7 +284,7 @@ const CompetitionAdmin = () => {
           loading={loading}
           rootClassName='table-admin'
           scroll={{ x: 240 }}
-          dataSource={data?.data}
+          dataSource={data?.length > 0 ? data : []}
         />
       </Col>
     </Row>

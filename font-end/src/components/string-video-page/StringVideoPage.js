@@ -1,13 +1,37 @@
 import React, { Fragment, lazy, Suspense } from "react";
 import BreadCrumb from "../breadcrumb/BreadCrumb";
 
+
 import "./stringvideopage.scss";
 import { Breadcrumb } from 'antd';
 import { Link } from 'react-router-dom';
 const StringCard = lazy(() => import("./StringCard"));
 const SubcribeBox = lazy(() => import("./SubcribeBox"));
 const VideoCard = lazy(() => import("./VideoCard"));
+const videoPorpularIds = [
+  'zjIHXxVWcQo',
+  'lOpoegsFQuY',
+  'qTHWeajtzv8',
+  'SSlmKN5L6wE'
+]
+const videoNewestIds = [
+  'apgBwP1KERE',
+  '0WY_r9AQ7iQ',
+  '1SXq-sbOMx4',
+  'kwIZkYAPQuA'
+]
 const StringVideoPage = () => {
+  React.useEffect(() => {
+
+    const scrollToTop = () => {
+      window.scrollTo(0, 0);
+    };
+
+    scrollToTop();
+
+
+  }, []);
+
   return (
     <Fragment>
       <Suspense>
@@ -49,20 +73,19 @@ const StringVideoPage = () => {
             <SubcribeBox />
             <div class="videos-page__hot-video">
               <div class="hot-video__name">video nổi bật</div>
-              <div class="hot-video__list">
-                <VideoCard />
-                <VideoCard />
-                <VideoCard />
-                <VideoCard />
+              <div class="hot-video__list ">
+                {videoPorpularIds.map((item, index) => {
+                  return <VideoCard videoId={item} key={index} />
+                })}
+
               </div>
             </div>
             <div class="videos-page__new-video">
               <div class="new-video__name">video mới nhất</div>
               <div class="new-video__list">
-                <VideoCard />
-                <VideoCard />
-                <VideoCard />
-                <VideoCard />
+                {videoNewestIds.map((item, index) => {
+                  return <VideoCard videoId={item} key={index} />
+                })}
               </div>
               <a href="https://www.youtube.com/channel/UCI3jwuX0dBKc8Iy3VIXZb_Q" target='_blank' rel='noreferrer' class="new-video__all w-fit">
                 <a href="https://www.youtube.com/channel/UCI3jwuX0dBKc8Iy3VIXZb_Q" target='_blank' rel='noreferrer'>

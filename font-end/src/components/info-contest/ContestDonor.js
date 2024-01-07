@@ -10,7 +10,7 @@ const ContestDonor = () => {
     if (id) {
       const getData = async () => {
         const result = await sponsorApi.getAllsponsor({ competition_id: id, pageSize: 14 });
-        setData(result?.data)
+        setData(result?.result)
       }
       getData();
     }
@@ -27,7 +27,7 @@ const ContestDonor = () => {
           {
             data?.filter(item => item.kind == 1).map((item, index) => {
               return <div key={index}>
-                <img className='max-w-[80px] h-[80px] md:max-w-[150px] md:h-[150px] object-cover' src={`https://et-api-2023.onrender.com/public/images/sponsor/${item.logo}`} alt={`diamond_logo_${item.logo}`} />
+                <img className='max-w-[80px] h-[80px] md:max-w-[150px] md:h-[150px] object-cover' src={`${item.logo}`} alt={`diamond_logo_${item.logo}`} />
               </div>
             })
           }
@@ -40,7 +40,7 @@ const ContestDonor = () => {
           {
             data?.filter(item => item.kind == 2).map((item, index) => {
               return <div key={index}>
-                <img className='max-w-[80px] h-[80px] md:max-w-[150px] md:h-[150px] object-cover' src={`https://et-api-2023.onrender.com/public/images/sponsor/${item.logo}`} alt={`diamond_logo_${item.logo}`} />
+                <img className='max-w-[80px] h-[80px] md:max-w-[150px] md:h-[150px] object-cover' src={`${item.logo}`} alt={`diamond_logo_${item.logo}`} />
               </div>
             })
           }
@@ -53,7 +53,7 @@ const ContestDonor = () => {
           {
             data?.filter(item => item.kind == 4).map((item, index) => {
               return <div key={index}>
-                <img className='max-w-[80px] h-[80px] md:max-w-[150px] md:h-[150px] object-cover' src={`https://et-api-2023.onrender.com/public/images/sponsor/${item.logo}`} alt={`diamond_logo_${item.logo}`} />
+                <img className='max-w-[80px] h-[80px] md:max-w-[150px] md:h-[150px] object-cover' src={`${item.logo}`} alt={`diamond_logo_${item.logo}`} />
               </div>
             })
           }
@@ -66,7 +66,7 @@ const ContestDonor = () => {
             data?.filter(item => item.kind == 5).map((item, index) => {
 
               return <div key={index}>
-                <img className='max-w-[80px] h-[80px] md:max-w-[150px] md:h-[150px] object-cover' src={`https://et-api-2023.onrender.com/public/images/sponsor/${item.logo}`} alt={`diamond_logo_${item.logo}`} />
+                <img className='max-w-[80px] h-[80px] md:max-w-[150px] md:h-[150px] object-cover' src={`${item.logo}`} alt={`diamond_logo_${item.logo}`} />
               </div>
             })
           }

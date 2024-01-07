@@ -59,12 +59,13 @@ const FilterAndActivitiesCard = () => {
 
   React.useEffect(() => {
     const fetchData = async () => {
-      const result = await etNewsApi.getAll({ page: currentPage, sort: sortNew ? sortNew : undefined })
-      setData(result)
+      const data = await etNewsApi.getAll({ page: currentPage, sort: sortNew ? sortNew : undefined })
+
+      setData(data.result)
     }
     fetchData()
   }, [currentPage, sortNew])
-
+  console.log(data)
   return (
     <>
       <div
@@ -129,12 +130,12 @@ const FilterAndActivitiesCard = () => {
           <div className="col-lg-1" />
         </div>
         <div className="body-3 max-sm:flex-col">
-          <div className="cover-card flex flex-wrap items-center justify-between md:justify-center md:gap-10">
-            {data?.data && data?.data?.map((item, index) => {
-              return <Link key={index} to={`/tech-corner/ban-tin-ET/${item?.id}`} className="card card-1">
+          <div className="cover-card flex items-stretch flex-wrap items-center justify-between md:justify-center md:gap-10">
+            {data && data?.data?.map((item, index) => {
+              return <Link key={index} to={`/tech-corner/ban-tin-ET/${item?._id}`} className="card card-1">
                 <img
                   className="card-image"
-                  src={`https://et-api-2023.onrender.com/public/images/news/${item?.image}`}
+                  src={`${item?.image}`}
                   alt="Image"
                 />
                 <span className="card-time">
@@ -189,7 +190,7 @@ const FilterAndActivitiesCard = () => {
             <Pagination defaultCurrent={1} total={data?.total} />
           </div> */}
           <div className='mt-4 flex justify-center'>
-            <Pagination className='pagination-news flex' onChange={onChangePage} current={currentPage} defaultCurrent={currentPage} total={data?.total} />
+            <Pagination className='pagination-news flex' onChange={onChangePage} current={currentPage} defaultCurrent={currentPage} pageSize={9} total={data?.total} />
           </div>
           {/*-------------- Hiện thêm 12 card ---------------------*/}
           {/* <div className="show-more">

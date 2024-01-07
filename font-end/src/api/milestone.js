@@ -5,22 +5,21 @@ const mileStoneApi = {
         const url = "/milestone";
         return axiosClient.get(url, { params });
     },
-    addMileStone(data) {
+    getByMilestoneId(id) {
+        const url = `/milestone/${id}`;
+        return axiosClient.get(url);
+    },
+    addMilestone(data) {
         const url = `/milestone`;
         return axiosClient.post(url, data);
     },
-    getById(id) {
-        const url = `/milestone/getById/${id}`;
-        return axiosClient.get(url)
+    delMilestone(id) {
+        const url = `/milestone/${id}`;
+        return axiosClient.delete(url);
     },
-    update(data) {
-        const url = `/milestone/update`;
-
-        return axiosClient.post(url, data);
-    },
-    delete(id) {
-        const url = `/milestone/delete`;
-        return axiosClient.post(url, id);
+    updateMilestone(data) {
+        const url = `/milestone/${data.id}`;
+        return axiosClient.patch(url, data.data);
     },
 
 };

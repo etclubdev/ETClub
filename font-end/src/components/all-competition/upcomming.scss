@@ -9,7 +9,7 @@
     justify-content: flex-end;
     align-items: center;
     .competition_desc {
-      padding: 25px 40px;
+      padding: 25px 22px;
       border: 2px solid #a1dcff;
       border-radius: 10px;
       display: flex;
@@ -88,6 +88,12 @@
       padding-left: 8px;
       width: 330px;
       height: 470px;
+      img {
+        height: calc(100% - 8px);
+        width: calc(100% - 8px);
+        border-radius: 8px;
+        object-fit: fill;
+      }
     }
   }
 }
