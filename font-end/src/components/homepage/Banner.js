@@ -58,7 +58,7 @@ export default function Banner() {
             <a href={item.link} target='_blank' rel="noreferrer" className='item' key={index}>
               <img
                 src={`${item?.img}`}
-                className='h-[240px] md:h-[600px] object-fill'
+                className=' h-[240px] md:h-[600px] object-fill'
                 alt={`Banner ${index + 1}`}
               />
             </a>

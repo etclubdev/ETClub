@@ -3,7 +3,7 @@ import React from "react";
 import feelingApi from "../../../../api/feelingApi";
 import uploadApi from '../../../../api/basicInfoApi';
 import { openNotification } from '../../../../utils';
-
+import { useNavigate } from 'react-router-dom'
 const EditBanner = () => {
   const [image, setImage] = React.useState();
   const [imageURL, setImageURL] = React.useState('');
@@ -11,6 +11,7 @@ const EditBanner = () => {
   const [selectedDepartment, setSelectedDepartment] = React.useState(undefined);
   const [loading, setLoading] = React.useState(false);
   let objectURL = "";
+  const navigate = useNavigate()
   const fileOnChange = (event) => {
     const file = event.target.files[0];
     objectURL = URL.createObjectURL(file);
@@ -123,9 +124,7 @@ const EditBanner = () => {
                   dataUpload.append("images", image)
                   const cloudImage = await uploadApi.uploadImages(dataUpload);
 
-                  if (cloudImage) {
-                    alert('upload success')
-                  }
+
                   imageData = cloudImage?.data[0]?.url
 
                   const check = await feelingApi.addFeeling({
@@ -140,6 +139,7 @@ const EditBanner = () => {
                     form.resetFields();
                     setImage(undefined)
                     setImageURL("")
+                    navigate("/admin/feeling")
                   }
                 });
               } catch (error) {
