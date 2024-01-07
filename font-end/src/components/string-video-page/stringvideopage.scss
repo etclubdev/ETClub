@@ -1,3 +1,8 @@
+.container {
+  @media(min-width: 1536px) {
+    max-width: 1389px !important;
+  }
+}
 .videos-page {
   color: white;
   &__title {
