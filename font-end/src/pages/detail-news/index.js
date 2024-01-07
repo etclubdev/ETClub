@@ -152,7 +152,7 @@ const DetailNews = () => {
                 <div className=''>
                     {otherNews?.data?.length > 0 && <OwlCarousel className='owl-theme owl-carousel-news ' {...options}>
                         {otherNews?.data?.filter((item) => item._id != id).map((item, index) => (
-                            <div style={{ background: 'rgba(255, 255, 255, 0.1)' }} className='item md:w-[384px] flex flex-col h-[100%] rounded-lg overflow-hidden' key={index}>
+                            <Link to={`/tech-corner/ban-tin-ET/${item._id}`} style={{ background: 'rgba(255, 255, 255, 0.1)' }} className='item md:w-[384px] flex flex-col h-[100%] rounded-lg overflow-hidden' key={index}>
                                 <img
                                     src={`${item?.image}`}
                                     alt="Image"
@@ -165,7 +165,7 @@ const DetailNews = () => {
                                     </h2>
                                 </div>
                                 <p></p>
-                            </div>
+                            </Link>
                         ))}
                     </OwlCarousel>}
                 </div>
