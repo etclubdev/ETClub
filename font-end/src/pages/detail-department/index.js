@@ -12,6 +12,7 @@ const DetailDepartment = () => {
     const { department } = useParams();
 
     const id = ToDepartment(department)
+    console.log('id', id)
     const [data, setData] = React.useState(undefined)
     const [dataDepartment, setDataDepartment] = React.useState(undefined)
     const { isMobile } = useWindowDimensions();
@@ -67,10 +68,11 @@ const DetailDepartment = () => {
                 }
             }
             fetchData()
+            console.log('id', id)
             setDataDepartment(ToDepartmentData(id))
         }
     }, [id])
-
+    console.log('data department', dataDepartment)
 
     return (
         <div className='w-full max-w-[1300px] mx-auto flex flex-col justify-center'>

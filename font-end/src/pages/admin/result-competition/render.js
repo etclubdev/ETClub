@@ -1,6 +1,5 @@
 import React from "react";
 import { Space } from "antd";
-import competitionApi from '../../../api/competitionApi';
 // import { getNameCompetition } from '../../../utils';
 const toType = (type) => {
   switch (type) {

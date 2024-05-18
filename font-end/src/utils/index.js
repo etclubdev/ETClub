@@ -1,5 +1,4 @@
-import React from 'react';
-import competitionApi from '../api/competitionApi';
+
 import { ERDepartment } from '../data/er-department';
 import { EventDepartment } from '../data/event-department';
 import { HrDepartment } from '../data/hr-department';

@@ -1,5 +1,5 @@
 import React, { Fragment, Suspense } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Event from "../../components/all-competition/Event";
 import EventReverse from "../../components/all-competition/EventReverse";
 import Mobile from "../../components/all-competition/Mobile";

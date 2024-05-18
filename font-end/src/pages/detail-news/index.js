@@ -11,12 +11,10 @@ import { Link, useParams } from 'react-router-dom';
 import { Breadcrumb } from 'antd';
 const DetailNews = () => {
     const [dataDetail, setDataDetail] = React.useState(undefined)
-    const [topNews, setTopNews] = React.useState()
     const [otherNews, setOtherNews] = React.useState()
     const options = {
         nav: true,
 
-        loop: true,
         margin: 20,
         autoplay: false,
         autoplayTimeout: 3000,
@@ -56,14 +54,7 @@ const DetailNews = () => {
         scrollToTop();
 
     }, [id])
-    React.useEffect(() => {
-        const fetchData = async () => {
-            const result = await etNewsApi.getAll({ sort: 2 })
 
-            setTopNews(result.result)
-        }
-        fetchData()
-    }, [])
     React.useEffect(() => {
         if (dataDetail) {
             const fetchData = async () => {
@@ -122,15 +113,15 @@ const DetailNews = () => {
             </div>
             <div className='max-w-[1192px] max-xl:px-[15px] xl:grid xl:grid-cols-3 mt-[20px] xl:gap-[20px] mx-auto'>
 
-                <div className='md:col-span-2'>
-                    <div className='text-4xl flex items-center justify-center max-sm:text-[25px] md:mb-[10px] font-bold'>
+                <div className='md:col-span-3'>
+                    <div className='text-4xl flex items-center text-center justify-center max-sm:text-[25px] md:mb-[30px] font-bold'>
                         {dataDetail?.name}
                     </div>
                     <div className='detail_news text-justify' dangerouslySetInnerHTML={{ __html: dataDetail?.full_news }}>
 
                     </div>
                 </div>
-                {topNews?.data?.length > 0 && (
+                {/* {topNews?.data?.length > 0 && (
                     <div className="p-8 sticky max-lg:hidden h-fit border-[0.5px] border-[#D3D2D2] rounded-xl flex flex-col ">
                         <h2 className="text-4xl mb-[34px] text-[22px] font-semibold text-[#ffffff]">
                             Bản tin được xem nhiều nhất
@@ -159,14 +150,14 @@ const DetailNews = () => {
                         </div>
 
                     </div>
-                )}
+                )} */}
 
             </div>
             <div className='max-w-[1192px] max-xl:px-[15px] mx-auto mt-[30px] xl:mt-[50px]'>
                 <h1 className='text-4xl font-bold mb-8'>Các bản tin liên quan</h1>
                 <div className=''>
                     {otherNews?.data?.length > 0 && <OwlCarousel className='owl-theme owl-carousel-news ' {...options}>
-                        {otherNews?.data?.filter((item) => item._id != id).map((item, index) => (
+                        {otherNews?.data?.filter((item) => item._id !== id).map((item, index) => (
                             <Link to={`/tech-corner/ban-tin-ET/${item._id}`} style={{ background: 'rgba(255, 255, 255, 0.1)' }} className='item md:w-[384px] flex flex-col h-[100%] rounded-lg overflow-hidden' key={index}>
                                 <img
                                     src={`${item?.image}`}

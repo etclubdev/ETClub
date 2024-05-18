@@ -4,11 +4,14 @@ import feelingApi from "../../../../api/feelingApi";
 import uploadApi from '../../../../api/basicInfoApi';
 import { openNotification } from '../../../../utils';
 import { useNavigate } from 'react-router-dom'
+import memberApi from '../../../../api/memberApi';
 const EditBanner = () => {
   const [image, setImage] = React.useState();
   const [imageURL, setImageURL] = React.useState('');
   const [form] = Form.useForm();
   const [selectedDepartment, setSelectedDepartment] = React.useState(undefined);
+  const [selectedMember, setSelectedMember] = React.useState(undefined);
+  const [memberData, setMemberData] = React.useState(undefined);
   const [loading, setLoading] = React.useState(false);
   let objectURL = "";
   const navigate = useNavigate()
@@ -36,6 +39,23 @@ const EditBanner = () => {
     };
 
   }, [loading]);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await memberApi.getAll();
+        if (data?.result) {
+          setMemberData(data?.result)
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    fetchData()
+  }, [])
+  const handleSearch = (input, option) => {
+    return option.label.toLowerCase().includes(input.toLowerCase());
+  };
+  console.log('selected', selectedMember)
   return (
     <>
       <Form
@@ -52,7 +72,21 @@ const EditBanner = () => {
         </Form.Item>
 
         <Form.Item name='author' label='Tác giả'>
-          <Input></Input>
+          {/* <Input></Input> */}
+          <Select
+            value={selectedMember}
+            showSearch
+            filterOption={handleSearch}
+            onChange={(_, option) => {
+              setSelectedMember(option.label)
+            }}
+            options={memberData?.length > 0 ? memberData.map((item) => {
+              return {
+                value: item._id,
+                label: item.name
+              }
+            }) : []}
+          />
         </Form.Item>
         <Form.Item name='department' label='Ban'>
           <Select
@@ -129,7 +163,7 @@ const EditBanner = () => {
 
                   const check = await feelingApi.addFeeling({
                     quote: values.quote,
-                    author: values.author,
+                    author: selectedMember,
                     department: selectedDepartment,
                     avatar: imageData
                   });

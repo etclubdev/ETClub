@@ -1,6 +1,5 @@
 import React, { Fragment, lazy, Suspense } from "react";
 
-import { Breadcrumb } from 'antd';
 
 const NewestNew = lazy(() => import("../../components/et-news/NewestNew"));
 const Title = lazy(() => import("../../components/et-news/Title"));

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Table, Row, Col, Form, Input, Modal, DatePicker, notification } from "antd";
+import { Button, Table, Row, Col, Form, Input, Modal, DatePicker, notification, Select } from "antd";
 import competitionApi from "../../../api/competitionApi";
 import { columns, data } from "./render";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ const CompetitionAdmin = () => {
   const [valueRecap, setValueRecap] = React.useState();
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [choosedStatus, setChoosedStatus] = React.useState(0);
   const [loading, setLoading] = React.useState(false);
   const [imageLanscape, setImageLanscape] = React.useState();
   const [imagePortrait, setImagePortrait] = React.useState();
@@ -65,7 +66,7 @@ const CompetitionAdmin = () => {
           id: dataDetail?._id,
           data: {
             name: values.name,
-            status: parseInt(values.status),
+            status: choosedStatus,
             landscape_poster: imageURLLanscape.length > 0 ? dataImageLandscape : dataDetail?.landscape_poster,
             portrait_poster: imageURLPortrait.length > 0 ? dataImagePortrait : dataDetail?.portrait_poster,
             lookback_script: valueRecap,
@@ -207,12 +208,23 @@ const CompetitionAdmin = () => {
               >
                 <Input defaultValue={dataDetail?.name} />
               </Form.Item>
+
               <Form.Item
                 name='status'
-
+                initialValue={dataDetail?.status}
                 label='Trạng thái'
               >
-                <Input defaultValue={dataDetail?.status} />
+                <Select
+                  value={choosedStatus}
+                  showSearch
+                  onChange={(e) => setChoosedStatus(e)}
+                  options={[
+                    { value: 0, label: 'Sắp diễn ra' },
+                    { value: 1, label: 'Đang diễn ra' },
+                    { value: 2, label: 'Đã diễn ra' },
+
+                  ]}
+                />
               </Form.Item>
               <Form.Item name='date' label='Ngày bắt đầu'>
                 <DatePicker format={"DD/MM/YYYY"} />

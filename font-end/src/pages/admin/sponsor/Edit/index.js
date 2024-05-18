@@ -1,5 +1,4 @@
-import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Modal, Select, Upload, notification } from "antd";
+import { Button, Form, Input, Select, notification } from "antd";
 import React from "react";
 import competitionApi from "../../../../api/competitionApi";
 import sponsorApi from "../../../../api/sponsorApi";

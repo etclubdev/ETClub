@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Table, Row, Col, Form, Input, Modal, Select, notification } from "antd";
 import competitionApi from "../../../api/competitionApi";
-import { columns, data } from "./render";
+import { columns } from "./render";
 import { useNavigate } from "react-router-dom";
 import competitionResult from '../../../api/competitionResult';
 import uploadApi from '../../../api/basicInfoApi';

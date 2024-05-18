@@ -1,9 +1,7 @@
-import { UploadOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Select, notification } from "antd";
 import React from "react";
 import competitionApi from "../../../../api/competitionApi";
-import FilesUploadComponent from "../../../../components/files-upload-component";
-import EditorComponent from '../../../../components/Editor';
+
 import competitionResult from '../../../../api/competitionResult';
 import uploadApi from '../../../../api/basicInfoApi';
 import { useNavigate } from 'react-router-dom'

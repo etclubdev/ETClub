@@ -8,9 +8,10 @@ import memberApi from '../../api/memberApi';
 
 const DetailBoardMem = () => {
     const { isMobile } = useWindowDimensions();
-    const [choosedValue, setChoosedValue] = React.useState("2023");
+    const [choosedValue, setChoosedValue] = React.useState(undefined);
     const [data, setData] = React.useState(undefined)
-    const [dataDepartment, setDataDepartment] = React.useState(BoardMember)
+    const [dataDepartment, setDataDepartment] = React.useState(undefined)
+    const [termData, setTermData] = React.useState(undefined)
 
     // function ToTenure(choosedValue) {
     //     switch (choosedValue) {
@@ -25,26 +26,34 @@ const DetailBoardMem = () => {
     // }
 
     // const data = ToTenure(choosedValue);
-    const options = [
-        { value: '2023', label: 'Nhiệm kỳ V 2022 - 2023' },
-        { value: '2022', label: 'Nhiệm kỳ IV 2021 - 2022' },
 
-    ]
     React.useEffect(() => {
 
         const fetchData = async () => {
             try {
-                const result = await memberApi.getAll({ department: 0 })
+                const result = await memberApi.getAll({ department: 0, term: choosedValue })
                 setData(result?.result)
             } catch (error) {
                 console.log(error)
             }
         }
         fetchData()
+        setDataDepartment(BoardMember)
         // setDataDepartment(ToDepartmentData(id))
 
+    }, [choosedValue])
+    React.useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const result = await memberApi.getAllTerms()
+                setTermData(result?.result)
+                setChoosedValue(result?.result[0]._id)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchData()
     }, [])
-
     return (
         <div className='w-full max-w-[1300px] mx-auto flex flex-col justify-center'>
             <div className='mx-auto w-full xxl:w-[1300px] xxl:px-[30px] mt-[30px]'>
@@ -89,7 +98,12 @@ const DetailBoardMem = () => {
                         value={choosedValue}
                         onChange={(value) => { setChoosedValue(value) }}
                         showArrow={false}
-                        options={options}
+                        options={termData?.length > 0 ? termData.map((item) => {
+                            return {
+                                value: item._id,
+                                label: item.name
+                            }
+                        }) : []}
                     />
                 </div>
                 {isMobile ? <div >

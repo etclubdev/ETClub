@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Col, Form, Input, Modal, Row, Table, Select, notification } from "antd";
 import { columns } from "./render";
 import { useNavigate } from "react-router-dom";
-import feelingApi from "../../../api/feelingApi";
 import uploadApi from '../../../api/basicInfoApi';
 import memberApi from '../../../api/memberApi';
 import { openNotification } from '../../../utils';

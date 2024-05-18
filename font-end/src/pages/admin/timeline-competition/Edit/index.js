@@ -1,8 +1,6 @@
-import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Modal, Select, Upload, DatePicker, notification } from "antd";
+import { Button, Form, Input, Select, DatePicker, notification } from "antd";
 import React from "react";
 import competitionApi from "../../../../api/competitionApi";
-import sponsorApi from "../../../../api/sponsorApi";
 import mileStoneApi from '../../../../api/milestone';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom'

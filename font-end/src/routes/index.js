@@ -33,7 +33,7 @@ import ResultCompetitionAdmin from '../pages/admin/result-competition';
 import EditCompetitionResults from '../pages/admin/result-competition/Edit';
 import MileStoneAdmin from '../pages/admin/timeline-competition';
 import EditMileStone from '../pages/admin/timeline-competition/Edit';
-import { Navigate, Outlet, useRoutes } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import MemberAdmin from '../pages/admin/member'
 import EditMember from '../pages/admin/member/Edit';
 import LoginPage from '../pages/login';
