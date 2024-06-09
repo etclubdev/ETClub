@@ -76,7 +76,7 @@ const DetailDepartment = () => {
 
     return (
         <div className='w-full max-w-[1300px] mx-auto flex flex-col justify-center'>
-            <div className='mx-auto w-full xxl:w-[1300px] xxl:px-[30px] mt-[30px]'>
+            <div className='mx-auto max-sm:p-2 w-full xxl:w-[1300px] xxl:px-[30px] mt-[30px]'>
                 <Breadcrumb
                     separator=">"
 
