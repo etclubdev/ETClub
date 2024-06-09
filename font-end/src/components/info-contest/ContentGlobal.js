@@ -36,11 +36,11 @@ const ContentGlobal = () => {
   return (
     <>
       {/* <div className="container__content-global"> */}
-      <div className='max-sm:px-[15px] max-w-[1120px] mx-auto mb-[40px]'>
+      <div className='max-sm:px-[15px] max-sm:text-justify max-w-[1120px] mx-auto mb-[40px]'>
 
-        <div className="md:hidden content__img-global">
+        {/* <div className="md:hidden content__img-global">
           <img src="/img/InfoContestPage/123.png" alt />
-        </div>
+        </div> */}
 
         <div className='' dangerouslySetInnerHTML={{ __html: data?.content }}>
 
@@ -57,7 +57,7 @@ const ContentGlobal = () => {
               <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[43%]'>
                 {isMobile ? <img src="/img/timeline-mobile.png" alt /> : <img src="/img/InfoContestPage/resize-img.png" alt />}
               </div>
-              <div className='h-[47px] md:h-[130px] border-b-[2px] xl:border-b-[5px] border-b-[#F5A623]'>
+              <div className='h-[27px] md:h-[130px] border-b-[2px] xl:border-b-[5px] border-b-[#F5A623]'>
 
               </div>
               <div className='flex font-bold text-xs md:text-xl text-center flex-grow justify-center items-end'>
@@ -71,7 +71,7 @@ const ContentGlobal = () => {
             <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[42%]'>
               {isMobile ? <img src="/img/timeline-mobile.png" alt /> : <img src="/img/InfoContestPage/resize-img.png" alt />}
             </div>
-            <div className='h-[87px] md:h-[180px] border-b-[2px] xl:border-b-[5px] border-b-[#F5A623]'>
+            <div className='h-[77px] md:h-[180px] border-b-[2px] xl:border-b-[5px] border-b-[#F5A623]'>
 
             </div>
             <div className='flex  font-bold text-xs md:text-xl text-center flex-grow justify-center items-end'>
